@@ -2,6 +2,7 @@
 
 # ==============================================================================
 # Script Otomatis Deployment - Inovasi Hilirisasi (PUSKOR) UNSOED
+# Repository : https://github.com/alpaenf/inovasihilirisasi.git
 # Framework  : Laravel 11 + Vue 3 Inertia (Vite)
 # ==============================================================================
 # Cara Penggunaan di SSH / Terminal cPanel:
@@ -19,10 +20,10 @@
 set -e
 
 # ------------------------------------------------------------------------------
-# 1. Konfigurasi Path & Environment
+# 1. Konfigurasi Path, Repository & Environment
 # ------------------------------------------------------------------------------
-REPO_URL="${REPO_URL:-}"
-BRANCH="${BRANCH:-master}"
+REPO_URL="https://github.com/alpaenf/inovasihilirisasi.git"
+BRANCH="main"
 
 # Path direktori proyek saat ini
 PROJECT_PATH="$(pwd)"
@@ -99,27 +100,23 @@ if $PHP_BIN artisan --version >/dev/null 2>&1; then
 fi
 
 # ------------------------------------------------------------------------------
-# 5. Tarik Pembaruan dari Git (Jika Repository Dikonfigurasi)
+# 5. Tarik Pembaruan dari GitHub (Auto-Pull)
 # ------------------------------------------------------------------------------
-echo "📥 [4/8] Memeriksa pembaruan Git..."
-if [ -n "$REPO_URL" ]; then
-    if [ -d ".git" ]; then
-        git remote set-url origin "$REPO_URL" 2>/dev/null || true
-        git fetch origin "$BRANCH" 2>/dev/null || true
-        git stash 2>/dev/null || true
-        if ! git pull origin "$BRANCH"; then
-            echo "   ⚠️ Terjadi konflik lokal, menyinkronkan paksa ke origin/$BRANCH..."
-            git reset --hard "origin/$BRANCH" || true
-        fi
-    else
-        echo "   ℹ️ Inisialisasi Git remote ke $REPO_URL..."
-        git init
-        git remote add origin "$REPO_URL" 2>/dev/null || true
-        git fetch origin "$BRANCH" 2>/dev/null || true
-        git pull origin "$BRANCH" 2>/dev/null || true
+echo "📥 [4/8] Mengambil kode terbaru dari GitHub ($REPO_URL)..."
+if [ -d ".git" ]; then
+    git remote set-url origin "$REPO_URL" 2>/dev/null || git remote add origin "$REPO_URL" 2>/dev/null || true
+    git fetch origin "$BRANCH" 2>/dev/null || true
+    git stash 2>/dev/null || true
+    if ! git pull origin "$BRANCH"; then
+        echo "   ⚠️ Terjadi penyesuaian file lokal, menyinkronkan paksa ke origin/$BRANCH..."
+        git reset --hard "origin/$BRANCH" || true
     fi
 else
-    echo "   ℹ️ REPO_URL tidak diset. Melewati git pull (menggunakan file yang sudah di-upload)."
+    echo "   ℹ️ Inisialisasi Git repository baru ke $REPO_URL..."
+    git init
+    git remote add origin "$REPO_URL" 2>/dev/null || true
+    git fetch origin "$BRANCH" 2>/dev/null || true
+    git checkout -B "$BRANCH" "origin/$BRANCH" 2>/dev/null || git reset --hard "origin/$BRANCH" || true
 fi
 
 # ------------------------------------------------------------------------------
