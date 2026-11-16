@@ -55,20 +55,15 @@ const jsonLd = {
 
   <PublicLayout>
     <!-- HERO SECTION -->
-    <section class="relative overflow-hidden bg-gradient-to-b from-[#F7FAF7] to-white pt-12 pb-20 sm:pt-20 sm:pb-28 border-b border-[#E5EAE5]">
+    <section class="relative overflow-hidden bg-gradient-to-b from-[#F7FAF7] to-white pt-6 sm:pt-8 lg:pt-10 pb-16 sm:pb-24 border-b border-[#E5EAE5]">
       <!-- Background Ambient Glow -->
       <div class="absolute top-0 right-1/4 w-96 h-96 bg-emerald-100/60 rounded-full blur-3xl -z-10 pointer-events-none"></div>
       <div class="absolute bottom-0 left-10 w-80 h-80 bg-green-50/50 rounded-full blur-2xl -z-10 pointer-events-none"></div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           <!-- Left Column: Copywriting & CTAs -->
-          <div class="lg:col-span-7 space-y-6 sm:space-y-8">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#DCFCE7] border border-[#22C55E]/20 text-[#14532D] text-xs font-extrabold tracking-wider uppercase">
-              <span class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse"></span>
-              {{ hero.eyebrow }}
-            </div>
-
+          <div class="lg:col-span-7 space-y-5 sm:space-y-6">
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#14532D] tracking-tight leading-[1.12]">
               {{ hero.headline }}
             </h1>
