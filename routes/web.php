@@ -41,6 +41,8 @@ Route::get('/robots.txt', [SeoController::class, 'robots'])->name('robots');
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
+    Route::get('/admin/login', [AuthenticatedSessionController::class, 'create'])->name('admin.login');
+    Route::post('/admin/login', [AuthenticatedSessionController::class, 'store'])->name('admin.login.store');
 });
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
@@ -52,6 +54,8 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 | Admin Dashboard Routes
 |--------------------------------------------------------------------------
 */
+Route::redirect('/admin', '/admin/dashboard');
+
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
