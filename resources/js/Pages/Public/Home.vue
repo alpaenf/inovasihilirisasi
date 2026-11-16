@@ -1,4 +1,5 @@
 <script setup>
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import PublicLayout from '@/Layouts/PublicLayout.vue';
 import ProgramCard from '@/Components/Common/ProgramCard.vue';
@@ -12,6 +13,28 @@ const props = defineProps({
   featuredProducts: Array,
   featuredPartners: Array,
   stats: Object,
+});
+
+const activePrograms = computed(() => {
+  if (props.programs && props.programs.length > 0) {
+    return props.programs.map((p) => p.name);
+  }
+  return ['SINERGI', 'AJAKAN INDUSTRI', 'PMUPUD', 'DORTEK'];
+});
+
+const currentProgramIndex = ref(0);
+let programTimer = null;
+
+onMounted(() => {
+  programTimer = setInterval(() => {
+    currentProgramIndex.value = (currentProgramIndex.value + 1) % activePrograms.value.length;
+  }, 2400);
+});
+
+onUnmounted(() => {
+  if (programTimer) {
+    clearInterval(programTimer);
+  }
 });
 
 const jsonLd = {
@@ -126,15 +149,34 @@ const jsonLd = {
 
               <!-- Metrics inside Card -->
               <div class="grid grid-cols-2 gap-4 my-6">
-                <div class="p-4 rounded-xl bg-[#F7FAF7] border border-[#E5EAE5]/60">
-                  <span class="text-xs text-[#647067] font-medium block">Program Utama</span>
-                  <span class="text-2xl font-extrabold text-[#14532D] mt-1 block">{{ stats.total_programs }} Program</span>
-                  <span class="text-[11px] text-[#22C55E] font-semibold mt-0.5 block">SINERGI • AI • PMUPUD • DORTEK</span>
+                <div class="p-4 rounded-xl bg-[#F7FAF7] border border-[#E5EAE5]/60 flex flex-col justify-between min-h-[108px]">
+                  <div>
+                    <span class="text-xs text-[#647067] font-medium block">Program Utama</span>
+                    <span class="text-2xl font-extrabold text-[#14532D] mt-1 block">{{ stats.total_programs }} Program</span>
+                  </div>
+                  <div class="mt-2.5 h-6 flex items-center overflow-hidden">
+                    <Transition name="program-fade" mode="out-in">
+                      <span
+                        :key="currentProgramIndex"
+                        class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#DCFCE7] border border-[#22C55E]/30 text-[#14532D] text-[11px] font-bold shadow-xs"
+                      >
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse"></span>
+                        <span class="truncate max-w-[110px] sm:max-w-[130px]">{{ activePrograms[currentProgramIndex] }}</span>
+                      </span>
+                    </Transition>
+                  </div>
                 </div>
-                <div class="p-4 rounded-xl bg-[#F7FAF7] border border-[#E5EAE5]/60">
-                  <span class="text-xs text-[#647067] font-medium block">Inovasi Tepat Guna</span>
-                  <span class="text-2xl font-extrabold text-[#14532D] mt-1 block">{{ stats.total_products }}+ Produk</span>
-                  <span class="text-[11px] text-[#22C55E] font-semibold mt-0.5 block">Katalog Terpusat</span>
+
+                <div class="p-4 rounded-xl bg-[#F7FAF7] border border-[#E5EAE5]/60 flex flex-col justify-between min-h-[108px]">
+                  <div>
+                    <span class="text-xs text-[#647067] font-medium block">Inovasi Tepat Guna</span>
+                    <span class="text-2xl font-extrabold text-[#14532D] mt-1 block">{{ stats.total_products }}+ Produk</span>
+                  </div>
+                  <div class="mt-2.5 h-6 flex items-center">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E8F5E9] border border-[#14532D]/10 text-[#14532D] text-[11px] font-semibold">
+                      Katalog Terpusat
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -274,4 +316,21 @@ const jsonLd = {
     </section>
   </PublicLayout>
 </template>
+
+<style scoped>
+.program-fade-enter-active,
+.program-fade-leave-active {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.program-fade-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.program-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+</style>
 
