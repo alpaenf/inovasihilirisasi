@@ -88,7 +88,10 @@ const submit = () => {
 
           <!-- Logo Upload -->
           <div>
-            <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">Logo Resmi Mitra</label>
+            <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">
+              Logo Resmi Mitra
+              <span class="text-[11px] font-normal text-[#22C55E] normal-case ml-1.5">(Auto-compressed & dioptimasi)</span>
+            </label>
             <div class="flex items-start gap-4">
               <div v-if="logoPreview" class="w-20 h-20 rounded-xl border border-[#E5EAE5] p-2 bg-[#F7FAF7] flex items-center justify-center shrink-0">
                 <img :src="logoPreview" alt="Logo Preview" class="max-w-full max-h-full object-contain" />
@@ -100,7 +103,7 @@ const submit = () => {
                   accept="image/jpeg,image/png,image/webp,image/jpg,image/svg+xml"
                   class="w-full text-xs text-[#647067] file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#DCFCE7] file:text-[#14532D] hover:file:bg-[#14532D] hover:file:text-white file:transition-colors cursor-pointer"
                 />
-                <span class="text-[11px] text-[#647067] block mt-1">Format: PNG, JPG, SVG, WEBP. Maks 1MB.</span>
+                <span class="text-[11px] text-[#647067] block mt-1">Format: PNG, JPG, SVG, WEBP (otomatis dikompresi & disesuaikan rasio).</span>
                 <p v-if="form.errors.logo" class="mt-1 text-xs text-red-600">{{ form.errors.logo }}</p>
               </div>
             </div>

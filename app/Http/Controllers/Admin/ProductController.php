@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Program;
 use App\Models\Partner;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -57,7 +58,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, ImageService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'program_id' => ['required', 'exists:programs,id'],
@@ -70,7 +71,7 @@ class ProductController extends Controller
             'status' => ['required', 'in:draft,published'],
             'partner_ids' => ['nullable', 'array'],
             'partner_ids.*' => ['exists:partners,id'],
-            'main_image' => ['nullable', 'image', 'mimes:jpeg,png,webp,jpg', 'max:2048'],
+            'main_image' => ['nullable', 'image', 'mimes:jpeg,png,webp,jpg', 'max:10240'], // allow up to 10MB because auto-compressed
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
@@ -82,8 +83,13 @@ class ProductController extends Controller
         }
 
         if ($request->hasFile('main_image')) {
-            $path = $request->file('main_image')->store('products', 'public');
-            $validated['main_image'] = '/storage/' . $path;
+            $validated['main_image'] = $imageService->compressAndStore(
+                $request->file('main_image'),
+                'products',
+                1200,
+                1200,
+                82
+            );
         } else {
             $validated['main_image'] = '/images/products/placeholder.jpg';
         }
@@ -94,7 +100,7 @@ class ProductController extends Controller
         $product = Product::create($validated);
         $product->partners()->sync($partnerIds);
 
-        return redirect()->route('admin.products.index')->with('success', 'Produk inovasi berhasil ditambahkan.');
+        return redirect()->route('admin.products.index')->with('success', 'Produk inovasi berhasil ditambahkan dengan optimasi kompresi otomatis.');
     }
 
     public function edit(Product $product): Response
@@ -123,7 +129,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(Request $request, Product $product): RedirectResponse
+    public function update(Request $request, Product $product, ImageService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'program_id' => ['required', 'exists:programs,id'],
@@ -136,7 +142,7 @@ class ProductController extends Controller
             'status' => ['required', 'in:draft,published'],
             'partner_ids' => ['nullable', 'array'],
             'partner_ids.*' => ['exists:partners,id'],
-            'main_image' => ['nullable', 'image', 'mimes:jpeg,png,webp,jpg', 'max:2048'],
+            'main_image' => ['nullable', 'image', 'mimes:jpeg,png,webp,jpg', 'max:10240'],
         ]);
 
         if ($product->name !== $validated['name']) {
@@ -151,8 +157,14 @@ class ProductController extends Controller
         }
 
         if ($request->hasFile('main_image')) {
-            $path = $request->file('main_image')->store('products', 'public');
-            $validated['main_image'] = '/storage/' . $path;
+            $imageService->deleteOldImage($product->main_image);
+            $validated['main_image'] = $imageService->compressAndStore(
+                $request->file('main_image'),
+                'products',
+                1200,
+                1200,
+                82
+            );
         }
 
         $partnerIds = $validated['partner_ids'] ?? [];
@@ -161,11 +173,12 @@ class ProductController extends Controller
         $product->update($validated);
         $product->partners()->sync($partnerIds);
 
-        return redirect()->route('admin.products.index')->with('success', 'Produk inovasi berhasil diperbarui.');
+        return redirect()->route('admin.products.index')->with('success', 'Produk inovasi berhasil diperbarui dengan optimasi kompresi otomatis.');
     }
 
-    public function destroy(Product $product): RedirectResponse
+    public function destroy(Product $product, ImageService $imageService): RedirectResponse
     {
+        $imageService->deleteOldImage($product->main_image);
         $product->partners()->detach();
         $product->galleries()->delete();
         $product->delete();
@@ -173,4 +186,3 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index')->with('success', 'Produk inovasi berhasil dihapus.');
     }
 }
-

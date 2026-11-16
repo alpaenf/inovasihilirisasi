@@ -97,7 +97,10 @@ const submit = () => {
 
           <!-- Main Image Upload -->
           <div>
-            <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">Foto Utama Produk</label>
+            <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">
+              Foto Utama Produk
+              <span class="text-[11px] font-normal text-[#22C55E] normal-case ml-1.5">(Auto-compressed ke format WebP)</span>
+            </label>
             <div class="flex items-start gap-4">
               <div v-if="imagePreview" class="w-24 h-24 rounded-xl border border-[#E5EAE5] overflow-hidden bg-[#F7FAF7] shrink-0">
                 <img :src="imagePreview" alt="Preview" class="w-full h-full object-cover" />
@@ -109,7 +112,7 @@ const submit = () => {
                   accept="image/jpeg,image/png,image/webp,image/jpg"
                   class="w-full text-xs text-[#647067] file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#DCFCE7] file:text-[#14532D] hover:file:bg-[#14532D] hover:file:text-white file:transition-colors cursor-pointer"
                 />
-                <span class="text-[11px] text-[#647067] block mt-1">Format: JPG, PNG, WEBP. Maks 2MB.</span>
+                <span class="text-[11px] text-[#647067] block mt-1">Format: JPG, PNG, WEBP (hingga 10MB, otomatis dikompresi & dioptimasi).</span>
                 <p v-if="form.errors.main_image" class="mt-1 text-xs text-red-600">{{ form.errors.main_image }}</p>
               </div>
             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Partner;
 use App\Models\Program;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -54,7 +55,7 @@ class PartnerController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, ImageService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -69,7 +70,7 @@ class PartnerController extends Controller
             'status' => ['required', 'in:draft,published'],
             'program_ids' => ['nullable', 'array'],
             'program_ids.*' => ['exists:programs,id'],
-            'logo' => ['nullable', 'image', 'mimes:jpeg,png,webp,jpg,svg', 'max:1024'],
+            'logo' => ['nullable', 'image', 'mimes:jpeg,png,webp,jpg,svg', 'max:5120'], // allow up to 5MB because auto-compressed
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
@@ -81,8 +82,13 @@ class PartnerController extends Controller
         }
 
         if ($request->hasFile('logo')) {
-            $path = $request->file('logo')->store('partners', 'public');
-            $validated['logo'] = '/storage/' . $path;
+            $validated['logo'] = $imageService->compressAndStore(
+                $request->file('logo'),
+                'partners',
+                800,
+                800,
+                85
+            );
         } else {
             $validated['logo'] = '/images/partners/placeholder.png';
         }
@@ -93,7 +99,7 @@ class PartnerController extends Controller
         $partner = Partner::create($validated);
         $partner->programs()->sync($programIds);
 
-        return redirect()->route('admin.partners.index')->with('success', 'Mitra kolaborasi berhasil ditambahkan.');
+        return redirect()->route('admin.partners.index')->with('success', 'Mitra kolaborasi berhasil ditambahkan dengan optimasi kompresi logo otomatis.');
     }
 
     public function edit(Partner $partner): Response
@@ -122,7 +128,7 @@ class PartnerController extends Controller
         ]);
     }
 
-    public function update(Request $request, Partner $partner): RedirectResponse
+    public function update(Request $request, Partner $partner, ImageService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -137,7 +143,7 @@ class PartnerController extends Controller
             'status' => ['required', 'in:draft,published'],
             'program_ids' => ['nullable', 'array'],
             'program_ids.*' => ['exists:programs,id'],
-            'logo' => ['nullable', 'image', 'mimes:jpeg,png,webp,jpg,svg', 'max:1024'],
+            'logo' => ['nullable', 'image', 'mimes:jpeg,png,webp,jpg,svg', 'max:5120'],
         ]);
 
         if ($partner->name !== $validated['name']) {
@@ -152,8 +158,14 @@ class PartnerController extends Controller
         }
 
         if ($request->hasFile('logo')) {
-            $path = $request->file('logo')->store('partners', 'public');
-            $validated['logo'] = '/storage/' . $path;
+            $imageService->deleteOldImage($partner->logo);
+            $validated['logo'] = $imageService->compressAndStore(
+                $request->file('logo'),
+                'partners',
+                800,
+                800,
+                85
+            );
         }
 
         $programIds = $validated['program_ids'] ?? [];
@@ -162,11 +174,12 @@ class PartnerController extends Controller
         $partner->update($validated);
         $partner->programs()->sync($programIds);
 
-        return redirect()->route('admin.partners.index')->with('success', 'Data mitra berhasil diperbarui.');
+        return redirect()->route('admin.partners.index')->with('success', 'Data mitra berhasil diperbarui dengan optimasi kompresi logo otomatis.');
     }
 
-    public function destroy(Partner $partner): RedirectResponse
+    public function destroy(Partner $partner, ImageService $imageService): RedirectResponse
     {
+        $imageService->deleteOldImage($partner->logo);
         $partner->programs()->detach();
         $partner->products()->detach();
         $partner->delete();
@@ -174,4 +187,3 @@ class PartnerController extends Controller
         return redirect()->route('admin.partners.index')->with('success', 'Mitra kolaborasi berhasil dihapus.');
     }
 }
-
