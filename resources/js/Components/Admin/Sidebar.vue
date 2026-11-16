@@ -38,8 +38,8 @@ const handleLogout = () => {
     <div>
       <!-- Brand Header -->
       <div class="h-20 flex items-center px-6 border-b border-white/10 gap-3">
-        <div class="w-10 h-10 rounded-xl bg-white/10 text-[#22C55E] flex items-center justify-center border border-white/10">
-          <Cpu class="w-6 h-6" />
+        <div class="h-11 w-auto flex items-center justify-center">
+          <img src="/images/logo-puskor-white.png" alt="Logo PUSKOR UNSOED" class="h-11 w-auto object-contain" />
         </div>
         <div>
           <span class="font-extrabold text-base tracking-tight text-white block leading-none">PUSKOR ADMIN</span>

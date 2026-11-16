@@ -20,8 +20,8 @@ const submit = () => {
 
   <div class="min-h-screen bg-[#F7FAF7] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md text-center space-y-3">
-      <div class="inline-flex w-14 h-14 rounded-2xl bg-[#14532D] text-[#22C55E] items-center justify-center shadow-lg">
-        <Cpu class="w-8 h-8" />
+      <div class="inline-flex h-20 w-auto items-center justify-center">
+        <img src="/images/logo-puskor.png" alt="Logo PUSKOR UNSOED" class="h-20 w-auto object-contain drop-shadow" />
       </div>
       <h2 class="text-2xl sm:text-3xl font-extrabold text-[#14532D] tracking-tight">
         Masuk Admin PUSKOR

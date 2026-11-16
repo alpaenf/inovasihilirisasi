@@ -15,6 +15,7 @@
     <meta name="description" content="Pusat Koordinasi Pengembangan dan Penerapan Teknologi (PUSKOR) Universitas Jenderal Soedirman. Wadah kolaborasi inovasi, penerapan teknologi, dan hilirisasi riset kampus.">
     <meta name="author" content="PUSKOR Universitas Jenderal Soedirman">
     <meta name="theme-color" content="#14532D">
+    <link rel="icon" type="image/png" href="/images/logo-puskor.png">
 
     <!-- Open Graph Default Fallback -->
     <meta property="og:site_name" content="PUSKOR Universitas Jenderal Soedirman">

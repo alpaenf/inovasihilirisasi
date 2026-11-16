@@ -27,8 +27,8 @@ const isActive = (href) => {
       <div class="flex items-center justify-between h-20">
         <!-- Brand / Identity -->
         <Link href="/" class="flex items-center gap-3.5 group">
-          <div class="w-11 h-11 rounded-xl bg-[#14532D] text-white flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-200">
-            <Cpu class="w-6 h-6 text-[#22C55E]" />
+          <div class="h-12 w-auto flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+            <img src="/images/logo-puskor.png" alt="Logo PUSKOR UNSOED" class="h-12 w-auto object-contain" />
           </div>
           <div class="flex flex-col">
             <span class="font-extrabold text-lg sm:text-xl tracking-tight text-[#14532D] leading-none">

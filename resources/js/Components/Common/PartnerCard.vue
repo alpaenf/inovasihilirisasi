@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { Building2 } from 'lucide-vue-next';
+import { ArrowUpRight, Building2 } from 'lucide-vue-next';
 
 defineProps({
   partner: {
@@ -11,32 +11,48 @@ defineProps({
 </script>
 
 <template>
-  <Link
-    :href="`/mitra/${partner.slug}`"
-    class="group relative bg-white rounded-2xl border border-[#E5EAE5] p-5 h-32 sm:h-36 flex flex-col items-center justify-center hover:border-[#22C55E] hover:shadow-xl hover:shadow-emerald-950/5 transition-all duration-300"
-    :title="partner.name"
-  >
-    <!-- Logo Container -->
-    <div class="w-full h-full flex items-center justify-center p-2">
-      <img
-        v-if="partner.logo && !partner.logo.includes('placeholder')"
-        :src="partner.logo"
-        :alt="partner.name"
-        class="max-h-16 sm:max-h-20 max-w-[85%] object-contain group-hover:scale-110 transition-transform duration-300"
-        @error="$event.target.style.display = 'none'"
-      />
-      <!-- Fallback when logo not available -->
-      <div v-else class="flex flex-col items-center justify-center text-center">
-        <Building2 class="w-8 h-8 text-[#14532D]/40 group-hover:text-[#22C55E] transition-colors mb-1" />
-        <span class="text-[11px] font-bold text-[#14532D] line-clamp-1 px-1">{{ partner.name }}</span>
+  <div class="group bg-white rounded-2xl border border-[#E5EAE5] p-6 flex flex-col justify-between hover:border-[#22C55E]/60 hover:shadow-xl hover:shadow-emerald-950/5 transition-all duration-300">
+    <div>
+      <!-- Top: Company Logo & Category Badge -->
+      <div class="flex items-start justify-between gap-3 mb-5">
+        <!-- Company Logo Box -->
+        <div class="w-16 h-16 rounded-xl bg-[#F7FAF7] border border-[#E5EAE5] p-2 flex items-center justify-center shrink-0 group-hover:border-[#22C55E]/40 group-hover:bg-white transition-all">
+          <img
+            v-if="partner.logo && !partner.logo.includes('placeholder')"
+            :src="partner.logo"
+            :alt="partner.name"
+            class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-200"
+            @error="$event.target.style.display = 'none'"
+          />
+          <Building2 class="w-7 h-7 text-[#14532D]/40" />
+        </div>
+
+        <!-- Category Badge -->
+        <span v-if="partner.category" class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#DCFCE7] text-[#14532D]">
+          {{ partner.category }}
+        </span>
       </div>
+
+      <!-- Partner Name -->
+      <h3 class="text-base sm:text-lg font-bold text-[#14532D] mb-2 group-hover:text-[#22C55E] transition-colors line-clamp-1">
+        {{ partner.name }}
+      </h3>
+
+      <!-- Short Description -->
+      <p class="text-xs sm:text-sm text-[#647067] leading-relaxed line-clamp-2 mb-4">
+        {{ partner.short_description || partner.address || 'Mitra kolaborasi penerapan teknologi PUSKOR UNSOED.' }}
+      </p>
     </div>
 
-    <!-- Subtle Name Pill on Hover -->
-    <div class="absolute -bottom-2 opacity-0 group-hover:opacity-100 group-hover:bottom-2 transition-all duration-200 pointer-events-none z-10 max-w-[90%]">
-      <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-[#14532D] text-white shadow-md truncate block text-center">
-        {{ partner.name }}
-      </span>
+    <!-- Bottom: Link to Partner Profile -->
+    <div class="pt-4 border-t border-[#E5EAE5] flex items-center justify-between">
+      <Link
+        :href="`/mitra/${partner.slug}`"
+        class="inline-flex items-center gap-1.5 text-xs font-bold text-[#14532D] group-hover:text-[#22C55E] transition-colors"
+      >
+        <span>Lihat Detail Mitra</span>
+        <ArrowUpRight class="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+      </Link>
     </div>
-  </Link>
+  </div>
 </template>

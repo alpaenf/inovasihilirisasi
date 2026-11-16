@@ -10,8 +10,8 @@ import { Cpu, Mail, MapPin, Phone, ArrowUpRight } from 'lucide-vue-next';
         <!-- Col 1: Identity & Description (2 cols on lg) -->
         <div class="lg:col-span-2 space-y-4">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20">
-              <Cpu class="w-5 h-5 text-[#22C55E]" />
+            <div class="h-14 w-auto flex items-center justify-center">
+              <img src="/images/logo-puskor-white.png" alt="Logo PUSKOR UNSOED" class="h-14 w-auto object-contain" />
             </div>
             <div>
               <span class="font-extrabold text-xl tracking-tight text-white block leading-none">PUSKOR</span>
