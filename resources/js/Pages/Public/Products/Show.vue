@@ -16,7 +16,7 @@ const jsonLd = {
   'description': props.product.short_description,
   'brand': {
     '@type': 'Brand',
-    'name': 'PUSKOR UNSOED',
+    'name': 'Inovasi Hilirisasi UNSOED',
   },
   'manufacturer': {
     '@type': 'Organization',
@@ -27,9 +27,9 @@ const jsonLd = {
 
 <template>
   <Head>
-    <title>{{ product.name }} - Inovasi PUSKOR UNSOED</title>
+    <title>{{ product.name }} - Inovasi Inovasi Hilirisasi UNSOED</title>
     <meta name="description" :content="product.short_description" />
-    <meta property="og:title" :content="product.name + ' - PUSKOR UNSOED'" />
+    <meta property="og:title" :content="product.name + ' - Inovasi Hilirisasi UNSOED'" />
     <meta property="og:description" :content="product.short_description" />
     <meta property="og:image" :content="product.main_image" />
     <meta property="og:type" content="product" />
@@ -70,7 +70,7 @@ const jsonLd = {
               />
               <div class="w-full h-full flex flex-col items-center justify-center bg-emerald-50/50 p-6 text-center">
                 <Cpu class="w-16 h-16 text-[#14532D]/30 mb-3" />
-                <span class="text-xs font-bold text-[#14532D]/60 tracking-wider">DOKUMENTASI PRODUK PUSKOR</span>
+                <span class="text-xs font-bold text-[#14532D]/60 tracking-wider">DOKUMENTASI PRODUK Inovasi Hilirisasi</span>
               </div>
             </div>
 

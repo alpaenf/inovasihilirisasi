@@ -12,9 +12,9 @@ defineProps({
 
 <template>
   <Head>
-    <title>{{ partner.name }} - Mitra Kolaborasi PUSKOR UNSOED</title>
-    <meta name="description" :content="partner.short_description || ('Profil kemitraan ' + partner.name + ' bersama PUSKOR UNSOED.')" />
-    <meta property="og:title" :content="partner.name + ' - Mitra PUSKOR UNSOED'" />
+    <title>{{ partner.name }} - Mitra Kolaborasi Inovasi Hilirisasi UNSOED</title>
+    <meta name="description" :content="partner.short_description || ('Profil kemitraan ' + partner.name + ' bersama Inovasi Hilirisasi UNSOED.')" />
+    <meta property="og:title" :content="partner.name + ' - Mitra Inovasi Hilirisasi UNSOED'" />
   </Head>
 
   <PublicLayout>

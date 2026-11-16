@@ -24,9 +24,9 @@ const getIcon = (slug) => {
 
 <template>
   <Head>
-    <title>4 Program Utama - PUSKOR UNSOED</title>
-    <meta name="description" content="Jelajahi 4 pilar program utama PUSKOR Universitas Jenderal Soedirman: SINERGI, AJAKAN INDUSTRI, PMUPUD, dan DORTEK untuk percepatan hilirisasi riset." />
-    <meta property="og:title" content="4 Program Utama Inovasi & Riset - PUSKOR UNSOED" />
+    <title>4 Program Utama - Inovasi Hilirisasi UNSOED</title>
+    <meta name="description" content="Jelajahi 4 pilar program utama Inovasi Hilirisasi Universitas Jenderal Soedirman: SINERGI, AJAKAN INDUSTRI, PMUPUD, dan DORTEK untuk percepatan hilirisasi riset." />
+    <meta property="og:title" content="4 Program Utama Inovasi & Riset - Inovasi Hilirisasi UNSOED" />
   </Head>
 
   <PublicLayout>
@@ -38,7 +38,7 @@ const getIcon = (slug) => {
             PILAR UTAMA INOVASI
           </span>
           <h1 class="text-3xl sm:text-5xl font-extrabold text-[#14532D] tracking-tight">
-            4 Program Unggulan PUSKOR
+            4 Program Unggulan Inovasi Hilirisasi
           </h1>
           <p class="text-base sm:text-lg text-[#647067] leading-relaxed">
             Pusat Koordinasi Pengembangan dan Penerapan Teknologi menyatukan inisiatif riset, kemitraan industri, pengembangan produk lokal, dan diseminasi masyarakat dalam satu ekosistem terpadu.

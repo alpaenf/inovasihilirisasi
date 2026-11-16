@@ -39,10 +39,10 @@ const handleLogout = () => {
       <!-- Brand Header -->
       <div class="h-20 flex items-center px-6 border-b border-white/10 gap-3">
         <div class="h-11 w-auto flex items-center justify-center">
-          <img src="/images/logo-puskor-white.png" alt="Logo PUSKOR UNSOED" class="h-11 w-auto object-contain" />
+          <img src="/images/logo-puskor-white.png" alt="Logo Inovasi Hilirisasi UNSOED" class="h-11 w-auto object-contain" />
         </div>
         <div>
-          <span class="font-extrabold text-base tracking-tight text-white block leading-none">PUSKOR ADMIN</span>
+          <span class="font-extrabold text-base tracking-tight text-white block leading-none">INOVASI HILIRISASI ADMIN</span>
           <span class="text-[10px] text-emerald-200 uppercase font-semibold tracking-wider block mt-1">UNSOED Terpusat</span>
         </div>
       </div>

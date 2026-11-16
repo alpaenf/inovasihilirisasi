@@ -40,7 +40,7 @@ const deleteProduct = (id, name) => {
 </script>
 
 <template>
-  <Head title="Manajemen Produk - PUSKOR Admin" />
+  <Head title="Manajemen Produk - Inovasi Hilirisasi Admin" />
 
   <AdminLayout title="Manajemen Produk Inovasi">
     <div class="space-y-6">

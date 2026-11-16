@@ -11,14 +11,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
 
     <!-- Primary Metadata Fallback -->
-    <title inertia>{{ config('app.name', 'PUSKOR UNSOED') }}</title>
-    <meta name="description" content="Pusat Koordinasi Pengembangan dan Penerapan Teknologi (PUSKOR) Universitas Jenderal Soedirman. Wadah kolaborasi inovasi, penerapan teknologi, dan hilirisasi riset kampus.">
-    <meta name="author" content="PUSKOR Universitas Jenderal Soedirman">
+    <title inertia>{{ config('app.name', 'Inovasi Hilirisasi UNSOED') }}</title>
+    <meta name="description" content="Pusat Koordinasi Pengembangan dan Penerapan Teknologi (Inovasi Hilirisasi) Universitas Jenderal Soedirman. Wadah kolaborasi inovasi, penerapan teknologi, dan hilirisasi riset kampus.">
+    <meta name="author" content="Inovasi Hilirisasi Universitas Jenderal Soedirman">
     <meta name="theme-color" content="#14532D">
     <link rel="icon" type="image/png" href="/images/logo-puskor.png">
 
     <!-- Open Graph Default Fallback -->
-    <meta property="og:site_name" content="PUSKOR Universitas Jenderal Soedirman">
+    <meta property="og:site_name" content="Inovasi Hilirisasi Universitas Jenderal Soedirman">
     <meta property="og:locale" content="id_ID">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])

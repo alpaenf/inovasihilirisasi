@@ -1,9 +1,10 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
-import { Menu, X, ArrowUpRight, Cpu } from 'lucide-vue-next';
+import { Menu, X, ArrowUpRight } from 'lucide-vue-next';
 
 const mobileMenuOpen = ref(false);
+const isScrolled = ref(false);
 const page = usePage();
 
 const navLinks = [
@@ -11,8 +12,21 @@ const navLinks = [
   { name: 'Program', href: '/program' },
   { name: 'Produk', href: '/produk' },
   { name: 'Mitra', href: '/mitra' },
-  { name: 'Tentang PUSKOR', href: '/tentang-puskor' },
+  { name: 'Tentang Inovasi Hilirisasi', shortName: 'Tentang', href: '/tentang-puskor' },
 ];
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 30;
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 
 const isActive = (href) => {
   const currentUrl = page.url;
@@ -22,47 +36,77 @@ const isActive = (href) => {
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#E5EAE5] transition-all">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
+  <header
+    class="sticky top-0 z-50 w-full transition-all duration-500 ease-out pointer-events-none"
+    :class="isScrolled ? 'pt-3 sm:pt-4 px-3 sm:px-6' : 'pt-0 px-0'"
+  >
+    <!-- Main Navbar Container / Capsule -->
+    <div
+      class="mx-auto transition-all duration-500 ease-out pointer-events-auto"
+      :class="[
+        isScrolled
+          ? 'w-full max-w-5xl rounded-full bg-white/85 backdrop-blur-xl border border-[#E5EAE5]/90 shadow-xl shadow-emerald-950/10 px-4 sm:px-6 h-16'
+          : 'w-full max-w-7xl rounded-none bg-white/95 backdrop-blur-md border-b border-[#E5EAE5] shadow-none px-4 sm:px-6 lg:px-8 h-20'
+      ]"
+    >
+      <div class="flex items-center justify-between h-full">
         <!-- Brand / Identity -->
-        <Link href="/" class="flex items-center gap-3.5 group">
-          <div class="h-12 w-auto flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
-            <img src="/images/logo-puskor.png" alt="Logo PUSKOR UNSOED" class="h-12 w-auto object-contain" />
+        <Link href="/" class="flex items-center gap-3 group shrink-0">
+          <div
+            class="flex items-center justify-center transition-all duration-300 group-hover:scale-105"
+            :class="isScrolled ? 'h-10 w-auto' : 'h-12 w-auto'"
+          >
+            <img
+              src="/images/logo-puskor.png"
+              alt="Logo Inovasi Hilirisasi UNSOED"
+              class="h-full w-auto object-contain"
+            />
           </div>
           <div class="flex flex-col">
-            <span class="font-extrabold text-lg sm:text-xl tracking-tight text-[#14532D] leading-none">
-              PUSKOR
+            <span
+              class="font-extrabold tracking-tight text-[#14532D] leading-none transition-all duration-300"
+              :class="isScrolled ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'"
+            >
+              Inovasi Hilirisasi
             </span>
-            <span class="text-[11px] font-semibold text-[#647067] tracking-wider uppercase mt-1">
+            <span
+              class="font-semibold text-[#647067] tracking-wider uppercase transition-all duration-300"
+              :class="isScrolled ? 'text-[10px] mt-0.5' : 'text-[11px] mt-1'"
+            >
               Universitas Jenderal Soedirman
             </span>
           </div>
         </Link>
 
         <!-- Desktop Navigation Links -->
-        <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+        <nav class="hidden md:flex items-center space-x-1 lg:space-x-1.5">
           <Link
             v-for="item in navLinks"
             :key="item.name"
             :href="item.href"
-            class="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200"
-            :class="isActive(item.href)
-              ? 'text-[#14532D] bg-[#DCFCE7]/60'
-              : 'text-[#647067] hover:text-[#14532D] hover:bg-[#F7FAF7]'"
+            class="rounded-full font-semibold transition-all duration-200"
+            :class="[
+              isScrolled ? 'px-3 py-1.5 text-xs lg:text-sm' : 'px-4 py-2 text-sm',
+              isActive(item.href)
+                ? 'text-[#14532D] bg-[#DCFCE7]'
+                : 'text-[#647067] hover:text-[#14532D] hover:bg-[#F7FAF7]'
+            ]"
           >
-            {{ item.name }}
+            <span v-if="item.shortName" class="hidden lg:inline">{{ item.name }}</span>
+            <span v-if="item.shortName" class="lg:hidden">{{ item.shortName }}</span>
+            <span v-else>{{ item.name }}</span>
           </Link>
         </nav>
 
         <!-- Desktop Right CTA -->
-        <div class="hidden md:flex items-center gap-3">
+        <div class="hidden md:flex items-center gap-3 shrink-0">
           <a
             href="mailto:p3t.lppm@unsoed.ac.id"
-            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm hover:shadow transition-all duration-200 group"
+            class="inline-flex items-center gap-2 rounded-full font-semibold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm hover:shadow transition-all duration-200 group"
+            :class="isScrolled ? 'px-4 py-2 text-xs sm:text-sm' : 'px-5 py-2.5 text-sm'"
           >
             <span>Hubungi Kami</span>
-            <ArrowUpRight class="w-4 h-4 text-[#22C55E] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#22C55E] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
         </div>
 
@@ -71,40 +115,56 @@ const isActive = (href) => {
           <button
             type="button"
             @click="mobileMenuOpen = !mobileMenuOpen"
-            class="p-2 rounded-lg text-[#17231C] hover:bg-[#F7FAF7] focus:outline-none"
+            class="p-2 rounded-full text-[#17231C] hover:bg-[#F7FAF7] focus:outline-none transition-colors"
             aria-label="Toggle Menu"
           >
-            <Menu v-if="!mobileMenuOpen" class="w-6 h-6" />
-            <X v-else class="w-6 h-6" />
+            <Menu v-if="!mobileMenuOpen" class="w-5 h-5 sm:w-6 sm:h-6" />
+            <X v-else class="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
       </div>
     </div>
 
     <!-- Mobile Drawer Navigation -->
-    <div v-show="mobileMenuOpen" class="md:hidden border-b border-[#E5EAE5] bg-white px-4 pt-3 pb-6 space-y-2">
-      <Link
-        v-for="item in navLinks"
-        :key="item.name"
-        :href="item.href"
-        @click="mobileMenuOpen = false"
-        class="block px-3 py-2.5 rounded-lg text-base font-semibold transition-colors"
-        :class="isActive(item.href)
-          ? 'text-[#14532D] bg-[#DCFCE7]'
-          : 'text-[#647067] hover:bg-[#F7FAF7] hover:text-[#14532D]'"
+    <transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0 -translate-y-2 scale-95"
+      enter-to-class="opacity-100 translate-y-0 scale-100"
+      leave-active-class="transition duration-150 ease-in"
+      leave-from-class="opacity-100 translate-y-0 scale-100"
+      leave-to-class="opacity-0 -translate-y-2 scale-95"
+    >
+      <div
+        v-show="mobileMenuOpen"
+        class="md:hidden pointer-events-auto transition-all duration-300"
+        :class="[
+          isScrolled
+            ? 'w-full max-w-5xl mx-auto mt-2 rounded-2xl border border-[#E5EAE5] bg-white/95 backdrop-blur-xl shadow-2xl p-4 space-y-2'
+            : 'w-full border-b border-[#E5EAE5] bg-white px-4 pt-3 pb-6 space-y-2'
+        ]"
       >
-        {{ item.name }}
-      </Link>
-      <div class="pt-3 border-t border-[#E5EAE5]">
-        <a
-          href="mailto:p3t.lppm@unsoed.ac.id"
-          class="flex items-center justify-center gap-2 w-full py-3 rounded-lg text-sm font-bold bg-[#14532D] text-white shadow-sm"
+        <Link
+          v-for="item in navLinks"
+          :key="item.name"
+          :href="item.href"
+          @click="mobileMenuOpen = false"
+          class="block px-3.5 py-2.5 rounded-xl text-base font-semibold transition-colors"
+          :class="isActive(item.href)
+            ? 'text-[#14532D] bg-[#DCFCE7]'
+            : 'text-[#647067] hover:bg-[#F7FAF7] hover:text-[#14532D]'"
         >
-          <span>Hubungi Kami</span>
-          <ArrowUpRight class="w-4 h-4 text-[#22C55E]" />
-        </a>
+          {{ item.name }}
+        </Link>
+        <div class="pt-3 border-t border-[#E5EAE5]">
+          <a
+            href="mailto:p3t.lppm@unsoed.ac.id"
+            class="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white shadow-sm"
+          >
+            <span>Hubungi Kami</span>
+            <ArrowUpRight class="w-4 h-4 text-[#22C55E]" />
+          </a>
+        </div>
       </div>
-    </div>
+    </transition>
   </header>
 </template>
-

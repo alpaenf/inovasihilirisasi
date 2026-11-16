@@ -40,7 +40,7 @@ const deletePartner = (id, name) => {
 </script>
 
 <template>
-  <Head title="Manajemen Mitra - PUSKOR Admin" />
+  <Head title="Manajemen Mitra - Inovasi Hilirisasi Admin" />
 
   <AdminLayout title="Manajemen Mitra Kolaborasi">
     <div class="space-y-6">

@@ -25,8 +25,8 @@ class PageController extends Controller
 
         return Inertia::render('Public/About', [
             'about' => [
-                'title' => $aboutContent?->title ?? 'Profil PUSKOR Universitas Jenderal Soedirman',
-                'content' => $aboutContent?->content ?? 'Pusat Koordinasi Pengembangan dan Penerapan Teknologi (PUSKOR) LPPM Universitas Jenderal Soedirman.',
+                'title' => $aboutContent?->title ?? 'Profil Inovasi Hilirisasi Universitas Jenderal Soedirman',
+                'content' => $aboutContent?->content ?? 'Pusat Koordinasi Pengembangan dan Penerapan Teknologi (Inovasi Hilirisasi) LPPM Universitas Jenderal Soedirman.',
                 'image' => $aboutContent?->image,
                 'vision' => $aboutContent?->metadata['vision'] ?? null,
                 'mission' => $aboutContent?->metadata['mission'] ?? [],
