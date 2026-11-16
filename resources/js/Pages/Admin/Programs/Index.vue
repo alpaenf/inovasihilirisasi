@@ -15,7 +15,7 @@ const deleteProgram = (id, name) => {
 </script>
 
 <template>
-  <Head title="Manajemen Program - Inovasi Hilirisasi Admin" />
+  <Head title="Manajemen Program - PUSKOR Admin" />
 
   <AdminLayout title="Manajemen Program">
     <div class="space-y-6">

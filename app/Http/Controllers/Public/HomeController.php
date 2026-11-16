@@ -43,7 +43,7 @@ class HomeController extends Controller
             'hero' => [
                 'eyebrow' => $heroContent?->metadata['eyebrow'] ?? 'UNIVERSITAS JENDERAL SOEDIRMAN',
                 'headline' => $heroContent?->title ?? 'Mendorong Inovasi, Mengembangkan Teknologi, Menciptakan Dampak.',
-                'description' => $heroContent?->content ?? 'Inovasi Hilirisasi Universitas Jenderal Soedirman menjadi wadah koordinasi pengembangan dan penerapan teknologi melalui kolaborasi, inovasi, serta pemberdayaan berbagai sektor.',
+                'description' => $heroContent?->content ?? 'PUSKOR Universitas Jenderal Soedirman menjadi wadah koordinasi pengembangan dan penerapan teknologi melalui kolaborasi, inovasi, serta pemberdayaan berbagai sektor.',
                 'cta_primary' => $heroContent?->metadata['cta_primary'] ?? ['label' => 'Jelajahi Program', 'url' => '/program'],
                 'cta_secondary' => $heroContent?->metadata['cta_secondary'] ?? ['label' => 'Lihat Produk', 'url' => '/produk'],
             ],

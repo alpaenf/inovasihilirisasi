@@ -26,9 +26,9 @@ const getIcon = (slug) => {
 
 <template>
   <Head>
-    <title>{{ program.name }} - Program Inovasi Inovasi Hilirisasi UNSOED</title>
+    <title>{{ program.name }} - Program Inovasi PUSKOR UNSOED</title>
     <meta name="description" :content="program.short_description" />
-    <meta property="og:title" :content="program.name + ' - Inovasi Hilirisasi UNSOED'" />
+    <meta property="og:title" :content="program.name + ' - PUSKOR UNSOED'" />
     <meta property="og:description" :content="program.short_description" />
   </Head>
 
@@ -44,7 +44,7 @@ const getIcon = (slug) => {
         <div class="max-w-4xl space-y-4">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DCFCE7] text-[#14532D] text-xs font-bold uppercase tracking-wider">
             <component :is="getIcon(program.slug)" class="w-4 h-4 text-[#22C55E]" />
-            <span>Program {{ program.code || 'Inovasi Hilirisasi' }}</span>
+            <span>Program {{ program.code || 'PUSKOR' }}</span>
           </div>
 
           <h1 class="text-3xl sm:text-5xl font-extrabold text-[#14532D] tracking-tight">
@@ -77,7 +77,7 @@ const getIcon = (slug) => {
               <div class="space-y-3 text-sm">
                 <div class="flex items-center justify-between py-2 border-b border-[#E5EAE5]">
                   <span class="text-[#647067]">Unit Pengelola</span>
-                  <span class="font-semibold text-[#14532D]">Inovasi Hilirisasi LPPM UNSOED</span>
+                  <span class="font-semibold text-[#14532D]">PUSKOR LPPM UNSOED</span>
                 </div>
                 <div class="flex items-center justify-between py-2 border-b border-[#E5EAE5]">
                   <span class="text-[#647067]">Jumlah Produk Terkait</span>

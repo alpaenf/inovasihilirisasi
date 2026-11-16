@@ -47,9 +47,9 @@ const selectCategory = (cat) => {
 
 <template>
   <Head>
-    <title>Mitra Kolaborasi - Inovasi Hilirisasi UNSOED</title>
+    <title>Mitra Kolaborasi - PUSKOR UNSOED</title>
     <meta name="description" content="Jaringan kemitraan industri, BUMN, pemerintah daerah, dan UMKM yang bersinergi dalam pengembangan teknologi terapan bersama Universitas Jenderal Soedirman." />
-    <meta property="og:title" content="Mitra Kolaborasi Riset & Industri - Inovasi Hilirisasi UNSOED" />
+    <meta property="og:title" content="Mitra Kolaborasi Riset & Industri - PUSKOR UNSOED" />
   </Head>
 
   <PublicLayout>
@@ -61,7 +61,7 @@ const selectCategory = (cat) => {
             JARINGAN KEMITRAAN
           </span>
           <h1 class="text-3xl sm:text-5xl font-extrabold text-[#14532D] tracking-tight">
-            Mitra Kolaborasi Inovasi Hilirisasi
+            Mitra Kolaborasi PUSKOR
           </h1>
           <p class="text-base text-[#647067] leading-relaxed">
             Menghubungkan keunggulan riset sivitas akademika Universitas Jenderal Soedirman dengan sektor industri komersial, badan pemerintah, dan pelaku usaha lokal.

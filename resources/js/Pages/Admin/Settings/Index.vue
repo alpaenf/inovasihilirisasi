@@ -22,7 +22,7 @@ const submit = () => {
 </script>
 
 <template>
-  <Head title="Pengaturan Website - Inovasi Hilirisasi Admin" />
+  <Head title="Pengaturan Website - PUSKOR Admin" />
 
   <AdminLayout title="Pengaturan Website">
     <div class="max-w-4xl space-y-6">

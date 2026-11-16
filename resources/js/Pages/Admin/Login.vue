@@ -16,15 +16,15 @@ const submit = () => {
 </script>
 
 <template>
-  <Head title="Masuk Admin - Inovasi Hilirisasi UNSOED" />
+  <Head title="Masuk Admin - PUSKOR UNSOED" />
 
   <div class="min-h-screen bg-[#F7FAF7] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md text-center space-y-3">
       <div class="inline-flex h-20 w-auto items-center justify-center">
-        <img src="/images/logo-puskor.png" alt="Logo Inovasi Hilirisasi UNSOED" class="h-20 w-auto object-contain drop-shadow" />
+        <img src="/images/logo-puskor.png" alt="Logo PUSKOR UNSOED" class="h-20 w-auto object-contain drop-shadow" />
       </div>
       <h2 class="text-2xl sm:text-3xl font-extrabold text-[#14532D] tracking-tight">
-        Masuk Admin Inovasi Hilirisasi
+        Masuk Admin PUSKOR
       </h2>
       <p class="text-xs sm:text-sm text-[#647067]">
         Pusat Koordinasi Pengembangan dan Penerapan Teknologi UNSOED

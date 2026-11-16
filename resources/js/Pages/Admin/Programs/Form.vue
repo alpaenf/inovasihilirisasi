@@ -28,7 +28,7 @@ const submit = () => {
 </script>
 
 <template>
-  <Head :title="(isEditing ? 'Edit Program' : 'Tambah Program') + ' - Inovasi Hilirisasi Admin'" />
+  <Head :title="(isEditing ? 'Edit Program' : 'Tambah Program') + ' - PUSKOR Admin'" />
 
   <AdminLayout :title="isEditing ? 'Edit Program' : 'Tambah Program Baru'">
     <div class="max-w-4xl space-y-6">

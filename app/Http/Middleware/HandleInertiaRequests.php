@@ -48,7 +48,7 @@ class HandleInertiaRequests extends Middleware
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
             ],
-            'appName' => config('app.name', 'Inovasi Hilirisasi UNSOED'),
+            'appName' => config('app.name', 'PUSKOR UNSOED'),
             'contactEmail' => 'p3t.lppm@unsoed.ac.id',
         ];
     }

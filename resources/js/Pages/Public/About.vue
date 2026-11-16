@@ -12,9 +12,9 @@ defineProps({
 
 <template>
   <Head>
-    <title>Tentang Inovasi Hilirisasi - Universitas Jenderal Soedirman</title>
-    <meta name="description" content="Profil Pusat Koordinasi Pengembangan dan Penerapan Teknologi (Inovasi Hilirisasi) LPPM Universitas Jenderal Soedirman. Mendorong hilirisasi riset, inovasi, dan transfer teknologi." />
-    <meta property="og:title" content="Tentang Inovasi Hilirisasi UNSOED" />
+    <title>Tentang PUSKOR - Universitas Jenderal Soedirman</title>
+    <meta name="description" content="Profil Pusat Koordinasi Pengembangan dan Penerapan Teknologi (PUSKOR) LPPM Universitas Jenderal Soedirman. Mendorong hilirisasi riset, inovasi, dan transfer teknologi." />
+    <meta property="og:title" content="Tentang PUSKOR UNSOED" />
   </Head>
 
   <PublicLayout>
@@ -66,7 +66,7 @@ defineProps({
               </div>
               <div>
                 <h3 class="text-base font-bold text-[#14532D]">Visi Organisasi</h3>
-                <span class="text-xs text-[#647067]">Inovasi Hilirisasi UNSOED</span>
+                <span class="text-xs text-[#647067]">PUSKOR UNSOED</span>
               </div>
             </div>
 

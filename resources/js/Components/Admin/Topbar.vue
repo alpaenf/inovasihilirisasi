@@ -16,7 +16,7 @@ const user = page.props.auth?.user;
       <h1 class="text-xl font-bold text-[#14532D]">
         {{ title || 'Dashboard Admin' }}
       </h1>
-      <span class="text-xs text-[#647067]">Pusat Kontrol Informasi Website Inovasi Hilirisasi</span>
+      <span class="text-xs text-[#647067]">Pusat Kontrol Informasi Website PUSKOR</span>
     </div>
 
     <!-- Admin Profile Badge -->

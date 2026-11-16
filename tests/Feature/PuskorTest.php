@@ -19,7 +19,7 @@ class PuskorTest extends TestCase
     {
         $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertSee('Inovasi Hilirisasi');
+        $response->assertSee('PUSKOR');
     }
 
     public function test_public_programs_index_returns_ok(): void

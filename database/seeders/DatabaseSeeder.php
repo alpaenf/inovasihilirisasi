@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $admin = User::updateOrCreate(
             ['email' => 'admin.puskor@unsoed.ac.id'],
             [
-                'name' => 'Administrator Inovasi Hilirisasi UNSOED',
+                'name' => 'Administrator PUSKOR UNSOED',
                 'password' => Hash::make('admin12345'),
             ]
         );
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'SINERGI',
                 'code' => 'SIN',
                 'short_description' => 'Program kolaborasi riset strategis dan transfer teknologi terpadu antara akademisi UNSOED, masyarakat, dan industri.',
-                'description' => 'SINERGI merupakan program unggulan Inovasi Hilirisasi Universitas Jenderal Soedirman yang dirancang untuk mengintegrasikan kapabilitas riset laboratorium dengan kebutuhan nyata masyarakat dan industri. Melalui konsorsium riset multipihak, program ini mendorong alih teknologi berkelanjutan untuk meningkatkan daya saing ekonomi berbasis potensi lokal perdesaan dan pesisir.',
+                'description' => 'SINERGI merupakan program unggulan PUSKOR Universitas Jenderal Soedirman yang dirancang untuk mengintegrasikan kapabilitas riset laboratorium dengan kebutuhan nyata masyarakat dan industri. Melalui konsorsium riset multipihak, program ini mendorong alih teknologi berkelanjutan untuk meningkatkan daya saing ekonomi berbasis potensi lokal perdesaan dan pesisir.',
                 'logo' => null,
                 'banner' => null,
                 'status' => 'published',
@@ -268,12 +268,12 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // 5. Page Contents (Beranda & Tentang Inovasi Hilirisasi)
+        // 5. Page Contents (Beranda & Tentang PUSKOR)
         PageContent::updateOrCreate(
             ['page_key' => 'home', 'section_key' => 'hero'],
             [
                 'title' => 'Mendorong Inovasi, Mengembangkan Teknologi, Menciptakan Dampak.',
-                'content' => 'Inovasi Hilirisasi Universitas Jenderal Soedirman menjadi wadah koordinasi pengembangan dan penerapan teknologi melalui kolaborasi, inovasi, serta pemberdayaan berbagai sektor.',
+                'content' => 'PUSKOR Universitas Jenderal Soedirman menjadi wadah koordinasi pengembangan dan penerapan teknologi melalui kolaborasi, inovasi, serta pemberdayaan berbagai sektor.',
                 'image' => '/images/hero-unsoed.jpg',
                 'metadata' => [
                     'eyebrow' => 'UNIVERSITAS JENDERAL SOEDIRMAN',
@@ -286,8 +286,8 @@ class DatabaseSeeder extends Seeder
         PageContent::updateOrCreate(
             ['page_key' => 'about', 'section_key' => 'profile'],
             [
-                'title' => 'Profil Inovasi Hilirisasi Universitas Jenderal Soedirman',
-                'content' => 'Pusat Koordinasi Pengembangan dan Penerapan Teknologi (Inovasi Hilirisasi) berada di bawah Lembaga Penelitian dan Pengabdian kepada Masyarakat (LPPM) Universitas Jenderal Soedirman. Inovasi Hilirisasi bertindak sebagai orkestrator yang menjembatani riset akademis para dosen dan peneliti ke dalam implementasi nyata di masyarakat dan industri.',
+                'title' => 'Profil PUSKOR Universitas Jenderal Soedirman',
+                'content' => 'Pusat Koordinasi Pengembangan dan Penerapan Teknologi (PUSKOR) berada di bawah Lembaga Penelitian dan Pengabdian kepada Masyarakat (LPPM) Universitas Jenderal Soedirman. PUSKOR bertindak sebagai orkestrator yang menjembatani riset akademis para dosen dan peneliti ke dalam implementasi nyata di masyarakat dan industri.',
                 'image' => '/images/about-unsoed.jpg',
                 'metadata' => [
                     'vision' => 'Menjadi pusat unggulan koordinasi dan penerapan teknologi tepat guna yang berakar pada kearifan lokal dan berdaya saing global.',
@@ -302,12 +302,12 @@ class DatabaseSeeder extends Seeder
 
         // 6. Settings
         $defaultSettings = [
-            ['key' => 'site_name', 'display_name' => 'Nama Website', 'value' => 'Inovasi Hilirisasi Universitas Jenderal Soedirman', 'type' => 'text', 'group' => 'general'],
+            ['key' => 'site_name', 'display_name' => 'Nama Website', 'value' => 'PUSKOR Universitas Jenderal Soedirman', 'type' => 'text', 'group' => 'general'],
             ['key' => 'site_tagline', 'display_name' => 'Tagline', 'value' => 'Mendorong Inovasi, Mengembangkan Teknologi, Menciptakan Dampak', 'type' => 'text', 'group' => 'general'],
             ['key' => 'contact_email', 'display_name' => 'Email Resmi', 'value' => 'p3t.lppm@unsoed.ac.id', 'type' => 'text', 'group' => 'contact'],
             ['key' => 'contact_phone', 'display_name' => 'Telepon / WhatsApp', 'value' => '+62 281 635292', 'type' => 'text', 'group' => 'contact'],
             ['key' => 'contact_address', 'display_name' => 'Alamat Kantor', 'value' => 'Gedung LPPM UNSOED, Jl. Prof. Dr. HR. Boenyamin No. 708, Purwokerto, Jawa Tengah 53122', 'type' => 'textarea', 'group' => 'contact'],
-            ['key' => 'footer_copyright', 'display_name' => 'Teks Hak Cipta', 'value' => '© 2026 Inovasi Hilirisasi Universitas Jenderal Soedirman. Hak Cipta Dilindungi.', 'type' => 'text', 'group' => 'general'],
+            ['key' => 'footer_copyright', 'display_name' => 'Teks Hak Cipta', 'value' => '© 2026 PUSKOR Universitas Jenderal Soedirman. Hak Cipta Dilindungi.', 'type' => 'text', 'group' => 'general'],
         ];
 
         foreach ($defaultSettings as $st) {

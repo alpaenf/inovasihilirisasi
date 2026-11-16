@@ -40,7 +40,7 @@ defineProps({
 
       <!-- Short Description -->
       <p class="text-xs sm:text-sm text-[#647067] leading-relaxed line-clamp-2 mb-4">
-        {{ partner.short_description || partner.address || 'Mitra kolaborasi penerapan teknologi Inovasi Hilirisasi UNSOED.' }}
+        {{ partner.short_description || partner.address || 'Mitra kolaborasi penerapan teknologi PUSKOR UNSOED.' }}
       </p>
     </div>
 

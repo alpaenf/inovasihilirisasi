@@ -53,9 +53,9 @@ const onSortChange = () => {
 
 <template>
   <Head>
-    <title>Katalog Produk & Inovasi Teknologi - Inovasi Hilirisasi UNSOED</title>
+    <title>Katalog Produk & Inovasi Teknologi - PUSKOR UNSOED</title>
     <meta name="description" content="Katalog produk inovasi teknologi tepat guna hasil riset program SINERGI, AJAKAN INDUSTRI, PMUPUD, dan DORTEK Universitas Jenderal Soedirman." />
-    <meta property="og:title" content="Katalog Inovasi Teknologi - Inovasi Hilirisasi UNSOED" />
+    <meta property="og:title" content="Katalog Inovasi Teknologi - PUSKOR UNSOED" />
   </Head>
 
   <PublicLayout>

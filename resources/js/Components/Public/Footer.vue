@@ -11,10 +11,10 @@ import { Cpu, Mail, MapPin, Phone, ArrowUpRight } from 'lucide-vue-next';
         <div class="lg:col-span-2 space-y-4">
           <div class="flex items-center gap-3">
             <div class="h-14 w-auto flex items-center justify-center">
-              <img src="/images/logo-puskor-white.png" alt="Logo Inovasi Hilirisasi UNSOED" class="h-14 w-auto object-contain" />
+              <img src="/images/logo-puskor-white.png" alt="Logo PUSKOR UNSOED" class="h-14 w-auto object-contain" />
             </div>
             <div>
-              <span class="font-extrabold text-xl tracking-tight text-white block leading-none">Inovasi Hilirisasi</span>
+              <span class="font-extrabold text-xl tracking-tight text-white block leading-none">PUSKOR</span>
               <span class="text-xs font-semibold text-emerald-200 uppercase tracking-wider block mt-1">
                 Universitas Jenderal Soedirman
               </span>
@@ -69,7 +69,7 @@ import { Cpu, Mail, MapPin, Phone, ArrowUpRight } from 'lucide-vue-next';
               <Link href="/mitra" class="hover:text-white transition-colors">Mitra Kolaborasi</Link>
             </li>
             <li>
-              <Link href="/tentang-puskor" class="hover:text-white transition-colors">Tentang Inovasi Hilirisasi</Link>
+              <Link href="/tentang-puskor" class="hover:text-white transition-colors">Tentang PUSKOR</Link>
             </li>
             <li>
               <Link href="/login" class="text-emerald-200/60 hover:text-white transition-colors">Login Admin</Link>
@@ -103,7 +103,7 @@ import { Cpu, Mail, MapPin, Phone, ArrowUpRight } from 'lucide-vue-next';
 
       <!-- Bottom Bar -->
       <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-emerald-100/60 gap-4">
-        <p>© 2026 Inovasi Hilirisasi Universitas Jenderal Soedirman. Hak Cipta Dilindungi.</p>
+        <p>© 2026 PUSKOR Universitas Jenderal Soedirman. Hak Cipta Dilindungi.</p>
         <p class="flex items-center gap-2">
           <span>Pusat Koordinasi Pengembangan dan Penerapan Teknologi</span>
         </p>

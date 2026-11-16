@@ -12,12 +12,12 @@ const homeForm = useForm({
   section_key: 'hero',
   eyebrow: props.homeHero?.metadata?.eyebrow || 'UNIVERSITAS JENDERAL SOEDIRMAN',
   title: props.homeHero?.title || 'Mendorong Inovasi, Mengembangkan Teknologi, Menciptakan Dampak.',
-  content: props.homeHero?.content || 'Inovasi Hilirisasi Universitas Jenderal Soedirman menjadi wadah koordinasi pengembangan dan penerapan teknologi.',
+  content: props.homeHero?.content || 'PUSKOR Universitas Jenderal Soedirman menjadi wadah koordinasi pengembangan dan penerapan teknologi.',
 });
 
 const aboutForm = useForm({
   section_key: 'profile',
-  title: props.aboutProfile?.title || 'Profil Inovasi Hilirisasi Universitas Jenderal Soedirman',
+  title: props.aboutProfile?.title || 'Profil PUSKOR Universitas Jenderal Soedirman',
   content: props.aboutProfile?.content || 'Pusat Koordinasi Pengembangan dan Penerapan Teknologi LPPM UNSOED.',
 });
 
@@ -31,7 +31,7 @@ const submitAbout = () => {
 </script>
 
 <template>
-  <Head title="Manajemen Konten Halaman - Inovasi Hilirisasi Admin" />
+  <Head title="Manajemen Konten Halaman - PUSKOR Admin" />
 
   <AdminLayout title="Manajemen Konten Halaman">
     <div class="max-w-4xl space-y-8">
@@ -90,15 +90,15 @@ const submitAbout = () => {
         </form>
       </div>
 
-      <!-- Section 2: Halaman Tentang Inovasi Hilirisasi -->
+      <!-- Section 2: Halaman Tentang PUSKOR -->
       <div class="bg-white p-6 sm:p-8 rounded-2xl border border-[#E5EAE5] shadow-sm space-y-6">
         <div class="flex items-center gap-3 pb-4 border-b border-[#E5EAE5]">
           <div class="w-10 h-10 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center">
             <FileText class="w-5 h-5" />
           </div>
           <div>
-            <h3 class="text-base font-bold text-[#14532D]">Konten Tentang Inovasi Hilirisasi</h3>
-            <span class="text-xs text-[#647067]">Profil dan peran organisasi di halaman Tentang Inovasi Hilirisasi.</span>
+            <h3 class="text-base font-bold text-[#14532D]">Konten Tentang PUSKOR</h3>
+            <span class="text-xs text-[#647067]">Profil dan peran organisasi di halaman Tentang PUSKOR.</span>
           </div>
         </div>
 
