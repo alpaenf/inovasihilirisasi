@@ -55,7 +55,7 @@ const handleLogout = () => {
           :href="item.href"
           class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200"
           :class="isActive(item.href)
-            ? 'bg-[#22C55E] text-[#14532D] shadow-sm'
+            ? 'bg-white text-[#14532D] font-bold shadow-md'
             : 'text-emerald-100 hover:bg-white/10 hover:text-white'"
         >
           <component :is="item.icon" class="w-5 h-5 shrink-0" />
