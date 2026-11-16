@@ -7,6 +7,7 @@ import {
   Building2,
   FileText,
   Settings,
+  UserCog,
   LogOut,
   ExternalLink,
   X,
@@ -35,6 +36,7 @@ const menuItems = [
   { name: 'Manajemen Mitra', href: '/admin/partners', icon: Building2 },
   { name: 'Manajemen Halaman', href: '/admin/pages', icon: FileText },
   { name: 'Pengaturan Website', href: '/admin/settings', icon: Settings },
+  { name: 'Profil & Keamanan', href: '/admin/profile', icon: UserCog },
 ];
 
 const isActive = (href) => {
