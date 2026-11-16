@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import { ArrowUpRight, Cpu } from 'lucide-vue-next';
 
@@ -8,6 +9,8 @@ defineProps({
     required: true,
   },
 });
+
+const imageError = ref(false);
 </script>
 
 <template>
@@ -15,15 +18,15 @@ defineProps({
     <!-- Image Header -->
     <div class="relative aspect-[16/10] bg-[#F7FAF7] overflow-hidden flex items-center justify-center">
       <img
-        v-if="product.main_image && !product.main_image.includes('placeholder')"
+        v-if="product.main_image && !imageError && !product.main_image.includes('placeholder')"
         :src="product.main_image"
         :alt="product.name"
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         loading="lazy"
-        @error="$event.target.style.display = 'none'"
+        @error="imageError = true"
       />
       <!-- Fallback illustration when image is missing or placeholder -->
-      <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-emerald-50 to-[#DCFCE7]/40 p-4 text-center">
+      <div v-else class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-emerald-50 to-[#DCFCE7]/40 p-4 text-center">
         <Cpu class="w-10 h-10 text-[#14532D]/40 mb-2" />
         <span class="text-xs font-semibold text-[#14532D]/60 tracking-wider">TEKNOLOGI Inovasi Hilirisasi</span>
       </div>

@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import PublicLayout from '@/Layouts/PublicLayout.vue';
 import ProductCard from '@/Components/Common/ProductCard.vue';
@@ -8,6 +9,8 @@ const props = defineProps({
   product: Object,
   relatedProducts: Array,
 });
+
+const imageError = ref(false);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -62,13 +65,13 @@ const jsonLd = {
           <div class="lg:col-span-6 space-y-4">
             <div class="aspect-[4/3] rounded-3xl bg-[#F7FAF7] border border-[#E5EAE5] overflow-hidden relative flex items-center justify-center shadow-sm">
               <img
-                v-if="product.main_image && !product.main_image.includes('placeholder')"
+                v-if="product.main_image && !imageError && !product.main_image.includes('placeholder')"
                 :src="product.main_image"
                 :alt="product.name"
                 class="w-full h-full object-cover"
-                @error="$event.target.style.display = 'none'"
+                @error="imageError = true"
               />
-              <div class="w-full h-full flex flex-col items-center justify-center bg-emerald-50/50 p-6 text-center">
+              <div v-else class="w-full h-full flex flex-col items-center justify-center bg-emerald-50/50 p-6 text-center">
                 <Cpu class="w-16 h-16 text-[#14532D]/30 mb-3" />
                 <span class="text-xs font-bold text-[#14532D]/60 tracking-wider">DOKUMENTASI PRODUK Inovasi Hilirisasi</span>
               </div>

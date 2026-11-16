@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import PublicLayout from '@/Layouts/PublicLayout.vue';
 import ProductCard from '@/Components/Common/ProductCard.vue';
@@ -8,6 +9,8 @@ import { ArrowLeft, ExternalLink, Mail, Phone, MapPin, Building2 } from 'lucide-
 defineProps({
   partner: Object,
 });
+
+const imageError = ref(false);
 </script>
 
 <template>
@@ -27,15 +30,15 @@ defineProps({
         </Link>
 
         <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
-          <div class="w-24 h-24 rounded-2xl bg-white border border-[#E5EAE5] p-3 flex items-center justify-center shrink-0 shadow-sm">
+          <div class="w-24 h-24 rounded-2xl bg-white border border-[#E5EAE5] p-3 flex items-center justify-center shrink-0 shadow-sm overflow-hidden">
             <img
-              v-if="partner.logo && !partner.logo.includes('placeholder')"
+              v-if="partner.logo && !imageError && !partner.logo.includes('placeholder')"
               :src="partner.logo"
               :alt="partner.name"
               class="max-w-full max-h-full object-contain"
-              @error="$event.target.style.display = 'none'"
+              @error="imageError = true"
             />
-            <Building2 class="w-10 h-10 text-[#14532D]/40" />
+            <Building2 v-else class="w-10 h-10 text-[#14532D]/40" />
           </div>
 
           <div class="space-y-2">
