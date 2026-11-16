@@ -25,7 +25,7 @@ defineProps({
       <!-- Fallback illustration when image is missing or placeholder -->
       <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-emerald-50 to-[#DCFCE7]/40 p-4 text-center">
         <Cpu class="w-10 h-10 text-[#14532D]/40 mb-2" />
-        <span class="text-xs font-semibold text-[#14532D]/60 tracking-wider">TEKNOLOGI PUSKOR</span>
+        <span class="text-xs font-semibold text-[#14532D]/60 tracking-wider">TEKNOLOGI Inovasi Hilirisasi</span>
       </div>
 
       <!-- Program Tag Badge -->

@@ -11,7 +11,7 @@ const navLinks = [
   { name: 'Program', href: '/program' },
   { name: 'Produk', href: '/produk' },
   { name: 'Mitra', href: '/mitra' },
-  { name: 'Tentang PUSKOR', href: '/tentang-puskor' },
+  { name: 'Tentang Inovasi Hilirisasi', href: '/tentang-puskor' },
 ];
 
 const isActive = (href) => {
@@ -28,11 +28,11 @@ const isActive = (href) => {
         <!-- Brand / Identity -->
         <Link href="/" class="flex items-center gap-3.5 group">
           <div class="h-12 w-auto flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
-            <img src="/images/logo-puskor.png" alt="Logo PUSKOR UNSOED" class="h-12 w-auto object-contain" />
+            <img src="/images/logo-puskor.png" alt="Logo Inovasi Hilirisasi UNSOED" class="h-12 w-auto object-contain" />
           </div>
           <div class="flex flex-col">
             <span class="font-extrabold text-lg sm:text-xl tracking-tight text-[#14532D] leading-none">
-              PUSKOR
+              Inovasi Hilirisasi
             </span>
             <span class="text-[11px] font-semibold text-[#647067] tracking-wider uppercase mt-1">
               Universitas Jenderal Soedirman

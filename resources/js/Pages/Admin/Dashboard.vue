@@ -21,14 +21,14 @@ defineProps({
 </script>
 
 <template>
-  <Head title="Dashboard Overview - PUSKOR Admin" />
+  <Head title="Dashboard Overview - Inovasi Hilirisasi Admin" />
 
   <AdminLayout title="Dashboard Overview">
     <div class="space-y-8">
       <!-- Quick Action Bar -->
       <div class="flex flex-wrap items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-[#E5EAE5]">
         <div>
-          <h2 class="text-lg font-bold text-[#14532D]">Selamat Datang di Portal Admin PUSKOR</h2>
+          <h2 class="text-lg font-bold text-[#14532D]">Selamat Datang di Portal Admin Inovasi Hilirisasi</h2>
           <p class="text-xs sm:text-sm text-[#647067]">Kelola seluruh program, produk inovasi, dan mitra kolaborasi dalam satu kendali terpusat.</p>
         </div>
         <div class="flex items-center gap-3">

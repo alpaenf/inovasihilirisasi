@@ -17,8 +17,8 @@ const props = defineProps({
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'EducationalOrganization',
-  'name': 'Pusat Koordinasi Pengembangan dan Penerapan Teknologi (PUSKOR) UNSOED',
-  'alternateName': 'PUSKOR Universitas Jenderal Soedirman',
+  'name': 'Pusat Koordinasi Pengembangan dan Penerapan Teknologi (Inovasi Hilirisasi) UNSOED',
+  'alternateName': 'Inovasi Hilirisasi Universitas Jenderal Soedirman',
   'url': typeof window !== 'undefined' ? window.location.origin : 'https://puskor.unsoed.ac.id',
   'parentOrganization': {
     '@type': 'CollegeOrUniversity',
@@ -43,9 +43,9 @@ const jsonLd = {
 
 <template>
   <Head>
-    <title>PUSKOR UNSOED - Pusat Inovasi & Penerapan Teknologi</title>
+    <title>Inovasi Hilirisasi UNSOED - Pusat Inovasi & Penerapan Teknologi</title>
     <meta name="description" content="Platform terpadu koordinasi inovasi, alih teknologi, dan hilirisasi riset Universitas Jenderal Soedirman melalui 4 program utama kolaborasi industri." />
-    <meta property="og:title" content="PUSKOR UNSOED - Pusat Inovasi & Penerapan Teknologi" />
+    <meta property="og:title" content="Inovasi Hilirisasi UNSOED - Pusat Inovasi & Penerapan Teknologi" />
     <meta property="og:description" content="Wadah koordinasi pengembangan dan penerapan teknologi Universitas Jenderal Soedirman melalui SINERGI, AJAKAN INDUSTRI, PMUPUD, dan DORTEK." />
     <meta property="og:type" content="website" />
     <component :is="'script'" type="application/ld+json">
@@ -167,7 +167,7 @@ const jsonLd = {
             PILAR PENGEMBANGAN TEKNOLOGI
           </span>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-[#14532D] tracking-tight">
-            4 Program Utama PUSKOR
+            4 Program Utama Inovasi Hilirisasi
           </h2>
           <p class="text-base text-[#647067] leading-relaxed">
             Seluruh inisiatif inovasi diwadahi dalam 4 pilar program terpadu untuk percepatan hilirisasi riset kampus.
@@ -259,14 +259,14 @@ const jsonLd = {
           Tertarik Berkolaborasi atau Mengadopsi Teknologi?
         </h2>
         <p class="text-base sm:text-lg text-emerald-100/80 max-w-2xl mx-auto leading-relaxed">
-          Tim PUSKOR Universitas Jenderal Soedirman siap memfasilitasi kebutuhan kemitraan riset terapan, uji prototipe, maupun transfer teknologi.
+          Tim Inovasi Hilirisasi Universitas Jenderal Soedirman siap memfasilitasi kebutuhan kemitraan riset terapan, uji prototipe, maupun transfer teknologi.
         </p>
         <div class="pt-4 flex flex-wrap justify-center gap-4">
           <a
             href="mailto:p3t.lppm@unsoed.ac.id"
             class="px-8 py-3.5 rounded-xl font-bold text-sm bg-white text-[#14532D] hover:bg-emerald-50 shadow-lg transition-all"
           >
-            Hubungi Tim PUSKOR
+            Hubungi Tim Inovasi Hilirisasi
           </a>
           <Link
             href="/tentang-puskor"

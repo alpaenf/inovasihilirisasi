@@ -45,7 +45,7 @@ const submit = () => {
 </script>
 
 <template>
-  <Head :title="(isEditing ? 'Edit Produk Inovasi' : 'Tambah Produk Baru') + ' - PUSKOR Admin'" />
+  <Head :title="(isEditing ? 'Edit Produk Inovasi' : 'Tambah Produk Baru') + ' - Inovasi Hilirisasi Admin'" />
 
   <AdminLayout :title="isEditing ? 'Edit Produk Inovasi' : 'Tambah Produk Baru'">
     <div class="max-w-4xl space-y-6">
