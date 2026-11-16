@@ -34,7 +34,7 @@ const handleLogout = () => {
 </script>
 
 <template>
-  <aside class="w-64 bg-[#14532D] text-white flex flex-col justify-between shrink-0 min-h-screen">
+  <aside class="sticky top-0 h-screen w-64 bg-[#14532D] text-white flex flex-col justify-between shrink-0 overflow-y-auto z-40 select-none border-r border-[#14532D]">
     <div>
       <!-- Brand Header -->
       <div class="h-20 flex items-center px-6 border-b border-white/10 gap-3">

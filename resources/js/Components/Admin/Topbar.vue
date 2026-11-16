@@ -11,7 +11,7 @@ const user = page.props.auth?.user;
 </script>
 
 <template>
-  <header class="h-20 bg-white border-b border-[#E5EAE5] px-6 sm:px-8 flex items-center justify-between">
+  <header class="sticky top-0 z-30 h-20 bg-white/90 backdrop-blur-md border-b border-[#E5EAE5] px-6 sm:px-8 flex items-center justify-between">
     <div>
       <h1 class="text-xl font-bold text-[#14532D]">
         {{ title || 'Dashboard Admin' }}

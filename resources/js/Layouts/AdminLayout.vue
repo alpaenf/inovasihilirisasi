@@ -20,7 +20,7 @@ const flashError = computed(() => page.props.flash?.error);
     <Sidebar />
 
     <!-- Right Main Column -->
-    <div class="flex-grow flex flex-col min-w-0">
+    <div class="flex-1 min-w-0 flex flex-col">
       <Topbar :title="title" />
 
       <!-- Flash Notification Alerts -->
