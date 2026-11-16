@@ -18,10 +18,10 @@ const submit = () => {
 <template>
   <Head title="Masuk Admin - Inovasi Hilirisasi UNSOED" />
 
-  <div class="min-h-screen bg-[#F7FAF7] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="min-h-screen bg-[#F7FAF7] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md text-center space-y-3">
-      <div class="inline-flex h-20 w-auto items-center justify-center">
-        <img src="/images/logo-puskor.png" alt="Logo Inovasi Hilirisasi UNSOED" class="h-20 w-auto object-contain drop-shadow" />
+      <div class="inline-flex h-16 sm:h-20 w-auto items-center justify-center">
+        <img src="/images/logo-puskor.png" alt="Logo Inovasi Hilirisasi UNSOED" class="h-16 sm:h-20 w-auto object-contain drop-shadow" />
       </div>
       <h2 class="text-2xl sm:text-3xl font-extrabold text-[#14532D] tracking-tight">
         Masuk Admin Inovasi Hilirisasi
@@ -31,8 +31,8 @@ const submit = () => {
       </p>
     </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div class="bg-white py-8 px-6 sm:px-10 shadow-xl shadow-emerald-950/5 rounded-3xl border border-[#E5EAE5]">
+    <div class="mt-6 sm:mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div class="bg-white py-6 sm:py-8 px-5 sm:px-10 shadow-xl shadow-emerald-950/5 rounded-2xl sm:rounded-3xl border border-[#E5EAE5]">
         <form @submit.prevent="submit" class="space-y-5">
           <!-- Email Field -->
           <div>

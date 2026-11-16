@@ -115,7 +115,7 @@ const isActive = (href) => {
           <button
             type="button"
             @click="mobileMenuOpen = !mobileMenuOpen"
-            class="p-2 rounded-full text-[#17231C] hover:bg-[#F7FAF7] focus:outline-none transition-colors"
+            class="p-2 rounded-full text-[#17231C] hover:bg-[#F7FAF7] focus:outline-none transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Toggle Menu"
           >
             <Menu v-if="!mobileMenuOpen" class="w-5 h-5 sm:w-6 sm:h-6" />
@@ -148,7 +148,7 @@ const isActive = (href) => {
           :key="item.name"
           :href="item.href"
           @click="mobileMenuOpen = false"
-          class="block px-3.5 py-2.5 rounded-xl text-base font-semibold transition-colors"
+          class="flex items-center px-4 py-3 rounded-xl text-base font-semibold transition-colors min-h-[44px]"
           :class="isActive(item.href)
             ? 'text-[#14532D] bg-[#DCFCE7]'
             : 'text-[#647067] hover:bg-[#F7FAF7] hover:text-[#14532D]'"
@@ -158,7 +158,7 @@ const isActive = (href) => {
         <div class="pt-3 border-t border-[#E5EAE5]">
           <a
             href="mailto:p3t.lppm@unsoed.ac.id"
-            class="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white shadow-sm"
+            class="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-bold bg-[#14532D] text-white shadow-sm min-h-[44px]"
           >
             <span>Hubungi Kami</span>
             <ArrowUpRight class="w-4 h-4 text-[#22C55E]" />

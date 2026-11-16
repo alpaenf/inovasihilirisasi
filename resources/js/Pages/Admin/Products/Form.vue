@@ -101,7 +101,7 @@ const submit = () => {
               Foto Utama Produk
               <span class="text-[11px] font-normal text-[#22C55E] normal-case ml-1.5">(Auto-compressed ke format WebP)</span>
             </label>
-            <div class="flex items-start gap-4">
+            <div class="flex flex-col sm:flex-row items-start gap-4">
               <div v-if="imagePreview" class="w-24 h-24 rounded-xl border border-[#E5EAE5] overflow-hidden bg-[#F7FAF7] shrink-0">
                 <img :src="imagePreview" alt="Preview" class="w-full h-full object-cover" />
               </div>

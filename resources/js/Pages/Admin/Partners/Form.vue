@@ -92,7 +92,7 @@ const submit = () => {
               Logo Resmi Mitra
               <span class="text-[11px] font-normal text-[#22C55E] normal-case ml-1.5">(Auto-compressed & dioptimasi)</span>
             </label>
-            <div class="flex items-start gap-4">
+            <div class="flex flex-col sm:flex-row items-start gap-4">
               <div v-if="logoPreview" class="w-20 h-20 rounded-xl border border-[#E5EAE5] p-2 bg-[#F7FAF7] flex items-center justify-center shrink-0">
                 <img :src="logoPreview" alt="Logo Preview" class="max-w-full max-h-full object-contain" />
               </div>

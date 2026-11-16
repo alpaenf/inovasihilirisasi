@@ -77,10 +77,10 @@ const jsonLd = {
               {{ hero.description }}
             </p>
 
-            <div class="flex flex-wrap items-center gap-4 pt-2">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
               <Link
                 :href="hero.cta_primary.url"
-                class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold text-sm bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-lg shadow-emerald-950/15 hover:shadow-xl transition-all duration-200 group"
+                class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold text-sm bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-lg shadow-emerald-950/15 hover:shadow-xl transition-all duration-200 group w-full sm:w-auto"
               >
                 <span>{{ hero.cta_primary.label }}</span>
                 <ArrowRight class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -88,14 +88,14 @@ const jsonLd = {
 
               <Link
                 :href="hero.cta_secondary.url"
-                class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold text-sm bg-white text-[#14532D] border border-[#E5EAE5] hover:border-[#14532D]/40 hover:bg-[#F7FAF7] shadow-sm transition-all duration-200"
+                class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold text-sm bg-white text-[#14532D] border border-[#E5EAE5] hover:border-[#14532D]/40 hover:bg-[#F7FAF7] shadow-sm transition-all duration-200 w-full sm:w-auto"
               >
                 <span>{{ hero.cta_secondary.label }}</span>
               </Link>
             </div>
 
             <!-- Value Highlights -->
-            <div class="grid grid-cols-3 gap-4 pt-4 border-t border-[#E5EAE5]">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-4 border-t border-[#E5EAE5]">
               <div class="flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#14532D]">
                 <CheckCircle2 class="w-4 h-4 text-[#22C55E] shrink-0" />
                 <span>4 Program Terpadu</span>
@@ -261,16 +261,16 @@ const jsonLd = {
         <p class="text-base sm:text-lg text-emerald-100/80 max-w-2xl mx-auto leading-relaxed">
           Tim Inovasi Hilirisasi Universitas Jenderal Soedirman siap memfasilitasi kebutuhan kemitraan riset terapan, uji prototipe, maupun transfer teknologi.
         </p>
-        <div class="pt-4 flex flex-wrap justify-center gap-4">
+        <div class="pt-4 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <a
             href="mailto:p3t.lppm@unsoed.ac.id"
-            class="px-8 py-3.5 rounded-xl font-bold text-sm bg-white text-[#14532D] hover:bg-emerald-50 shadow-lg transition-all"
+            class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-sm bg-white text-[#14532D] hover:bg-emerald-50 shadow-lg transition-all text-center"
           >
             Hubungi Tim Inovasi Hilirisasi
           </a>
           <Link
             href="/tentang-puskor"
-            class="px-8 py-3.5 rounded-xl font-bold text-sm bg-[#14532D] text-white border border-white/20 hover:bg-white/10 transition-all"
+            class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-sm bg-[#14532D] text-white border border-white/20 hover:bg-white/10 transition-all text-center"
           >
             Pelajari Profil Kami
           </Link>

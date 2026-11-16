@@ -78,8 +78,8 @@ const deletePartner = (id, name) => {
       </div>
 
       <!-- Partners Table -->
-      <div class="bg-white rounded-2xl border border-[#E5EAE5] overflow-hidden shadow-sm">
-        <table class="w-full text-left text-sm">
+      <div class="bg-white rounded-2xl border border-[#E5EAE5] overflow-x-auto shadow-sm">
+        <table class="w-full text-left text-sm min-w-[700px]">
           <thead class="bg-[#F7FAF7] text-xs font-bold text-[#647067] uppercase tracking-wider border-b border-[#E5EAE5]">
             <tr>
               <th class="px-6 py-4">Nama Mitra</th>
