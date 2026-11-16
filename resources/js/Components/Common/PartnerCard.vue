@@ -18,8 +18,8 @@ const imageError = ref(false);
     <div>
       <!-- Top: Company Logo & Category Badge -->
       <div class="flex items-start justify-between gap-3 mb-5">
-        <!-- Company Logo Box -->
-        <div class="w-16 h-16 rounded-xl bg-[#F7FAF7] border border-[#E5EAE5] p-2 flex items-center justify-center shrink-0 group-hover:border-[#22C55E]/40 group-hover:bg-white transition-all overflow-hidden">
+        <!-- Company Logo (Clean without background / border box) -->
+        <div class="w-16 h-16 flex items-center justify-start shrink-0">
           <img
             v-if="partner.logo && !imageError && !partner.logo.includes('placeholder')"
             :src="partner.logo"
@@ -27,7 +27,9 @@ const imageError = ref(false);
             class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-200"
             @error="imageError = true"
           />
-          <Building2 v-else class="w-7 h-7 text-[#14532D]/40" />
+          <div v-else class="w-12 h-12 rounded-xl bg-[#F7FAF7] border border-[#E5EAE5] flex items-center justify-center">
+            <Building2 class="w-6 h-6 text-[#14532D]/40" />
+          </div>
         </div>
 
         <!-- Category Badge -->

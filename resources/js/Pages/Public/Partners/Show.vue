@@ -30,7 +30,7 @@ const imageError = ref(false);
         </Link>
 
         <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
-          <div class="w-24 h-24 rounded-2xl bg-white border border-[#E5EAE5] p-3 flex items-center justify-center shrink-0 shadow-sm overflow-hidden">
+          <div class="w-24 h-24 flex items-center justify-start shrink-0">
             <img
               v-if="partner.logo && !imageError && !partner.logo.includes('placeholder')"
               :src="partner.logo"
@@ -38,7 +38,9 @@ const imageError = ref(false);
               class="max-w-full max-h-full object-contain"
               @error="imageError = true"
             />
-            <Building2 v-else class="w-10 h-10 text-[#14532D]/40" />
+            <div v-else class="w-20 h-20 rounded-2xl bg-[#F7FAF7] border border-[#E5EAE5] flex items-center justify-center">
+              <Building2 class="w-10 h-10 text-[#14532D]/40" />
+            </div>
           </div>
 
           <div class="space-y-2">
