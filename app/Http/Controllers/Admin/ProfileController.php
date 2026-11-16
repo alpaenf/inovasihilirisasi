@@ -72,3 +72,4 @@ class ProfileController extends Controller
         return back()->with('success', 'Password akun admin berhasil diubah.');
     }
 }
+
