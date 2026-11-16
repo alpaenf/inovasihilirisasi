@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Admin/Sidebar.vue';
 import Topbar from '@/Components/Admin/Topbar.vue';
@@ -9,7 +9,43 @@ defineProps({
   title: String,
 });
 
-const mobileSidebarOpen = ref(false);
+const sidebarOpen = ref(true);
+const isMobile = ref(false);
+
+const handleResize = () => {
+  const mobile = window.innerWidth < 1024;
+  isMobile.value = mobile;
+  if (mobile) {
+    sidebarOpen.value = false;
+  } else {
+    const saved = localStorage.getItem('admin_sidebar_open');
+    sidebarOpen.value = saved !== null ? saved === 'true' : true;
+  }
+};
+
+const toggleSidebar = () => {
+  sidebarOpen.value = !sidebarOpen.value;
+  if (!isMobile.value) {
+    localStorage.setItem('admin_sidebar_open', String(sidebarOpen.value));
+  }
+};
+
+const closeSidebar = () => {
+  sidebarOpen.value = false;
+  if (!isMobile.value) {
+    localStorage.setItem('admin_sidebar_open', 'false');
+  }
+};
+
+onMounted(() => {
+  handleResize();
+  window.addEventListener('resize', handleResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize);
+});
+
 const page = usePage();
 const flashSuccess = computed(() => page.props.flash?.success);
 const flashError = computed(() => page.props.flash?.error);
@@ -17,12 +53,21 @@ const flashError = computed(() => page.props.flash?.error);
 
 <template>
   <div class="min-h-screen flex bg-[#F7FAF7] text-[#17231C]">
-    <!-- Left Admin Sidebar (Responsive: Sticky on lg+, Slide-over Drawer on < lg) -->
-    <Sidebar :mobile-open="mobileSidebarOpen" @close="mobileSidebarOpen = false" />
+    <!-- Left Admin Sidebar (White theme with deep green active link, Collapsible) -->
+    <Sidebar
+      :is-open="sidebarOpen"
+      :is-mobile="isMobile"
+      @close="closeSidebar"
+      @toggle="toggleSidebar"
+    />
 
     <!-- Right Main Column -->
-    <div class="flex-1 min-w-0 flex flex-col">
-      <Topbar :title="title" @toggle-sidebar="mobileSidebarOpen = !mobileSidebarOpen" />
+    <div class="flex-1 min-w-0 flex flex-col transition-all duration-300">
+      <Topbar
+        :title="title"
+        :sidebar-open="sidebarOpen"
+        @toggle-sidebar="toggleSidebar"
+      />
 
       <!-- Flash Notification Alerts -->
       <div v-if="flashSuccess" class="mx-4 sm:mx-6 lg:mx-8 mt-4 sm:mt-6 p-4 rounded-xl bg-emerald-50 border border-[#22C55E]/40 text-[#14532D] flex items-center gap-3 text-sm font-semibold shadow-sm">
