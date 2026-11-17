@@ -18,40 +18,159 @@ import {
   Layers,
   X,
   Loader2,
-  AlertCircle
+  AlertCircle,
+  Image as ImageIcon,
+  Newspaper,
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  MessageCircle,
+  ExternalLink
 } from 'lucide-vue-next';
 
 const props = defineProps({
   homeHero: Object,
+  homeGallery: Array,
+  homeNews: Array,
+  homeContact: Object,
   aboutProfile: Object,
   aboutOrg: Object,
   programs: Array,
 });
 
 // Active Main Tab: 'home' | 'about'
-const activeMainTab = ref('about');
+const activeMainTab = ref('home');
 
-// Active Sub-Tab in About: 'profile' | 'organization' | 'students'
+// Active Sub-Tab in Home: 'hero' | 'gallery' | 'news' | 'contact'
+const activeHomeTab = ref('gallery');
+
+// Active Sub-Tab in About: 'organization' | 'students' | 'profile'
 const activeAboutTab = ref('organization');
 
 // Active Program filter for students management
 const selectedProgramFilter = ref('all');
 
-// 1. Home Form
-const homeForm = useForm({
+// Photo upload states map: { [itemId]: boolean }
+const uploadingStates = ref({});
+
+// ==========================================
+// 1. HOME: HERO FORM
+// ==========================================
+const homeHeroForm = useForm({
   section_key: 'hero',
   eyebrow: props.homeHero?.metadata?.eyebrow || 'UNIVERSITAS JENDERAL SOEDIRMAN',
   title: props.homeHero?.title || 'Mendorong Inovasi, Mengembangkan Teknologi, Menciptakan Dampak.',
   content: props.homeHero?.content || 'Inovasi Hilirisasi Universitas Jenderal Soedirman menjadi wadah koordinasi pengembangan dan penerapan teknologi.',
 });
 
-const submitHome = () => {
-  homeForm.put('/admin/pages/home', {
+const submitHomeHero = () => {
+  homeHeroForm.put('/admin/pages/home', {
     preserveScroll: true,
   });
 };
 
-// 2. About Profile Form
+// ==========================================
+// 2. HOME: GALLERY FORM
+// ==========================================
+const galleryForm = useForm({
+  section_key: 'gallery',
+  items: JSON.parse(JSON.stringify(props.homeGallery || [])),
+});
+
+const addGalleryItem = () => {
+  galleryForm.items.unshift({
+    id: `gal_${Date.now()}`,
+    title: '',
+    category: 'Dokumentasi Lapangan',
+    tag: 'SINERGI',
+    image: '',
+    date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+    location: 'LPPM UNSOED Purwokerto',
+    description: '',
+  });
+};
+
+const removeGalleryItem = (index) => {
+  if (confirm('Apakah Anda yakin ingin menghapus foto kegiatan ini?')) {
+    galleryForm.items.splice(index, 1);
+  }
+};
+
+const submitGallery = () => {
+  // Validate that all items have at least title, category, tag, and image
+  const missingImage = galleryForm.items.find(i => !i.image);
+  if (missingImage) {
+    alert(`Mohon unggah foto untuk item "${missingImage.title || 'Foto Baru'}" sebelum menyimpan.`);
+    return;
+  }
+  galleryForm.put('/admin/pages/home', {
+    preserveScroll: true,
+  });
+};
+
+// ==========================================
+// 3. HOME: NEWS & PUBLICATION FORM
+// ==========================================
+const newsForm = useForm({
+  section_key: 'news',
+  items: JSON.parse(JSON.stringify(props.homeNews || [])),
+});
+
+const addNewsItem = () => {
+  newsForm.items.unshift({
+    id: `news_${Date.now()}`,
+    slug: `berita-${Date.now()}`,
+    title: '',
+    category: 'Kemitraan DUDI',
+    tag: 'SINERGI',
+    image: '',
+    date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+    author: 'Tim Media Inovasi Hilirisasi',
+    read_time: '3 menit baca',
+    excerpt: '',
+    content: '',
+  });
+};
+
+const removeNewsItem = (index) => {
+  if (confirm('Apakah Anda yakin ingin menghapus berita ini?')) {
+    newsForm.items.splice(index, 1);
+  }
+};
+
+const submitNews = () => {
+  const missingImage = newsForm.items.find(i => !i.image);
+  if (missingImage) {
+    alert(`Mohon unggah foto sampul untuk berita "${missingImage.title || 'Berita Baru'}" sebelum menyimpan.`);
+    return;
+  }
+  newsForm.put('/admin/pages/home', {
+    preserveScroll: true,
+  });
+};
+
+// ==========================================
+// 4. HOME: CONTACT & SERVICE FORM
+// ==========================================
+const contactForm = useForm({
+  section_key: 'contact',
+  email: props.homeContact?.email || 'p3t.lppm@unsoed.ac.id',
+  phone: props.homeContact?.phone || '+62 281 635292',
+  whatsapp: props.homeContact?.whatsapp || '+62 812-3456-7890',
+  address: props.homeContact?.address || 'Gedung LPPM UNSOED, Jl. Prof. Dr. HR. Boenyamin No. 708, Purwokerto, Jawa Tengah 53122',
+  hours: props.homeContact?.hours || 'Senin - Jumat: 08.00 - 16.00 WIB',
+});
+
+const submitContact = () => {
+  contactForm.put('/admin/pages/home', {
+    preserveScroll: true,
+  });
+};
+
+// ==========================================
+// 5. ABOUT: PROFILE FORM
+// ==========================================
 const aboutProfileForm = useForm({
   section_key: 'profile',
   title: props.aboutProfile?.title || 'Profil Inovasi Hilirisasi Universitas Jenderal Soedirman',
@@ -78,7 +197,9 @@ const submitAboutProfile = () => {
   });
 };
 
-// 3. Organization Form (Leaders, Divisions, and Flexible Program Students)
+// ==========================================
+// 6. ABOUT: ORGANIZATION FORM
+// ==========================================
 const orgForm = useForm({
   section_key: 'organization',
   title: props.aboutOrg?.title || 'Struktur Organisasi Inovasi Hilirisasi',
@@ -88,10 +209,8 @@ const orgForm = useForm({
   students: JSON.parse(JSON.stringify(props.aboutOrg?.students || [])),
 });
 
-// Photo upload states map: { [itemId]: boolean }
-const uploadingStates = ref({});
-
-const uploadPhotoForItem = async (event, item) => {
+// Photo upload function with modern WebP compression
+const uploadPhotoForItem = async (event, item, folder = 'organization', photoField = 'photo') => {
   const file = event.target.files?.[0];
   if (!file) return;
 
@@ -103,6 +222,7 @@ const uploadPhotoForItem = async (event, item) => {
   try {
     const formData = new FormData();
     formData.append('photo', file);
+    formData.append('folder', folder);
 
     const xsrfCookie = document.cookie
       .split('; ')
@@ -120,7 +240,7 @@ const uploadPhotoForItem = async (event, item) => {
 
     const data = await res.json();
     if (res.ok && data.url) {
-      item.photo = data.url;
+      item[photoField] = data.url;
     } else {
       alert(data.message || 'Gagal mengunggah foto.');
     }
@@ -132,8 +252,8 @@ const uploadPhotoForItem = async (event, item) => {
   }
 };
 
-const removePhotoForItem = (item) => {
-  item.photo = null;
+const removePhotoForItem = (item, photoField = 'photo') => {
+  item[photoField] = null;
 };
 
 // Leaders Actions
@@ -183,7 +303,6 @@ const onStudentProgramChange = (student) => {
   }
 };
 
-// Filtered Students computation
 const filteredStudents = computed(() => {
   if (selectedProgramFilter.value === 'all') {
     return orgForm.students;
@@ -191,7 +310,6 @@ const filteredStudents = computed(() => {
   return orgForm.students.filter((s) => s.program_slug === selectedProgramFilter.value);
 });
 
-// Student counts per program
 const getStudentCountByProgram = (slug) => {
   if (slug === 'all') return orgForm.students.length;
   return orgForm.students.filter((s) => s.program_slug === slug).length;
@@ -214,18 +332,6 @@ const submitOrganization = () => {
         <div class="flex items-center gap-2 overflow-x-auto no-scrollbar">
           <button
             type="button"
-            @click="activeMainTab = 'about'"
-            class="flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all whitespace-nowrap min-h-[44px]"
-            :class="activeMainTab === 'about'
-              ? 'bg-[#14532D] text-white shadow-sm'
-              : 'bg-white text-[#647067] hover:text-[#14532D] hover:bg-[#F7FAF7] border border-[#E5EAE5]'"
-          >
-            <Building2 class="w-4 h-4" />
-            <span>Halaman Tentang Kami</span>
-          </button>
-
-          <button
-            type="button"
             @click="activeMainTab = 'home'"
             class="flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all whitespace-nowrap min-h-[44px]"
             :class="activeMainTab === 'home'
@@ -235,71 +341,740 @@ const submitOrganization = () => {
             <Home class="w-4 h-4" />
             <span>Halaman Beranda</span>
           </button>
+
+          <button
+            type="button"
+            @click="activeMainTab = 'about'"
+            class="flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all whitespace-nowrap min-h-[44px]"
+            :class="activeMainTab === 'about'
+              ? 'bg-[#14532D] text-white shadow-sm'
+              : 'bg-white text-[#647067] hover:text-[#14532D] hover:bg-[#F7FAF7] border border-[#E5EAE5]'"
+          >
+            <Building2 class="w-4 h-4" />
+            <span>Halaman Tentang Kami</span>
+          </button>
         </div>
 
         <span class="text-xs text-[#647067]">
-          Kelola teks, struktur organisasi, dan mahasiswa tiap program.
+          Kelola galeri kegiatan, berita, kontak, serta struktur organisasi dengan auto kompresi foto WebP.
         </span>
       </div>
 
+      <!-- ======================================================== -->
       <!-- TAB 1: HALAMAN BERANDA -->
-      <div v-if="activeMainTab === 'home'" class="max-w-4xl space-y-6">
-        <div class="bg-white p-5 sm:p-8 rounded-2xl border border-[#E5EAE5] shadow-xs space-y-6">
-          <div class="flex items-center gap-3 pb-4 border-b border-[#E5EAE5]">
-            <div class="w-10 h-10 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center shrink-0">
-              <Home class="w-5 h-5 text-[#22C55E]" />
-            </div>
-            <div>
-              <h3 class="text-base font-bold text-[#14532D]">Hero Section Beranda</h3>
-              <span class="text-xs text-[#647067]">Headline dan teks sambutan paling atas di halaman utama.</span>
-            </div>
-          </div>
+      <!-- ======================================================== -->
+      <div v-if="activeMainTab === 'home'" class="space-y-6">
+        <!-- Sub-Navigation for Home Section -->
+        <div class="flex items-center gap-2 border-b border-[#E5EAE5] pb-3 overflow-x-auto no-scrollbar">
+          <button
+            type="button"
+            @click="activeHomeTab = 'gallery'"
+            class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[40px] whitespace-nowrap"
+            :class="activeHomeTab === 'gallery'
+              ? 'bg-[#DCFCE7] text-[#14532D] shadow-xs'
+              : 'text-[#647067] hover:bg-[#F7FAF7]'"
+          >
+            <ImageIcon class="w-4 h-4 text-[#22C55E]" />
+            <span>Galeri Kegiatan</span>
+            <span class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#14532D] text-white font-extrabold">
+              {{ galleryForm.items.length }}
+            </span>
+          </button>
 
-          <form @submit.prevent="submitHome" class="space-y-5">
-            <div>
-              <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">Eyebrow / Sub-heading</label>
-              <input
-                type="text"
-                v-model="homeForm.eyebrow"
-                class="w-full px-4 py-2.5 rounded-xl border border-[#E5EAE5] text-sm focus:outline-none focus:border-[#22C55E]"
-              />
+          <button
+            type="button"
+            @click="activeHomeTab = 'news'"
+            class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[40px] whitespace-nowrap"
+            :class="activeHomeTab === 'news'
+              ? 'bg-[#DCFCE7] text-[#14532D] shadow-xs'
+              : 'text-[#647067] hover:bg-[#F7FAF7]'"
+          >
+            <Newspaper class="w-4 h-4 text-[#22C55E]" />
+            <span>Berita & Publikasi</span>
+            <span class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#14532D] text-white font-extrabold">
+              {{ newsForm.items.length }}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            @click="activeHomeTab = 'contact'"
+            class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[40px] whitespace-nowrap"
+            :class="activeHomeTab === 'contact'
+              ? 'bg-[#DCFCE7] text-[#14532D] shadow-xs'
+              : 'text-[#647067] hover:bg-[#F7FAF7]'"
+          >
+            <Phone class="w-4 h-4 text-[#22C55E]" />
+            <span>Kontak & Layanan</span>
+          </button>
+
+          <button
+            type="button"
+            @click="activeHomeTab = 'hero'"
+            class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[40px] whitespace-nowrap"
+            :class="activeHomeTab === 'hero'
+              ? 'bg-[#DCFCE7] text-[#14532D] shadow-xs'
+              : 'text-[#647067] hover:bg-[#F7FAF7]'"
+          >
+            <Sparkles class="w-4 h-4 text-[#22C55E]" />
+            <span>Hero Utama Beranda</span>
+          </button>
+        </div>
+
+        <!-- 1.A: GALERI KEGIATAN -->
+        <div v-show="activeHomeTab === 'gallery'" class="space-y-6">
+          <form @submit.prevent="submitGallery" class="space-y-6">
+            <!-- Header Card -->
+            <div class="bg-white p-5 sm:p-6 rounded-2xl border border-[#E5EAE5] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <h3 class="text-base sm:text-lg font-bold text-[#14532D] flex items-center gap-2">
+                  <ImageIcon class="w-5 h-5 text-[#22C55E]" />
+                  <span>Galeri Dokumentasi & Kegiatan Lapangan</span>
+                </h3>
+                <p class="text-xs text-[#647067] mt-1 leading-relaxed max-w-2xl">
+                  Unggah foto dokumentasi kegiatan hilirisasi, uji coba prototipe, expo riset, dan pendampingan UMKM. Foto otomatis dikompresi ke format WebP ringan dan tajam.
+                </p>
+              </div>
+
+              <div class="flex items-center gap-2 w-full sm:w-auto">
+                <button
+                  type="button"
+                  @click="addGalleryItem"
+                  class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#DCFCE7] text-[#14532D] hover:bg-[#DCFCE7]/80 transition-all flex-1 sm:flex-initial min-h-[44px]"
+                >
+                  <Plus class="w-4 h-4" />
+                  <span>Tambah Foto Galeri</span>
+                </button>
+
+                <button
+                  type="submit"
+                  :disabled="galleryForm.processing"
+                  class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all flex-1 sm:flex-initial min-h-[44px]"
+                >
+                  <Save class="w-4 h-4" />
+                  <span>{{ galleryForm.processing ? 'Menyimpan...' : 'Simpan Galeri' }}</span>
+                </button>
+              </div>
             </div>
 
-            <div>
-              <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">Headline Utama</label>
-              <input
-                type="text"
-                v-model="homeForm.title"
-                required
-                class="w-full px-4 py-2.5 rounded-xl border border-[#E5EAE5] text-sm focus:outline-none focus:border-[#22C55E]"
-              />
+            <!-- Empty State -->
+            <div
+              v-if="galleryForm.items.length === 0"
+              class="p-8 text-center bg-white rounded-2xl border border-dashed border-[#E5EAE5] space-y-3"
+            >
+              <ImageIcon class="w-10 h-10 text-[#647067]/40 mx-auto" />
+              <h4 class="text-sm font-bold text-[#14532D]">Belum Ada Foto di Galeri</h4>
+              <p class="text-xs text-[#647067] max-w-sm mx-auto">
+                Klik tombol di bawah untuk menambahkan dokumentasi foto kegiatan pertama Anda.
+              </p>
+              <button
+                type="button"
+                @click="addGalleryItem"
+                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-all shadow-xs"
+              >
+                <Plus class="w-3.5 h-3.5" />
+                <span>Tambah Foto Sekarang</span>
+              </button>
             </div>
 
-            <div>
-              <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">Deskripsi Hero</label>
-              <textarea
-                v-model="homeForm.content"
-                rows="3"
-                required
-                class="w-full px-4 py-2.5 rounded-xl border border-[#E5EAE5] text-sm focus:outline-none focus:border-[#22C55E]"
-              ></textarea>
+            <!-- Grid of Gallery Items -->
+            <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              <div
+                v-for="(item, idx) in galleryForm.items"
+                :key="item.id || idx"
+                class="bg-white p-5 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/40 shadow-xs transition-all relative flex flex-col justify-between space-y-4"
+              >
+                <!-- Top Row: Photo Upload Box + Delete -->
+                <div class="space-y-4">
+                  <div class="flex items-start justify-between gap-3">
+                    <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#F7FAF7] text-[#14532D] border border-[#E5EAE5]">
+                      Dokumentasi #{{ idx + 1 }}
+                    </span>
+
+                    <button
+                      type="button"
+                      @click="removeGalleryItem(idx)"
+                      class="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
+                      title="Hapus item galeri ini"
+                    >
+                      <Trash2 class="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <!-- Photo Upload Area -->
+                  <div class="relative w-full aspect-video rounded-xl bg-[#F7FAF7] border-2 border-dashed border-[#E5EAE5] overflow-hidden flex items-center justify-center">
+                    <img
+                      v-if="item.image"
+                      :src="item.image"
+                      :alt="item.title || 'Foto Galeri'"
+                      class="w-full h-full object-cover"
+                    />
+                    <div v-else class="flex flex-col items-center justify-center text-[#647067] p-4 text-center">
+                      <ImageIcon class="w-8 h-8 text-[#647067]/40 mb-1" />
+                      <span class="text-xs font-bold text-[#14532D]">Belum ada foto</span>
+                      <span class="text-[10px] text-[#647067] mt-0.5">Format JPG, PNG, WEBP (Auto Compress WebP)</span>
+                    </div>
+
+                    <!-- Loading Overlay -->
+                    <div
+                      v-if="uploadingStates[item.id]"
+                      class="absolute inset-0 bg-black/60 flex items-center justify-center text-white text-xs font-bold gap-2"
+                    >
+                      <Loader2 class="w-5 h-5 animate-spin" />
+                      <span>Mengompresi & Mengunggah...</span>
+                    </div>
+                  </div>
+
+                  <!-- Upload Controls -->
+                  <div class="flex items-center gap-2">
+                    <label class="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-colors shadow-2xs">
+                      <Upload class="w-3.5 h-3.5" />
+                      <span>{{ item.image ? 'Ganti Foto' : 'Pilih Foto Kegiatan' }}</span>
+                      <input
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp,image/jpg"
+                        class="hidden"
+                        @change="uploadPhotoForItem($event, item, 'gallery', 'image')"
+                      />
+                    </label>
+
+                    <button
+                      v-if="item.image"
+                      type="button"
+                      @click="item.image = ''"
+                      class="px-2.5 py-1.5 rounded-lg text-xs text-rose-500 hover:bg-rose-50 transition-colors"
+                    >
+                      Hapus Foto
+                    </button>
+                  </div>
+
+                  <!-- Inputs for Gallery Item -->
+                  <div class="space-y-3 pt-1">
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                        Judul Kegiatan / Dokumentasi
+                      </label>
+                      <input
+                        type="text"
+                        v-model="item.title"
+                        placeholder="Contoh: Uji Coba Lapangan Mesin Briket Biomassa"
+                        required
+                        class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
+                      />
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      <div>
+                        <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                          Tag / Program
+                        </label>
+                        <select
+                          v-model="item.tag"
+                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs font-bold text-[#14532D] bg-[#F7FAF7] focus:outline-none focus:border-[#22C55E]"
+                        >
+                          <option value="SINERGI">SINERGI</option>
+                          <option value="AJAKAN INDUSTRI">AJAKAN INDUSTRI</option>
+                          <option value="PMUPUD">PMUPUD</option>
+                          <option value="DORTEK">DORTEK</option>
+                          <option value="EXPO RISET">EXPO RISET</option>
+                          <option value="KOLABORASI">KOLABORASI</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                          Kategori / Topik
+                        </label>
+                        <input
+                          type="text"
+                          v-model="item.category"
+                          placeholder="Uji Prototipe Mesin / Inkubasi"
+                          required
+                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      <div>
+                        <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                          Tanggal Kegiatan
+                        </label>
+                        <input
+                          type="text"
+                          v-model="item.date"
+                          placeholder="Contoh: 12 November 2026"
+                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
+                        />
+                      </div>
+
+                      <div>
+                        <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                          Lokasi Kegiatan
+                        </label>
+                        <input
+                          type="text"
+                          v-model="item.location"
+                          placeholder="Contoh: Pabrik Gula Banyumas"
+                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                        Deskripsi Singkat Dokumentasi
+                      </label>
+                      <textarea
+                        v-model="item.description"
+                        rows="2"
+                        placeholder="Keterangan singkat mengenai kegiatan, peserta, dan tujuan pelaksanaan..."
+                        class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="flex justify-end pt-2">
+            <!-- Bottom Save Bar -->
+            <div class="flex justify-end pt-4 border-t border-[#E5EAE5]">
               <button
                 type="submit"
-                :disabled="homeForm.processing"
-                class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all"
+                :disabled="galleryForm.processing"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-md transition-all w-full sm:w-auto justify-center"
               >
                 <Save class="w-4 h-4" />
-                <span>{{ homeForm.processing ? 'Menyimpan...' : 'Perbarui Beranda' }}</span>
+                <span>{{ galleryForm.processing ? 'Menyimpan...' : 'Simpan Seluruh Galeri Kegiatan' }}</span>
               </button>
             </div>
           </form>
         </div>
+
+        <!-- 1.B: BERITA & PUBLIKASI -->
+        <div v-show="activeHomeTab === 'news'" class="space-y-6">
+          <form @submit.prevent="submitNews" class="space-y-6">
+            <!-- Header Card -->
+            <div class="bg-white p-5 sm:p-6 rounded-2xl border border-[#E5EAE5] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <h3 class="text-base sm:text-lg font-bold text-[#14532D] flex items-center gap-2">
+                  <Newspaper class="w-5 h-5 text-[#22C55E]" />
+                  <span>Berita & Rilis Publikasi Hilirisasi</span>
+                </h3>
+                <p class="text-xs text-[#647067] mt-1 leading-relaxed max-w-2xl">
+                  Kelola artikel berita hilirisasi, rilis hasil riset bersama industri, serta capaian program. Foto sampul otomatis dikompresi ke format WebP.
+                </p>
+              </div>
+
+              <div class="flex items-center gap-2 w-full sm:w-auto">
+                <button
+                  type="button"
+                  @click="addNewsItem"
+                  class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#DCFCE7] text-[#14532D] hover:bg-[#DCFCE7]/80 transition-all flex-1 sm:flex-initial min-h-[44px]"
+                >
+                  <Plus class="w-4 h-4" />
+                  <span>Tambah Berita Baru</span>
+                </button>
+
+                <button
+                  type="submit"
+                  :disabled="newsForm.processing"
+                  class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all flex-1 sm:flex-initial min-h-[44px]"
+                >
+                  <Save class="w-4 h-4" />
+                  <span>{{ newsForm.processing ? 'Menyimpan...' : 'Simpan Berita' }}</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Empty State -->
+            <div
+              v-if="newsForm.items.length === 0"
+              class="p-8 text-center bg-white rounded-2xl border border-dashed border-[#E5EAE5] space-y-3"
+            >
+              <Newspaper class="w-10 h-10 text-[#647067]/40 mx-auto" />
+              <h4 class="text-sm font-bold text-[#14532D]">Belum Ada Artikel Berita</h4>
+              <p class="text-xs text-[#647067] max-w-sm mx-auto">
+                Klik tombol di bawah untuk menambahkan artikel berita pertama Anda.
+              </p>
+              <button
+                type="button"
+                @click="addNewsItem"
+                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-all shadow-xs"
+              >
+                <Plus class="w-3.5 h-3.5" />
+                <span>Tambah Berita Sekarang</span>
+              </button>
+            </div>
+
+            <!-- List of News Items -->
+            <div v-else class="space-y-6">
+              <div
+                v-for="(item, idx) in newsForm.items"
+                :key="item.id || idx"
+                class="bg-white p-5 sm:p-6 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/40 shadow-xs transition-all space-y-5"
+              >
+                <!-- Top Row: Badge + Delete -->
+                <div class="flex items-center justify-between border-b border-[#E5EAE5] pb-3">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#DCFCE7] text-[#14532D]">
+                      Artikel Berita #{{ idx + 1 }}
+                    </span>
+                    <span class="text-xs text-[#647067] font-medium hidden sm:inline">
+                      {{ item.date || 'Tanggal belum diatur' }}
+                    </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    @click="removeNewsItem(idx)"
+                    class="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors flex items-center gap-1 text-xs"
+                    title="Hapus berita ini"
+                  >
+                    <Trash2 class="w-4 h-4" />
+                    <span>Hapus Berita</span>
+                  </button>
+                </div>
+
+                <!-- Form Layout: Cover Photo + Core Fields -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+                  <!-- Cover Photo Box (4 cols) -->
+                  <div class="lg:col-span-4 space-y-2">
+                    <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider">
+                      Foto Sampul Berita (Cover)
+                    </label>
+
+                    <div class="relative w-full aspect-video sm:aspect-4/3 rounded-xl bg-[#F7FAF7] border-2 border-dashed border-[#E5EAE5] overflow-hidden flex items-center justify-center">
+                      <img
+                        v-if="item.image"
+                        :src="item.image"
+                        :alt="item.title || 'Sampul Berita'"
+                        class="w-full h-full object-cover"
+                      />
+                      <div v-else class="flex flex-col items-center justify-center text-[#647067] p-3 text-center">
+                        <Newspaper class="w-7 h-7 text-[#647067]/40 mb-1" />
+                        <span class="text-xs font-bold text-[#14532D]">Belum ada cover</span>
+                        <span class="text-[9px] text-[#647067] mt-0.5">Auto Compress WebP</span>
+                      </div>
+
+                      <!-- Loading Overlay -->
+                      <div
+                        v-if="uploadingStates[item.id]"
+                        class="absolute inset-0 bg-black/60 flex items-center justify-center text-white text-xs font-bold gap-2"
+                      >
+                        <Loader2 class="w-4 h-4 animate-spin" />
+                        <span>Mengompresi...</span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                      <label class="cursor-pointer inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-colors shadow-2xs">
+                        <Upload class="w-3 h-3" />
+                        <span>{{ item.image ? 'Ganti Cover' : 'Upload Cover' }}</span>
+                        <input
+                          type="file"
+                          accept="image/png,image/jpeg,image/webp,image/jpg"
+                          class="hidden"
+                          @change="uploadPhotoForItem($event, item, 'news', 'image')"
+                        />
+                      </label>
+
+                      <button
+                        v-if="item.image"
+                        type="button"
+                        @click="item.image = ''"
+                        class="text-xs text-rose-500 hover:underline"
+                      >
+                        Hapus Foto
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Details (8 cols) -->
+                  <div class="lg:col-span-8 space-y-3.5">
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                        Judul Berita / Publikasi
+                      </label>
+                      <input
+                        type="text"
+                        v-model="item.title"
+                        placeholder="Contoh: UNSOED dan Pupuk Indonesia Luncurkan Formula Pupuk Hayati..."
+                        required
+                        class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
+                      />
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                      <div>
+                        <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                          Tag / Program
+                        </label>
+                        <select
+                          v-model="item.tag"
+                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs font-bold text-[#14532D] bg-[#F7FAF7] focus:outline-none focus:border-[#22C55E]"
+                        >
+                          <option value="SINERGI">SINERGI</option>
+                          <option value="AJAKAN INDUSTRI">AJAKAN INDUSTRI</option>
+                          <option value="PMUPUD">PMUPUD</option>
+                          <option value="DORTEK">DORTEK</option>
+                          <option value="KOLABORASI">KOLABORASI</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                          Kategori
+                        </label>
+                        <input
+                          type="text"
+                          v-model="item.category"
+                          placeholder="Kemitraan DUDI / Riset"
+                          required
+                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                        />
+                      </div>
+
+                      <div>
+                        <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                          Estimasi Waktu Baca
+                        </label>
+                        <input
+                          type="text"
+                          v-model="item.read_time"
+                          placeholder="3 menit baca"
+                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      <div>
+                        <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                          Penulis / Redaksi
+                        </label>
+                        <input
+                          type="text"
+                          v-model="item.author"
+                          placeholder="Tim Media Inovasi Hilirisasi"
+                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
+                        />
+                      </div>
+
+                      <div>
+                        <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                          Tanggal Publikasi
+                        </label>
+                        <input
+                          type="text"
+                          v-model="item.date"
+                          placeholder="Contoh: 14 November 2026"
+                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                        Ringkasan Singkat (Muncul di kartu beranda)
+                      </label>
+                      <textarea
+                        v-model="item.excerpt"
+                        rows="2"
+                        required
+                        placeholder="Ringkasan 1-2 kalimat untuk preview di kartu beranda..."
+                        class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                      ></textarea>
+                    </div>
+
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
+                        Isi Berita Lengkap (Dibaca saat klik baca selengkapnya)
+                      </label>
+                      <textarea
+                        v-model="item.content"
+                        rows="4"
+                        placeholder="Tuliskan berita lengkap, narasi kerja sama, kutipan narasumber, dan penjelasan program..."
+                        class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Save Bar -->
+            <div class="flex justify-end pt-4 border-t border-[#E5EAE5]">
+              <button
+                type="submit"
+                :disabled="newsForm.processing"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-md transition-all w-full sm:w-auto justify-center"
+              >
+                <Save class="w-4 h-4" />
+                <span>{{ newsForm.processing ? 'Menyimpan...' : 'Simpan Seluruh Artikel Berita' }}</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- 1.C: KONTAK & LAYANAN -->
+        <div v-show="activeHomeTab === 'contact'" class="max-w-4xl space-y-6">
+          <div class="bg-white p-5 sm:p-8 rounded-2xl border border-[#E5EAE5] shadow-xs space-y-6">
+            <div class="flex items-center gap-3 pb-4 border-b border-[#E5EAE5]">
+              <div class="w-10 h-10 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center shrink-0">
+                <Phone class="w-5 h-5 text-[#22C55E]" />
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-[#14532D]">Informasi Kontak, Hotline & Layanan</h3>
+                <span class="text-xs text-[#647067]">
+                  Disinkronkan otomatis ke halaman Beranda dan data pengaturan website publik.
+                </span>
+              </div>
+            </div>
+
+            <form @submit.prevent="submitContact" class="space-y-5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">
+                    Email Resmi
+                  </label>
+                  <input
+                    type="email"
+                    v-model="contactForm.email"
+                    required
+                    placeholder="p3t.lppm@unsoed.ac.id"
+                    class="w-full px-4 py-2.5 rounded-xl border border-[#E5EAE5] text-sm focus:outline-none focus:border-[#22C55E]"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">
+                    Nomor Telepon Kantor
+                  </label>
+                  <input
+                    type="text"
+                    v-model="contactForm.phone"
+                    required
+                    placeholder="+62 281 635292"
+                    class="w-full px-4 py-2.5 rounded-xl border border-[#E5EAE5] text-sm focus:outline-none focus:border-[#22C55E]"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">
+                    Nomor WhatsApp Hotline (Konsultasi Cepat)
+                  </label>
+                  <input
+                    type="text"
+                    v-model="contactForm.whatsapp"
+                    placeholder="+62 812-3456-7890"
+                    class="w-full px-4 py-2.5 rounded-xl border border-[#E5EAE5] text-sm focus:outline-none focus:border-[#22C55E]"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">
+                    Jam Operasional Kantor
+                  </label>
+                  <input
+                    type="text"
+                    v-model="contactForm.hours"
+                    placeholder="Senin - Jumat: 08.00 - 16.00 WIB"
+                    class="w-full px-4 py-2.5 rounded-xl border border-[#E5EAE5] text-sm focus:outline-none focus:border-[#22C55E]"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">
+                  Alamat Lengkap Kantor & Gedung
+                </label>
+                <textarea
+                  v-model="contactForm.address"
+                  rows="3"
+                  required
+                  placeholder="Gedung LPPM UNSOED, Jl. Prof. Dr. HR. Boenyamin No. 708..."
+                  class="w-full px-4 py-2.5 rounded-xl border border-[#E5EAE5] text-sm focus:outline-none focus:border-[#22C55E]"
+                ></textarea>
+              </div>
+
+              <div class="flex justify-end pt-3 border-t border-[#E5EAE5]">
+                <button
+                  type="submit"
+                  :disabled="contactForm.processing"
+                  class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all"
+                >
+                  <Save class="w-4 h-4" />
+                  <span>{{ contactForm.processing ? 'Menyimpan...' : 'Perbarui Informasi Kontak' }}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- 1.D: HERO UTAMA BERANDA -->
+        <div v-show="activeHomeTab === 'hero'" class="max-w-4xl space-y-6">
+          <div class="bg-white p-5 sm:p-8 rounded-2xl border border-[#E5EAE5] shadow-xs space-y-6">
+            <div class="flex items-center gap-3 pb-4 border-b border-[#E5EAE5]">
+              <div class="w-10 h-10 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center shrink-0">
+                <Sparkles class="w-5 h-5 text-[#22C55E]" />
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-[#14532D]">Hero Section Beranda</h3>
+                <span class="text-xs text-[#647067]">Headline dan teks sambutan paling atas di halaman utama.</span>
+              </div>
+            </div>
+
+            <form @submit.prevent="submitHomeHero" class="space-y-5">
+              <div>
+                <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">Eyebrow / Sub-heading</label>
+                <input
+                  type="text"
+                  v-model="homeHeroForm.eyebrow"
+                  class="w-full px-4 py-2.5 rounded-xl border border-[#E5EAE5] text-sm focus:outline-none focus:border-[#22C55E]"
+                />
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">Headline Utama</label>
+                <input
+                  type="text"
+                  v-model="homeHeroForm.title"
+                  required
+                  class="w-full px-4 py-2.5 rounded-xl border border-[#E5EAE5] text-sm focus:outline-none focus:border-[#22C55E]"
+                />
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-[#17231C] uppercase tracking-wider mb-2">Deskripsi Hero</label>
+                <textarea
+                  v-model="homeHeroForm.content"
+                  rows="3"
+                  required
+                  class="w-full px-4 py-2.5 rounded-xl border border-[#E5EAE5] text-sm focus:outline-none focus:border-[#22C55E]"
+                ></textarea>
+              </div>
+
+              <div class="flex justify-end pt-2">
+                <button
+                  type="submit"
+                  :disabled="homeHeroForm.processing"
+                  class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all"
+                >
+                  <Save class="w-4 h-4" />
+                  <span>{{ homeHeroForm.processing ? 'Menyimpan...' : 'Perbarui Hero Beranda' }}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
 
+      <!-- ======================================================== -->
       <!-- TAB 2: HALAMAN TENTANG KAMI -->
+      <!-- ======================================================== -->
       <div v-if="activeMainTab === 'about'" class="space-y-6">
         <!-- Sub-Navigation for About Section -->
         <div class="flex items-center gap-2 border-b border-[#E5EAE5] pb-3 overflow-x-auto no-scrollbar">
@@ -478,7 +1253,7 @@ const submitOrganization = () => {
                   <div class="flex items-start justify-between gap-3">
                     <!-- Photo Upload Thumbnail -->
                     <div class="flex items-center gap-3">
-                      <div class="relative w-16 h-16 sm:w-20 sm:sm:h-20 rounded-2xl bg-[#F7FAF7] border-2 border-dashed border-[#E5EAE5] overflow-hidden flex items-center justify-center shrink-0">
+                      <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#F7FAF7] border-2 border-dashed border-[#E5EAE5] overflow-hidden flex items-center justify-center shrink-0">
                         <img
                           v-if="leader.photo"
                           :src="leader.photo"
@@ -501,7 +1276,6 @@ const submitOrganization = () => {
 
                       <div class="space-y-1.5">
                         <div class="flex items-center gap-1.5">
-                          <!-- Hidden File Input -->
                           <label class="cursor-pointer inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-colors shadow-2xs">
                             <Upload class="w-3 h-3" />
                             <span>{{ leader.photo ? 'Ganti Foto' : 'Upload Foto' }}</span>
@@ -509,21 +1283,21 @@ const submitOrganization = () => {
                               type="file"
                               accept="image/png,image/jpeg,image/webp,image/jpg"
                               class="hidden"
-                              @change="uploadPhotoForItem($event, leader)"
+                              @change="uploadPhotoForItem($event, leader, 'organization', 'photo')"
                             />
                           </label>
 
                           <button
                             v-if="leader.photo"
                             type="button"
-                            @click="removePhotoForItem(leader)"
+                            @click="removePhotoForItem(leader, 'photo')"
                             class="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 transition-colors"
                             title="Hapus Foto"
                           >
                             <Trash2 class="w-3.5 h-3.5" />
                           </button>
                         </div>
-                        <span class="text-[10px] text-[#647067] block">Format: JPG, PNG, WEBP (Maks 5MB)</span>
+                        <span class="text-[10px] text-[#647067] block">Auto Compress WebP</span>
                       </div>
                     </div>
 
@@ -741,13 +1515,13 @@ const submitOrganization = () => {
                           type="file"
                           accept="image/png,image/jpeg,image/webp,image/jpg"
                           class="hidden"
-                          @change="uploadPhotoForItem($event, student)"
+                          @change="uploadPhotoForItem($event, student, 'organization', 'photo')"
                         />
                       </label>
                       <button
                         v-if="student.photo"
                         type="button"
-                        @click="removePhotoForItem(student)"
+                        @click="removePhotoForItem(student, 'photo')"
                         class="text-[10px] text-rose-500 hover:underline block"
                       >
                         Hapus Foto

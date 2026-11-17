@@ -126,7 +126,23 @@ class ImageService
         if (!$success) {
             // Fallback to default file storage if WebP encoding fails
             $path = $file->store($folder, 'public');
-            return '/storage/' . $path;
+            $url = '/storage/' . $path;
+            
+            // Mirror copy to public/storage if it's a directory on Windows
+            if (is_dir(public_path('storage')) && !is_link(public_path('storage'))) {
+                $targetFile = public_path('storage/' . $path);
+                @mkdir(dirname($targetFile), 0755, true);
+                @copy(Storage::disk('public')->path($path), $targetFile);
+            }
+            
+            return $url;
+        }
+
+        // Mirror copy to public/storage if it's a directory on Windows
+        if (is_dir(public_path('storage')) && !is_link(public_path('storage'))) {
+            $targetFile = public_path('storage/' . $relativeStoragePath);
+            @mkdir(dirname($targetFile), 0755, true);
+            @copy($absolutePath, $targetFile);
         }
 
         return '/storage/' . $relativeStoragePath;

@@ -16,6 +16,9 @@ class HomeController extends Controller
     public function index(): Response
     {
         $heroContent = PageContent::where('page_key', 'home')->where('section_key', 'hero')->first();
+        $galleryContent = PageContent::where('page_key', 'home')->where('section_key', 'gallery')->first();
+        $newsContent = PageContent::where('page_key', 'home')->where('section_key', 'news')->first();
+        $contactContent = PageContent::where('page_key', 'home')->where('section_key', 'contact')->first();
 
         $programs = Program::where('status', 'published')
             ->orderBy('sort_order', 'asc')
@@ -40,8 +43,8 @@ class HomeController extends Controller
             'total_partners' => Partner::where('status', 'published')->count(),
         ];
 
-        // Gallery Items (Dokumentasi Kegiatan & Riset Lapangan)
-        $gallery = [
+        // Default Gallery Items
+        $defaultGallery = [
             [
                 'id' => 1,
                 'title' => 'Uji Coba Lapangan Mesin Briket Biomassa Kapasitas Tinggi',
@@ -104,8 +107,8 @@ class HomeController extends Controller
             ],
         ];
 
-        // News & Articles (Berita Terkini)
-        $news = [
+        // Default News Items
+        $defaultNews = [
             [
                 'id' => 1,
                 'slug' => 'unsoed-dan-pupuk-indonesia-luncurkan-formula-pupuk-hayati-tahap-ii',
@@ -150,6 +153,14 @@ class HomeController extends Controller
         // Settings / Contact Details
         $settings = Setting::pluck('value', 'key')->toArray();
 
+        $contactData = [
+            'email' => $contactContent?->metadata['email'] ?? ($settings['contact_email'] ?? 'p3t.lppm@unsoed.ac.id'),
+            'phone' => $contactContent?->metadata['phone'] ?? ($settings['contact_phone'] ?? '+62 281 635292'),
+            'address' => $contactContent?->metadata['address'] ?? ($settings['contact_address'] ?? 'Gedung LPPM UNSOED, Jl. Prof. Dr. HR. Boenyamin No. 708, Purwokerto, Jawa Tengah 53122'),
+            'hours' => $contactContent?->metadata['hours'] ?? 'Senin - Jumat: 08.00 - 16.00 WIB',
+            'whatsapp' => $contactContent?->metadata['whatsapp'] ?? ($settings['contact_whatsapp'] ?? '+62 812-3456-7890'),
+        ];
+
         return Inertia::render('Public/Home', [
             'hero' => [
                 'eyebrow' => $heroContent?->metadata['eyebrow'] ?? 'UNIVERSITAS JENDERAL SOEDIRMAN',
@@ -162,15 +173,9 @@ class HomeController extends Controller
             'featuredProducts' => $featuredProducts,
             'featuredPartners' => $featuredPartners,
             'stats' => $stats,
-            'gallery' => $gallery,
-            'news' => $news,
-            'contact' => [
-                'email' => $settings['contact_email'] ?? 'p3t.lppm@unsoed.ac.id',
-                'phone' => $settings['contact_phone'] ?? '+62 281 635292',
-                'address' => $settings['contact_address'] ?? 'Gedung LPPM UNSOED, Jl. Prof. Dr. HR. Boenyamin No. 708, Purwokerto, Jawa Tengah 53122',
-                'hours' => 'Senin - Jumat: 08.00 - 16.00 WIB',
-                'whatsapp' => '+62 812-3456-7890',
-            ],
+            'gallery' => $galleryContent?->metadata['items'] ?? $defaultGallery,
+            'news' => $newsContent?->metadata['items'] ?? $defaultNews,
+            'contact' => $contactData,
         ]);
     }
 }
