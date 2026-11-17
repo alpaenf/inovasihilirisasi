@@ -27,7 +27,12 @@ import {
   ChevronRight,
   User,
   Eye,
-  Check
+  Check,
+  Sprout,
+  Handshake,
+  Lightbulb,
+  Award,
+  Users
 } from 'lucide-vue-next';
 
 const props = defineProps({
