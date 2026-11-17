@@ -387,10 +387,9 @@ const jsonLd = {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div class="max-w-2xl space-y-3">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#DCFCE7] text-[#14532D] uppercase tracking-wider">
-              <Camera class="w-3.5 h-3.5 text-[#22C55E]" />
-              Dokumentasi Lapangan & Riset
+          <div class="max-w-2xl space-y-2">
+            <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
+              DOKUMENTASI LAPANGAN & RISET
             </span>
             <h2 class="text-3xl sm:text-4xl font-extrabold text-[#14532D] tracking-tight">
               Galeri Kegiatan Hilirisasi Teknologi
@@ -417,66 +416,45 @@ const jsonLd = {
           </div>
         </div>
 
-        <!-- Gallery Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <!-- Gallery Grid (Pure Photo Gallery - Clean & Visual, No Redundant Descriptions) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           <div
             v-for="item in filteredGallery"
             :key="item.id"
             @click="openGalleryModal(item)"
-            class="bg-white rounded-3xl border border-[#E5EAE5] overflow-hidden shadow-xs hover:shadow-xl hover:border-[#22C55E]/40 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
+            class="group relative aspect-4/3 rounded-2xl sm:rounded-3xl overflow-hidden bg-[#E5EAE5] border border-[#E5EAE5] shadow-xs hover:shadow-xl hover:border-[#22C55E]/60 transition-all duration-300 cursor-pointer"
           >
-            <!-- Image Frame -->
-            <div class="relative aspect-16/10 overflow-hidden bg-[#E5EAE5]">
-              <img
-                :src="item.image"
-                :alt="item.title"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                loading="lazy"
-              />
+            <!-- Image -->
+            <img
+              :src="item.image"
+              :alt="item.title"
+              class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
+              loading="lazy"
+            />
 
-              <!-- Gradient Overlay for readability -->
-              <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 opacity-80 group-hover:opacity-90 transition-opacity"></div>
+            <!-- Permanent Subtle Gradient for text readability & hover enhancement -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-75 group-hover:opacity-95 transition-opacity"></div>
 
-              <!-- Top Badges -->
-              <div class="absolute top-3 inset-x-3 flex items-center justify-between gap-2">
-                <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-wider bg-[#14532D]/90 text-white shadow-xs backdrop-blur-xs">
-                  {{ item.tag }}
-                </span>
-                <span class="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white/95 text-[#14532D] shadow-xs backdrop-blur-xs flex items-center gap-1">
-                  <Calendar class="w-3 h-3 text-[#22C55E]" />
-                  <span>{{ item.date }}</span>
-                </span>
-              </div>
-
-              <!-- Zoom Icon indicator -->
-              <div class="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-white/90 text-[#14532D] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
-                <Eye class="w-4 h-4" />
-              </div>
+            <!-- Top Tag Badge -->
+            <div class="absolute top-2.5 sm:top-3 left-2.5 sm:left-3">
+              <span class="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider bg-[#14532D]/90 text-white shadow-xs backdrop-blur-xs">
+                {{ item.tag }}
+              </span>
             </div>
 
-            <!-- Content Area -->
-            <div class="p-5 sm:p-6 space-y-3 flex-1 flex flex-col justify-between">
-              <div class="space-y-2">
-                <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#22C55E] block">
-                  {{ item.category }}
-                </span>
-                <h3 class="text-base font-bold text-[#14532D] leading-snug group-hover:text-[#22C55E] transition-colors line-clamp-2">
-                  {{ item.title }}
-                </h3>
-                <p class="text-xs text-[#647067] leading-relaxed line-clamp-2">
-                  {{ item.description }}
-                </p>
-              </div>
+            <!-- Bottom Content (Title only, NO descriptions) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 sm:p-4 text-white space-y-1">
+              <span class="text-[10px] sm:text-[11px] font-semibold text-emerald-300 block truncate">
+                {{ item.category }}
+              </span>
+              <h3 class="text-xs sm:text-sm font-bold leading-snug line-clamp-2 text-white/95 group-hover:text-white transition-colors">
+                {{ item.title }}
+              </h3>
+            </div>
 
-              <div class="pt-3 border-t border-[#E5EAE5] flex items-center justify-between text-xs text-[#647067]">
-                <span class="flex items-center gap-1.5 truncate">
-                  <MapPin class="w-3.5 h-3.5 text-[#22C55E] shrink-0" />
-                  <span class="truncate">{{ item.location }}</span>
-                </span>
-                <span class="text-[#14532D] font-bold shrink-0 ml-2 group-hover:translate-x-0.5 transition-transform">
-                  Perbesar →
-                </span>
-              </div>
+            <!-- Hover Zoom Icon -->
+            <div class="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 text-[#14532D] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-1 group-hover:translate-y-0 shadow-md">
+              <Eye class="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
         </div>
@@ -488,9 +466,8 @@ const jsonLd = {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="max-w-3xl mx-auto text-center mb-14 space-y-3">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#DCFCE7] text-[#14532D] uppercase tracking-wider">
-            <Newspaper class="w-3.5 h-3.5 text-[#22C55E]" />
-            Kabar Terkini & Publikasi
+          <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
+            KABAR TERKINI & PUBLIKASI
           </span>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-[#14532D] tracking-tight">
             Berita & Inovasi Terkini
@@ -559,14 +536,40 @@ const jsonLd = {
       </div>
     </section>
 
+    <!-- CTA BANNER SECTION (Sebelum Kontak) -->
+    <section class="py-16 sm:py-20 bg-gradient-to-r from-[#14532D] to-emerald-950 text-white">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+        <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">
+          Mari Berkolaborasi Mengembangkan Inovasi Tepat Guna
+        </h2>
+        <p class="text-sm sm:text-base text-emerald-100/90 max-w-2xl mx-auto leading-relaxed">
+          Pusat Koordinasi Pengembangan dan Penerapan Teknologi UNSOED membuka pintu kemitraan seluas-luasnya bagi kalangan industri, instansi pemerintah, dan kelompok masyarakat desa.
+        </p>
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+          <Link
+            href="/program"
+            class="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-sm bg-white text-[#14532D] hover:bg-emerald-50 shadow-md transition-all inline-flex items-center justify-center gap-2"
+          >
+            <span>Jelajahi 4 Program Utama</span>
+            <ArrowRight class="w-4 h-4" />
+          </Link>
+          <Link
+            href="/mitra"
+            class="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-sm bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all inline-flex items-center justify-center"
+          >
+            <span>Daftar Mitra Kolaborasi</span>
+          </Link>
+        </div>
+      </div>
+    </section>
+
     <!-- SECTION 3: KONTAK & KONSULTASI KEMITRAAN -->
     <section id="kontak" class="py-20 bg-gradient-to-b from-white to-[#F7FAF7] border-t border-[#E5EAE5]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="max-w-3xl mx-auto text-center mb-14 space-y-3">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#DCFCE7] text-[#14532D] uppercase tracking-wider">
-            <MessageSquare class="w-3.5 h-3.5 text-[#22C55E]" />
-            Layanan Informasi & Kemitraan
+          <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
+            LAYANAN INFORMASI & KEMITRAAN
           </span>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-[#14532D] tracking-tight">
             Hubungi Tim Inovasi Hilirisasi
@@ -787,39 +790,13 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- CTA BANNER SECTION -->
-    <section class="py-16 bg-[#14532D] text-white">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
-          Tertarik Berkolaborasi atau Mengadopsi Teknologi?
-        </h2>
-        <p class="text-base sm:text-lg text-emerald-100/80 max-w-2xl mx-auto leading-relaxed">
-          Tim Inovasi Hilirisasi Universitas Jenderal Soedirman siap memfasilitasi kebutuhan kemitraan riset terapan, uji prototipe, maupun transfer teknologi.
-        </p>
-        <div class="pt-4 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-          <a
-            href="#kontak"
-            class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-sm bg-white text-[#14532D] hover:bg-emerald-50 shadow-lg transition-all text-center"
-          >
-            Hubungi Tim Inovasi Hilirisasi
-          </a>
-          <Link
-            href="/tentang-puskor"
-            class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-sm bg-[#14532D] text-white border border-white/20 hover:bg-white/10 transition-all text-center"
-          >
-            Pelajari Profil Kami
-          </Link>
-        </div>
-      </div>
-    </section>
-
     <!-- MODAL: PREVIEW FOTO GALERI -->
     <div
       v-if="activeGalleryModal"
-      class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6"
+      class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6"
       @click.self="closeGalleryModal"
     >
-      <div class="bg-white rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+      <div class="bg-white rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
         <button
           type="button"
           @click="closeGalleryModal"
@@ -829,17 +806,17 @@ const jsonLd = {
           <X class="w-5 h-5" />
         </button>
 
-        <div class="relative aspect-16/10 bg-[#E5EAE5]">
+        <div class="relative bg-black flex items-center justify-center max-h-[72vh] overflow-hidden">
           <img
             :src="activeGalleryModal.image"
             :alt="activeGalleryModal.title"
-            class="w-full h-full object-cover"
+            class="max-h-[72vh] w-auto max-w-full object-contain mx-auto"
           />
         </div>
 
-        <div class="p-6 space-y-3">
+        <div class="p-5 sm:p-6 space-y-2 bg-white">
           <div class="flex items-center gap-2">
-            <span class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-[#14532D] text-white uppercase">
+            <span class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-[#14532D] text-white uppercase tracking-wider">
               {{ activeGalleryModal.tag }}
             </span>
             <span class="text-xs font-semibold text-[#22C55E]">
@@ -847,20 +824,16 @@ const jsonLd = {
             </span>
           </div>
 
-          <h3 class="text-lg sm:text-xl font-bold text-[#14532D] leading-snug">
+          <h3 class="text-base sm:text-xl font-bold text-[#14532D] leading-snug">
             {{ activeGalleryModal.title }}
           </h3>
 
-          <p class="text-sm text-[#17231C]/90 leading-relaxed">
-            {{ activeGalleryModal.description }}
-          </p>
-
           <div class="pt-3 border-t border-[#E5EAE5] flex items-center justify-between text-xs text-[#647067]">
-            <span class="flex items-center gap-1.5">
+            <span v-if="activeGalleryModal.location" class="flex items-center gap-1.5">
               <MapPin class="w-3.5 h-3.5 text-[#22C55E]" />
               <span>{{ activeGalleryModal.location }}</span>
             </span>
-            <span class="flex items-center gap-1.5">
+            <span v-if="activeGalleryModal.date" class="flex items-center gap-1.5">
               <Calendar class="w-3.5 h-3.5 text-[#22C55E]" />
               <span>{{ activeGalleryModal.date }}</span>
             </span>

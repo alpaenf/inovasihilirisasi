@@ -42,10 +42,9 @@ const getIcon = (slug) => {
         </Link>
 
         <div class="max-w-4xl space-y-4">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DCFCE7] text-[#14532D] text-xs font-bold uppercase tracking-wider">
-            <component :is="getIcon(program.slug)" class="w-4 h-4 text-[#22C55E]" />
-            <span>Program {{ program.code || 'Inovasi Hilirisasi' }}</span>
-          </div>
+          <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
+            PROGRAM {{ program.code || 'INOVASI HILIRISASI' }}
+          </span>
 
           <h1 class="text-3xl sm:text-5xl font-extrabold text-[#14532D] tracking-tight">
             Program {{ program.name }}
@@ -133,10 +132,9 @@ const getIcon = (slug) => {
     <section v-if="program.students && program.students.length > 0" class="py-16 bg-[#F7FAF7] border-t border-[#E5EAE5]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-8">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DCFCE7] text-[#14532D] text-xs font-bold uppercase tracking-wider mb-2">
-            <GraduationCap class="w-3.5 h-3.5 text-[#22C55E]" />
-            <span>Tim Pelaksana</span>
-          </div>
+          <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block mb-2">
+            TIM PELAKSANA
+          </span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-[#14532D]">
             Mahasiswa & Peneliti Program {{ program.name }}
           </h2>

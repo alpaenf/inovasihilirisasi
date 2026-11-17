@@ -620,18 +620,6 @@ const submitOrganization = () => {
                         />
                       </div>
                     </div>
-
-                    <div>
-                      <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
-                        Deskripsi Singkat Dokumentasi
-                      </label>
-                      <textarea
-                        v-model="item.description"
-                        rows="2"
-                        placeholder="Keterangan singkat mengenai kegiatan, peserta, dan tujuan pelaksanaan..."
-                        class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
-                      ></textarea>
-                    </div>
                   </div>
                 </div>
               </div>

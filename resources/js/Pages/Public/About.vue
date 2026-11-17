@@ -149,9 +149,8 @@ const countStudents = (slug) => {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="max-w-3xl mx-auto text-center mb-12 sm:mb-16 space-y-3">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#DCFCE7] text-[#14532D] uppercase tracking-wider">
-            <Network class="w-3.5 h-3.5 text-[#22C55E]" />
-            Tata Kelola Institusi
+          <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
+            TATA KELOLA INSTITUSI
           </span>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-[#14532D] tracking-tight">
             {{ organization?.title || 'Struktur Organisasi Inovasi Hilirisasi' }}
@@ -266,9 +265,8 @@ const countStudents = (slug) => {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="max-w-3xl mx-auto text-center mb-10 sm:mb-12 space-y-3">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#DCFCE7] text-[#14532D] uppercase tracking-wider">
-            <GraduationCap class="w-4 h-4 text-[#22C55E]" />
-            Generasi Inovator Muda
+          <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
+            GENERASI INOVATOR MUDA
           </span>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-[#14532D] tracking-tight">
             Tim Mahasiswa & Asisten Peneliti
