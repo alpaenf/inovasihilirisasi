@@ -39,7 +39,7 @@ const filteredStudents = computed(() => {
   if (activeProgramTab.value === 'all') {
     return students;
   }
-  return students.filter((s) => s.program_slug === activeProgramTab.value);
+  return students.filter((s) => s.program_slug === activeProgramTab.value || (activeProgramTab.value === 'pm-upud' && s.program_slug === 'pmupud') || (activeProgramTab.value === 'dorongan-teknologi' && s.program_slug === 'dortek'));
 });
 
 // Program icons map
@@ -49,8 +49,10 @@ const getProgramIcon = (slug) => {
       return Sprout;
     case 'ajakan-industri':
       return Handshake;
+    case 'pm-upud':
     case 'pmupud':
       return Lightbulb;
+    case 'dorongan-teknologi':
     case 'dortek':
     default:
       return Cpu;
@@ -61,7 +63,7 @@ const getProgramIcon = (slug) => {
 const countStudents = (slug) => {
   const students = props.organization?.students || [];
   if (slug === 'all') return students.length;
-  return students.filter((s) => s.program_slug === slug).length;
+  return students.filter((s) => s.program_slug === slug || (slug === 'pm-upud' && s.program_slug === 'pmupud') || (slug === 'dorongan-teknologi' && s.program_slug === 'dortek')).length;
 };
 </script>
 

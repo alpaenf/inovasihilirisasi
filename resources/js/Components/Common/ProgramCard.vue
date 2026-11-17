@@ -15,8 +15,10 @@ const getIcon = (slug) => {
       return Layers;
     case 'ajakan-industri':
       return Factory;
+    case 'pm-upud':
     case 'pmupud':
       return Store;
+    case 'dorongan-teknologi':
     case 'dortek':
     default:
       return Sparkles;
@@ -43,6 +45,19 @@ const getIcon = (slug) => {
       <p class="text-sm text-[#647067] leading-relaxed line-clamp-3">
         {{ program.short_description }}
       </p>
+
+      <div v-if="program.location || (program.commodities && program.commodities.length > 0)" class="mt-4 pt-3 border-t border-[#E5EAE5]/40 flex flex-wrap gap-1.5">
+        <span v-if="program.location" class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-[#F7FAF7] text-[#14532D] border border-[#E5EAE5]">
+          {{ program.location.split(',')[0] }}
+        </span>
+        <span
+          v-for="c in (program.commodities || []).slice(0, 2)"
+          :key="c"
+          class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-800"
+        >
+          {{ c }}
+        </span>
+      </div>
     </div>
 
     <div class="pt-6 mt-6 border-t border-[#E5EAE5]/60">

@@ -50,7 +50,7 @@ const activePrograms = computed(() => {
   if (props.programs && props.programs.length > 0) {
     return props.programs.map((p) => p.name);
   }
-  return ['SINERGI', 'AJAKAN INDUSTRI', 'PMUPUD', 'DORTEK'];
+  return ['PM-UPUD', 'SINERGI', 'Dorongan Teknologi', 'Ajakan Industri'];
 });
 
 const currentProgramIndex = ref(0);
@@ -85,8 +85,10 @@ const getCategoryIcon = (tag) => {
     case 'SINERGI':
       return Sprout;
     case 'DORTEK':
+    case 'DORONGAN TEKNOLOGI':
       return Cpu;
     case 'PMUPUD':
+    case 'PM-UPUD':
       return Lightbulb;
     case 'AJAKAN INDUSTRI':
       return Handshake;

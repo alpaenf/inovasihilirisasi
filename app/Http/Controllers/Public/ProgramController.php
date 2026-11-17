@@ -14,6 +14,7 @@ class ProgramController extends Controller
     {
         $programs = Program::where('status', 'published')
             ->withCount('products')
+            ->with(['partners:id,name,slug,category,address'])
             ->orderBy('sort_order', 'asc')
             ->get();
 
@@ -24,7 +25,13 @@ class ProgramController extends Controller
 
     public function show(string $slug): Response
     {
-        $program = Program::where('slug', $slug)
+        $slugAlias = match ($slug) {
+            'pmupud' => 'pm-upud',
+            'dortek' => 'dorongan-teknologi',
+            default => $slug,
+        };
+
+        $program = Program::whereIn('slug', [$slug, $slugAlias])
             ->where('status', 'published')
             ->with([
                 'products' => function ($query) {
@@ -39,8 +46,9 @@ class ProgramController extends Controller
         // Load associated students for this program from organization data
         $aboutOrg = PageContent::where('page_key', 'about')->where('section_key', 'organization')->first();
         $allStudents = $aboutOrg?->metadata['students'] ?? [];
-        $programStudents = array_values(array_filter($allStudents, function ($s) use ($slug) {
-            return ($s['program_slug'] ?? '') === $slug;
+        $programStudents = array_values(array_filter($allStudents, function ($s) use ($program, $slug, $slugAlias) {
+            $sSlug = $s['program_slug'] ?? '';
+            return in_array($sSlug, [$program->slug, $slug, $slugAlias]);
         }));
         $program->setAttribute('students', $programStudents);
 

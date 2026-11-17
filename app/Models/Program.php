@@ -13,14 +13,26 @@ class Program extends Model
 
     protected $fillable = [
         'name',
+        'full_name',
         'slug',
         'code',
         'short_description',
         'description',
+        'objectives',
+        'location',
+        'commodities',
+        'focus_activities',
+        'student_needs',
         'logo',
         'banner',
         'status',
         'sort_order',
+    ];
+
+    protected $casts = [
+        'commodities' => 'array',
+        'focus_activities' => 'array',
+        'student_needs' => 'array',
     ];
 
     public function products(): HasMany

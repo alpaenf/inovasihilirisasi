@@ -34,9 +34,15 @@ class ProgramController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'full_name' => ['nullable', 'string'],
             'code' => ['nullable', 'string', 'max:50'],
             'short_description' => ['required', 'string', 'max:500'],
             'description' => ['required', 'string'],
+            'objectives' => ['nullable', 'string'],
+            'location' => ['nullable', 'string', 'max:255'],
+            'commodities' => ['nullable', 'array'],
+            'focus_activities' => ['nullable', 'array'],
+            'student_needs' => ['nullable', 'array'],
             'status' => ['required', 'in:draft,published'],
             'sort_order' => ['integer', 'min:0'],
         ]);
@@ -67,9 +73,15 @@ class ProgramController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'full_name' => ['nullable', 'string'],
             'code' => ['nullable', 'string', 'max:50'],
             'short_description' => ['required', 'string', 'max:500'],
             'description' => ['required', 'string'],
+            'objectives' => ['nullable', 'string'],
+            'location' => ['nullable', 'string', 'max:255'],
+            'commodities' => ['nullable', 'array'],
+            'focus_activities' => ['nullable', 'array'],
+            'student_needs' => ['nullable', 'array'],
             'status' => ['required', 'in:draft,published'],
             'sort_order' => ['integer', 'min:0'],
         ]);

@@ -22,20 +22,21 @@ class HomeController extends Controller
 
         $programs = Program::where('status', 'published')
             ->orderBy('sort_order', 'asc')
-            ->get(['id', 'name', 'slug', 'code', 'short_description', 'logo']);
+            ->get(['id', 'name', 'full_name', 'slug', 'code', 'short_description', 'location', 'commodities', 'logo']);
 
         $featuredProducts = Product::where('status', 'published')
             ->where('is_featured', true)
-            ->with('program:id,name,slug')
+            ->with(['program:id,name,slug', 'partners:id,name,slug,category'])
             ->latest()
             ->take(6)
             ->get(['id', 'program_id', 'name', 'slug', 'short_description', 'main_image']);
 
         $featuredPartners = Partner::where('status', 'published')
             ->where('is_featured', true)
+            ->with('programs:id,name,slug')
             ->latest()
             ->take(8)
-            ->get(['id', 'name', 'slug', 'category', 'logo', 'short_description']);
+            ->get(['id', 'name', 'slug', 'category', 'logo', 'short_description', 'address']);
 
         $stats = [
             'total_programs' => Program::where('status', 'published')->count(),
@@ -47,63 +48,63 @@ class HomeController extends Controller
         $defaultGallery = [
             [
                 'id' => 1,
-                'title' => 'Uji Coba Lapangan Mesin Briket Biomassa Kapasitas Tinggi',
-                'category' => 'Uji Prototipe Mesin',
+                'title' => 'Produksi Skala Pilot Mi Bebas Gluten Berbasis Tepung Singkong Termodifikasi',
+                'category' => 'Uji Skala Pilot',
                 'tag' => 'DORTEK',
                 'image' => '/images/gallery/galeri-1.jpg',
                 'date' => '12 November 2026',
-                'location' => 'Pabrik Gula & Sentra Pertanian Banyumas',
-                'description' => 'Pengujian performa kompresi hidrolik briket limbah tongkol jagung bersama tim teknisi dan peneliti LPPM UNSOED.',
+                'location' => 'UD Usaha Mandiri, Banjarnegara',
+                'description' => 'Pelaksanaan produksi skala pilot dan pra-komersial mi fungsional bebas gluten berbahan baku singkong termodifikasi.',
             ],
             [
                 'id' => 2,
-                'title' => 'Workshop Sertifikasi Organik & Mutu Produk Ekspor UMKM',
-                'category' => 'Inkubasi Klaster Desa',
+                'title' => 'Penerapan Teknologi Produksi MOcaf dan Pangan Pokok Alternatif',
+                'category' => 'Penerapan Teknologi',
                 'tag' => 'PMUPUD',
                 'image' => '/images/gallery/galeri-2.jpg',
                 'date' => '05 November 2026',
-                'location' => 'Sentra Industri Nira Satria, Cilongok',
-                'description' => 'Pendampingan standardisasi mutu internasional dan teknik pengemasan higienis kedap udara bagi kelompok produsen.',
+                'location' => 'KWT Sinar Tani & UD Usaha Mandiri, Banjarnegara',
+                'description' => 'Pengujian alat produksi MOcaf dan pengolahan aneka produk pangan pokok alternatif substitusi beras dan terigu.',
             ],
             [
                 'id' => 3,
-                'title' => 'Kunjungan Industri & Validasi Pupuk Bersama Mitra DUDI',
-                'category' => 'Riset Kolaboratif',
+                'title' => 'Peningkatan Kapasitas Produksi Pangan Fungsional Buah Carica Dieng',
+                'category' => 'Optimalisasi Produksi',
                 'tag' => 'SINERGI',
                 'image' => '/images/gallery/galeri-3.jpg',
                 'date' => '28 Oktober 2026',
-                'location' => 'Fasilitas Riset PT Pupuk Indonesia',
-                'description' => 'Pertemuan teknis evaluasi efektivitas mikroba dekomposer tanah pasca pengujian demplot seluas 5 hektar.',
+                'location' => 'CV Gemilang Kencana, Wonosobo',
+                'description' => 'Pendampingan optimalisasi proses produksi pangan fungsional buah carica dan implementasi digitalisasi pemasaran.',
             ],
             [
                 'id' => 4,
-                'title' => 'Implementasi Greenhouse Smart IoT Pertanian Presisi',
-                'category' => 'Alih Teknologi Komersial',
+                'title' => 'Hilirisasi Teknologi Pengolahan Buah Nanas Berbasis Zero Waste',
+                'category' => 'Alih Teknologi',
                 'tag' => 'AJAKAN INDUSTRI',
                 'image' => '/images/gallery/galeri-4.jpg',
                 'date' => '19 Oktober 2026',
-                'location' => 'Agro-Technology Park UNSOED',
-                'description' => 'Instalasi sensor kelembapan tanah, solar tracker cerdas, dan otomasi penyiraman berbasis mikrokontroler hemat daya.',
+                'location' => 'Koperasi Desa Merah Putih Penampi, Bengkalis',
+                'description' => 'Implementasi teknologi pengolahan nanas modern dan pemanfaatan hasil samping berprinsip zero waste.',
             ],
             [
                 'id' => 5,
-                'title' => 'Gelar Inovasi & Pameran Produk Tepat Guna LPPM UNSOED',
-                'category' => 'Diseminasi Publik',
-                'tag' => 'EXPO RISET',
+                'title' => 'Pendampingan Branding & Manajemen Usaha Produk Pangan Lokal',
+                'category' => 'Pemberdayaan Usaha',
+                'tag' => 'PMUPUD',
                 'image' => '/images/gallery/galeri-5.jpg',
                 'date' => '08 Oktober 2026',
-                'location' => 'Auditorium Graha Widyatama UNSOED',
-                'description' => 'Pameran terbuka memperkenalkan 15+ prototipe terapan kepada ratusan perwakilan asosiasi industri dan dinas terkait.',
+                'location' => 'Sentra Olahan Pangan Banjarnegara',
+                'description' => 'Penguatan pengelolaan usaha, manajemen bisnis, dan branding produk pangan pokok alternatif binaan LPPM UNSOED.',
             ],
             [
                 'id' => 6,
-                'title' => 'Pelatihan Mahasiswa & Asisten Peneliti Lapangan',
-                'category' => 'Pengembangan Talenta',
-                'tag' => 'KOLABORASI',
+                'title' => 'Peningkatan TKT & Akselerasi Komersialisasi Mi Singkong Termodifikasi',
+                'category' => 'Akselerasi Industri',
+                'tag' => 'DORTEK',
                 'image' => '/images/gallery/galeri-6.jpg',
                 'date' => '25 September 2026',
-                'location' => 'Laboratorium Terpadu LPPM UNSOED',
-                'description' => 'Pembekalan metodologi pengukuran TRL/TKT dan kepatuhan keselamatan kerja industri bagi tim mahasiswa.',
+                'location' => 'Fasilitas Pilot UD Usaha Mandiri, Banjarnegara',
+                'description' => 'Evaluasi Tingkat Kesiapterapan Teknologi (TKT) menuju komersialisasi produk mi bebas gluten skala industri.',
             ],
         ];
 
@@ -111,42 +112,42 @@ class HomeController extends Controller
         $defaultNews = [
             [
                 'id' => 1,
-                'slug' => 'unsoed-dan-pupuk-indonesia-luncurkan-formula-pupuk-hayati-tahap-ii',
-                'title' => 'UNSOED dan Pupuk Indonesia Luncurkan Formula Pupuk Hayati Unggulan Tahap II',
-                'category' => 'Kemitraan DUDI',
+                'slug' => 'hilirisasi-olahan-carica-dieng-program-sinergi-wonosobo',
+                'title' => 'Hilirisasi Pangan Fungsional Carica Dieng Melalui Program SINERGI di Wonosobo',
+                'category' => 'Pangan Fungsional',
                 'tag' => 'SINERGI',
                 'date' => '14 November 2026',
                 'author' => 'Tim Media Inovasi Hilirisasi',
                 'image' => '/images/news/berita-1.jpg',
-                'excerpt' => 'Kolaborasi riset terapan antara Pusat Teknologi Terpadu LPPM UNSOED bersama PT Pupuk Indonesia resmi memasuki fase hilirisasi komersial dengan kapasitas produksi percontohan 50 ton per bulan.',
+                'excerpt' => 'Program SINERGI berfokus meningkatkan kapasitas produksi dan digitalisasi pemasaran pangan fungsional buah carica bersama mitra CV Gemilang Kencana di Wonosobo.',
                 'read_time' => '3 menit baca',
-                'content' => 'Purwokerto — Universitas Jenderal Soedirman (UNSOED) melalui Pusat Koordinasi Pengembangan dan Penerapan Teknologi (Inovasi Hilirisasi) LPPM mengumumkan pencapaian strategis dalam pengembangan pupuk hayati berbasis konsorsium mikroba lokal. Melalui program SINERGI yang didukung oleh PT Pupuk Indonesia, formula tahap kedua ini terbukti mampu menekan pemakaian pupuk kimia sintetis hingga 35% tanpa mengurangi produktivitas panen padi dan hortikultura.',
+                'content' => 'Wonosobo — Program SINERGI Inovasi Hilirisasi LPPM UNSOED resmi mengoptimalkan daya saing komoditas indikasi geografis buah carica Dieng. Bekerja sama dengan CV Gemilang Kencana, program ini memadukan peningkatan kapasitas pengolahan pangan fungsional bernilai gizi tinggi dengan akselerasi digitalisasi pemasaran untuk menembus pasar nasional.',
             ],
             [
                 'id' => 2,
-                'slug' => 'mesin-briket-biomassa-buatan-lppm-mulai-diuji-coba-di-pabrik-gula',
-                'title' => 'Mesin Briket Biomassa Buatan Inovasi Hilirisasi Mulai Diuji Coba di Pabrik Gula',
-                'category' => 'Teknologi Terapan',
+                'slug' => 'dorongan-teknologi-produksi-pilot-mi-bebas-gluten-banjarnegara',
+                'title' => 'Program Dorongan Teknologi Sukses Uji Skala Pilot Mi Bebas Gluten di Banjarnegara',
+                'category' => 'Dorongan Teknologi',
                 'tag' => 'DORTEK',
                 'date' => '02 November 2026',
-                'author' => 'Divisi Rekayasa Alat',
+                'author' => 'Divisi Dorongan Teknologi',
                 'image' => '/images/news/berita-2.jpg',
-                'excerpt' => 'Mesin ekstruder hidrolik bertekanan tinggi hasil rancang bangun tim dosen teknik dan mahasiswa asisten peneliti berhasil mencetak briket limbah pertanian dengan nilai kalor mencapai 4.800 kcal/kg.',
+                'excerpt' => 'Kolaborasi LPPM UNSOED dan UD Usaha Mandiri merealisasikan produksi skala pilot mi fungsional bebas gluten berbasis tepung singkong termodifikasi guna meningkatkan TKT dan komersialisasi industri.',
                 'read_time' => '4 menit baca',
-                'content' => 'Banyumas — Menjawab kebutuhan dekarbonisasi industri boiler, tim Program DORTEK Inovasi Hilirisasi LPPM UNSOED merampungkan prototipe mesin briket biomassa skala komersial. Alat ini memanfaatkan limbah tongkol jagung dan serbuk gergaji yang melimpah di pedesaan Banyumas menjadi sumber energi terbarukan pengganti batu bara.',
+                'content' => 'Banjarnegara — Melalui Program Dorongan Teknologi, tim peneliti UNSOED bersama UD Usaha Mandiri berhasil mengembangkan lini produksi skala pilot mi fungsional bebas gluten berbahan baku tepung singkong termodifikasi. Program ini mempercepat kesiapterapan teknologi (TKT) menuju adopsi komersial skala penuh di industri pangan.',
             ],
             [
                 'id' => 3,
-                'slug' => 'klaster-umkm-binaan-inovasi-hilirisasi-raih-sertifikasi-mutu-ekspor',
-                'title' => 'Klaster UMKM Binaan Inovasi Hilirisasi Raih Sertifikasi Mutu Ekspor',
-                'category' => 'Pemberdayaan Desa',
+                'slug' => 'program-pm-upud-kuatkan-daya-saing-mocaf-pangan-pokok-alternatif',
+                'title' => 'Program PM-UPUD Kuatkan Daya Saing Usaha MOcaf dan Pangan Pokok Alternatif Banjarnegara',
+                'category' => 'PM-UPUD',
                 'tag' => 'PMUPUD',
                 'date' => '20 Oktober 2026',
-                'author' => 'Divisi Inkubasi Produk',
+                'author' => 'Divisi PM-UPUD',
                 'image' => '/images/news/berita-3.jpg',
-                'excerpt' => 'Kelompok perajin gula semut kelapa Nira Satria binaan LPPM UNSOED resmi mengantongi sertifikat organik internasional dan siap mengekspor perdana 12 ton produk ke Eropa.',
+                'excerpt' => 'Program PM-UPUD memperkuat kapasitas produksi MOcaf serta produk pangan alternatif pengganti beras dan terigu bersama UD Usaha Mandiri dan KWT Sinar Tani.',
                 'read_time' => '3 menit baca',
-                'content' => 'Cilongok — Program PMUPUD (Program Pengembangan Produk Unggulan Daerah) membuktikan komitmennya dalam mengangkat ekonomi kerakyatan. Melalui pendampingan menyeluruh dari aspek higienitas pengolahan, uji laboratorium bebas cemaran logam berat, hingga desain kemasan standing pouch berstandar ekspor, UMKM binaan berhasil menembus pasar global.',
+                'content' => 'Banjarnegara — Program PM-UPUD Inovasi Hilirisasi UNSOED menguatkan daya saing usaha masyarakat berbasis potensi lokal Kabupaten Banjarnegara. Bermitra dengan UD Usaha Mandiri dan KWT Sinar Tani, program ini mengimplementasikan teknologi produksi tepung singkong termodifikasi (MOcaf), pengembangan aneka pangan pokok alternatif pengganti beras dan terigu, serta penguatan manajemen usaha.',
             ],
         ];
 
