@@ -72,6 +72,33 @@ const galleryCategories = computed(() => {
   return ['all', ...Array.from(tags)];
 });
 
+// Category Icon & Label mapping like reference design
+const getCategoryIcon = (tag) => {
+  switch (tag?.toUpperCase()) {
+    case 'ALL':
+      return Sparkles;
+    case 'SINERGI':
+      return Sprout;
+    case 'DORTEK':
+      return Cpu;
+    case 'PMUPUD':
+      return Lightbulb;
+    case 'AJAKAN INDUSTRI':
+      return Handshake;
+    case 'EXPO RISET':
+      return Award;
+    case 'KOLABORASI':
+      return Users;
+    default:
+      return Sparkles;
+  }
+};
+
+const getCategoryLabel = (tag) => {
+  if (tag === 'all') return 'Semua Foto';
+  return tag;
+};
+
 const filteredGallery = computed(() => {
   const items = props.gallery || [];
   if (selectedGalleryTag.value === 'all') return items;
@@ -385,8 +412,8 @@ const jsonLd = {
     <!-- SECTION 1: GALERI KEGIATAN & DOKUMENTASI RISET -->
     <section id="galeri" class="py-16 sm:py-20 bg-[#F7FAF7] border-t border-[#E5EAE5]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Section Header -->
-        <div class="max-w-3xl mb-6 sm:mb-8 space-y-2">
+        <!-- Section Header (Centered) -->
+        <div class="max-w-3xl mx-auto text-center mb-6 sm:mb-8 space-y-2">
           <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
             DOKUMENTASI LAPANGAN & RISET
           </span>
@@ -398,22 +425,25 @@ const jsonLd = {
           </p>
         </div>
 
-        <!-- Category Filter Bar (Rapi & Responsif di HP maupun Desktop) -->
-        <div class="w-full overflow-x-auto no-scrollbar py-2 mb-6 sm:mb-8 -mx-4 px-4 sm:mx-0 sm:px-0">
-          <div class="flex items-center gap-2 sm:gap-2.5 min-w-max">
-            <button
-              v-for="tag in galleryCategories"
-              :key="tag"
-              type="button"
-              @click="selectedGalleryTag = tag"
-              class="px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap min-h-[42px] flex items-center justify-center shrink-0 select-none"
-              :class="selectedGalleryTag === tag
-                ? 'bg-[#14532D] text-white shadow-sm ring-2 ring-[#14532D]/20'
-                : 'bg-white text-[#647067] hover:text-[#14532D] hover:bg-[#F7FAF7] border border-[#E5EAE5]'"
-            >
-              <span>{{ tag === 'all' ? 'Semua Foto' : tag }}</span>
-            </button>
-          </div>
+        <!-- Category Filter Pills (Wrapped & Centered Sesuai Desain Referensi, Tidak Nyamping) -->
+        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-3xl mx-auto mb-8 sm:mb-10 px-2">
+          <button
+            v-for="tag in galleryCategories"
+            :key="tag"
+            type="button"
+            @click="selectedGalleryTag = tag"
+            class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 select-none shadow-2xs"
+            :class="selectedGalleryTag === tag
+              ? 'bg-[#14532D] text-white shadow-md shadow-emerald-950/20 ring-2 ring-[#22C55E]/40'
+              : 'bg-white text-[#647067] hover:text-[#14532D] hover:bg-[#F7FAF7] border border-[#E5EAE5]'"
+          >
+            <component
+              :is="getCategoryIcon(tag)"
+              class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-colors"
+              :class="selectedGalleryTag === tag ? 'text-emerald-300' : 'text-[#22C55E]'"
+            />
+            <span>{{ getCategoryLabel(tag) }}</span>
+          </button>
         </div>
 
         <!-- Gallery Grid (100% Full Foto Bersih Tanpa Penjelasan Teks Apapun) -->
