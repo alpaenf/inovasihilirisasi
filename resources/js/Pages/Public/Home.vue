@@ -131,68 +131,68 @@ const jsonLd = {
 
           <!-- Right Column: Institutional Graphic Card -->
           <div class="lg:col-span-5 relative">
-            <div class="relative mx-auto max-w-md lg:max-w-none rounded-3xl bg-white border border-[#E5EAE5] p-6 sm:p-8 shadow-2xl shadow-emerald-950/10">
-              <div class="flex items-center justify-between pb-6 border-b border-[#E5EAE5] gap-3">
-                <div class="flex items-center gap-3.5 min-w-0">
-                  <div class="h-11 sm:h-12 w-auto flex items-center justify-center shrink-0">
-                    <img src="/images/logo-lppm.png" alt="Logo LPPM UNSOED" class="h-10 sm:h-12 w-auto object-contain" />
+            <div class="relative mx-auto max-w-md lg:max-w-none rounded-3xl bg-white border border-[#E5EAE5] p-4 sm:p-6 lg:p-8 shadow-2xl shadow-emerald-950/10">
+              <div class="flex items-center justify-between pb-4 sm:pb-6 border-b border-[#E5EAE5] gap-2 sm:gap-3">
+                <div class="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+                  <div class="h-8 sm:h-10 md:h-11 w-auto flex items-center justify-center shrink-0">
+                    <img src="/images/logo-lppm.png" alt="Logo LPPM UNSOED" class="h-7 sm:h-9 md:h-10 w-auto object-contain" />
                   </div>
                   <div class="min-w-0">
-                    <h3 class="font-bold text-[#14532D] text-base leading-tight truncate">Pusat Teknologi Terpadu</h3>
-                    <p class="text-xs text-[#647067] mt-0.5 truncate">LPPM UNSOED Purwokerto</p>
+                    <h3 class="font-bold text-[#14532D] text-xs sm:text-sm md:text-base leading-tight truncate">Pusat Teknologi Terpadu</h3>
+                    <p class="text-[10px] sm:text-xs text-[#647067] mt-0.5 truncate">LPPM UNSOED Purwokerto</p>
                   </div>
                 </div>
-                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-[#DCFCE7] text-[#14532D] shrink-0">
+                <span class="inline-flex items-center px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] font-bold bg-[#DCFCE7] text-[#14532D] shrink-0">
                   Terverifikasi
                 </span>
               </div>
 
               <!-- Metrics inside Card -->
-              <div class="grid grid-cols-2 gap-3.5 sm:gap-4 my-6">
+              <div class="grid grid-cols-2 gap-2.5 sm:gap-4 my-4 sm:my-6">
                 <!-- Program Utama -->
-                <div class="p-4 sm:p-5 rounded-2xl bg-[#F7FAF7] border border-[#E5EAE5] flex flex-col justify-between min-h-[115px]">
+                <div class="p-3 sm:p-4 lg:p-5 rounded-2xl bg-[#F7FAF7] border border-[#E5EAE5] flex flex-col justify-between min-h-[105px] sm:min-h-[115px]">
                   <div>
-                    <span class="text-xs text-[#647067] font-semibold block leading-tight">Program Utama</span>
-                    <span class="text-2xl sm:text-3xl font-extrabold text-[#14532D] mt-1.5 block tracking-tight">
+                    <span class="text-[11px] sm:text-xs text-[#647067] font-semibold block leading-tight truncate">Program Utama</span>
+                    <span class="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#14532D] mt-1 sm:mt-1.5 block tracking-tight">
                       {{ stats.total_programs }} Program
                     </span>
                   </div>
-                  <div class="mt-3 h-7 flex items-center overflow-hidden">
+                  <div class="mt-2.5 sm:mt-3 h-7 flex items-center overflow-hidden">
                     <Transition name="program-fade" mode="out-in">
                       <span
                         :key="currentProgramIndex"
-                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#DCFCE7] border border-[#22C55E]/30 text-[#14532D] text-[10.5px] sm:text-[11px] font-bold shadow-xs whitespace-nowrap"
+                        class="inline-flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-[#DCFCE7] border border-[#22C55E]/30 text-[#14532D] text-[9.5px] sm:text-[11px] font-bold shadow-xs max-w-full"
                       >
                         <span class="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0"></span>
-                        <span>{{ activePrograms[currentProgramIndex] }}</span>
+                        <span class="truncate">{{ activePrograms[currentProgramIndex] }}</span>
                       </span>
                     </Transition>
                   </div>
                 </div>
 
                 <!-- Inovasi Tepat Guna -->
-                <div class="p-4 sm:p-5 rounded-2xl bg-[#F7FAF7] border border-[#E5EAE5] flex flex-col justify-between min-h-[115px]">
+                <div class="p-3 sm:p-4 lg:p-5 rounded-2xl bg-[#F7FAF7] border border-[#E5EAE5] flex flex-col justify-between min-h-[105px] sm:min-h-[115px]">
                   <div>
-                    <span class="text-xs text-[#647067] font-semibold block leading-tight">Inovasi Tepat Guna</span>
-                    <span class="text-2xl sm:text-3xl font-extrabold text-[#14532D] mt-1.5 block tracking-tight">
+                    <span class="text-[11px] sm:text-xs text-[#647067] font-semibold block leading-tight truncate">Inovasi Tepat Guna</span>
+                    <span class="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#14532D] mt-1 sm:mt-1.5 block tracking-tight">
                       {{ stats.total_products }}+ Produk
                     </span>
                   </div>
-                  <div class="mt-3 h-7 flex items-center">
-                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-[#E5EAE5] text-[#14532D] text-[10.5px] sm:text-[11px] font-bold shadow-xs whitespace-nowrap">
-                      <span>Katalog Terpadu</span>
+                  <div class="mt-2.5 sm:mt-3 h-7 flex items-center overflow-hidden">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-white border border-[#E5EAE5] text-[#14532D] text-[9.5px] sm:text-[11px] font-bold shadow-xs max-w-full">
+                      <span class="truncate">Katalog Terpadu</span>
                     </span>
                   </div>
                 </div>
               </div>
 
               <!-- Institutional Callout -->
-              <div class="p-4 rounded-xl bg-gradient-to-r from-[#14532D] to-emerald-900 text-white flex items-center justify-between">
-                <div>
-                  <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-200">Kemitraan Aktif</h4>
-                  <p class="text-sm font-semibold mt-0.5">{{ stats.total_partners }} Mitra Kolaborasi</p>
+              <div class="p-3 sm:p-4 rounded-xl bg-gradient-to-r from-[#14532D] to-emerald-900 text-white flex items-center justify-between gap-2">
+                <div class="min-w-0">
+                  <h4 class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-200 truncate">Kemitraan Aktif</h4>
+                  <p class="text-xs sm:text-sm font-semibold mt-0.5 truncate">{{ stats.total_partners }} Mitra Kolaborasi</p>
                 </div>
-                <Link href="/mitra" class="px-3 py-1.5 rounded-lg bg-white/20 hover:bg-white/30 text-xs font-bold text-white transition-colors">
+                <Link href="/mitra" class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-white/20 hover:bg-white/30 text-xs font-bold text-white transition-colors shrink-0">
                   Eksplor
                 </Link>
               </div>
