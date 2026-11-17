@@ -72,6 +72,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     // Pages & Settings Management
     Route::get('/pages', [AdminPageController::class, 'index'])->name('pages.index');
     Route::put('/pages/{page_key}', [AdminPageController::class, 'update'])->name('pages.update');
+    Route::post('/pages/upload-photo', [AdminPageController::class, 'uploadPhoto'])->name('pages.upload-photo');
     Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings.index');
     Route::put('/settings', [AdminSettingController::class, 'update'])->name('settings.update');
 

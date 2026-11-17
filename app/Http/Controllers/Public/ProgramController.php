@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use App\Models\Program;
+use App\Models\PageContent;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -35,9 +36,16 @@ class ProgramController extends Controller
             ])
             ->firstOrFail();
 
+        // Load associated students for this program from organization data
+        $aboutOrg = PageContent::where('page_key', 'about')->where('section_key', 'organization')->first();
+        $allStudents = $aboutOrg?->metadata['students'] ?? [];
+        $programStudents = array_values(array_filter($allStudents, function ($s) use ($slug) {
+            return ($s['program_slug'] ?? '') === $slug;
+        }));
+        $program->setAttribute('students', $programStudents);
+
         return Inertia::render('Public/Programs/Show', [
             'program' => $program,
         ]);
     }
 }
-

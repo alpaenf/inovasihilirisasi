@@ -1,4 +1,5 @@
 <script setup>
+import { ref, computed } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import PublicLayout from '@/Layouts/PublicLayout.vue';
 import {
@@ -15,14 +16,53 @@ import {
   Sprout,
   Handshake,
   Lightbulb,
-  ArrowRight
+  ArrowRight,
+  GraduationCap,
+  Sparkles,
+  Layers,
+  ChevronRight
 } from 'lucide-vue-next';
 
-defineProps({
+const props = defineProps({
   about: Object,
+  organization: Object,
   programs: Array,
   stats: Object,
 });
+
+// Selected Program tab for Students section
+const activeProgramTab = ref('all');
+
+// Compute students list based on active tab
+const filteredStudents = computed(() => {
+  const students = props.organization?.students || [];
+  if (activeProgramTab.value === 'all') {
+    return students;
+  }
+  return students.filter((s) => s.program_slug === activeProgramTab.value);
+});
+
+// Program icons map
+const getProgramIcon = (slug) => {
+  switch (slug) {
+    case 'sinergi':
+      return Sprout;
+    case 'ajakan-industri':
+      return Handshake;
+    case 'pmupud':
+      return Lightbulb;
+    case 'dortek':
+    default:
+      return Cpu;
+  }
+};
+
+// Count students per program
+const countStudents = (slug) => {
+  const students = props.organization?.students || [];
+  if (slug === 'all') return students.length;
+  return students.filter((s) => s.program_slug === slug).length;
+};
 </script>
 
 <template>
@@ -34,14 +74,14 @@ defineProps({
 
   <PublicLayout>
     <!-- Page Header -->
-    <section class="bg-[#F7FAF7] border-b border-[#E5EAE5] py-16 sm:py-20">
+    <section class="bg-[#F7FAF7] border-b border-[#E5EAE5] py-14 sm:py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl space-y-4">
           <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
             PROFIL INSTITUSI
           </span>
           <h1 class="text-3xl sm:text-5xl font-extrabold text-[#14532D] tracking-tight">
-            Pusat Koordinasi Pengembangan dan Penerapan Teknologi
+            {{ about.title || 'Pusat Koordinasi Pengembangan dan Penerapan Teknologi' }}
           </h1>
           <p class="text-base sm:text-lg text-[#647067] leading-relaxed">
             Lembaga Penelitian dan Pengabdian kepada Masyarakat (LPPM) Universitas Jenderal Soedirman.
@@ -51,32 +91,32 @@ defineProps({
     </section>
 
     <!-- Main Profile & Mission Section -->
-    <section class="py-16 sm:py-20 bg-white border-b border-[#E5EAE5]">
+    <section class="py-14 sm:py-20 bg-white border-b border-[#E5EAE5]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           <div class="lg:col-span-7 space-y-6">
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#14532D]">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#14532D] leading-snug">
               Menghubungkan Gagasan Riset Menjadi Solusi Nyata
             </h2>
-            <p class="text-base text-[#17231C]/90 leading-relaxed">
+            <p class="text-base text-[#17231C]/90 leading-relaxed font-normal">
               {{ about.content }}
             </p>
 
             <div class="pt-4 space-y-4">
-              <h3 class="text-lg font-bold text-[#14532D]">Misi Strategis:</h3>
+              <h3 class="text-base sm:text-lg font-bold text-[#14532D]">Misi Strategis:</h3>
               <div class="space-y-3">
                 <div v-for="(m, idx) in about.mission" :key="idx" class="flex items-start gap-3">
                   <CheckCircle2 class="w-5 h-5 text-[#22C55E] shrink-0 mt-0.5" />
-                  <span class="text-sm text-[#17231C]">{{ m }}</span>
+                  <span class="text-sm text-[#17231C] leading-relaxed">{{ m }}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Highlight Box -->
-          <div class="lg:col-span-5 bg-[#F7FAF7] p-8 rounded-3xl border border-[#E5EAE5] space-y-6">
+          <!-- Highlight Box: Vision & Contact -->
+          <div class="lg:col-span-5 bg-[#F7FAF7] p-6 sm:p-8 rounded-3xl border border-[#E5EAE5] space-y-6 shadow-xs">
             <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-2xl bg-[#14532D] text-[#22C55E] flex items-center justify-center">
+              <div class="w-12 h-12 rounded-2xl bg-[#14532D] text-[#22C55E] flex items-center justify-center shrink-0">
                 <Target class="w-6 h-6" />
               </div>
               <div>
@@ -108,221 +148,220 @@ defineProps({
     <section class="py-16 sm:py-24 bg-[#F7FAF7] border-b border-[#E5EAE5]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
-        <div class="max-w-3xl mx-auto text-center mb-14 sm:mb-16 space-y-3">
+        <div class="max-w-3xl mx-auto text-center mb-12 sm:mb-16 space-y-3">
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#DCFCE7] text-[#14532D] uppercase tracking-wider">
             <Network class="w-3.5 h-3.5 text-[#22C55E]" />
             Tata Kelola Institusi
           </span>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-[#14532D] tracking-tight">
-            Struktur Organisasi Inovasi Hilirisasi
+            {{ organization?.title || 'Struktur Organisasi Inovasi Hilirisasi' }}
           </h2>
           <p class="text-sm sm:text-base text-[#647067] leading-relaxed">
-            Struktur kepemimpinan dan pembagian divisi operasional dalam mengoordinasikan hilirisasi riset, alih teknologi, dan kemitraan industri di lingkungan LPPM UNSOED.
+            {{ organization?.content || 'Struktur kepemimpinan dan pembagian divisi operasional dalam mengoordinasikan hilirisasi riset, alih teknologi, dan kemitraan industri di lingkungan LPPM UNSOED.' }}
           </p>
         </div>
 
         <!-- Hierarchical Organizational Chart -->
         <div class="space-y-8 sm:space-y-10">
-          <!-- Level 1: Pengarah & Pelindung (Advisory Level) -->
-          <div>
-            <div class="flex items-center justify-center gap-3 mb-5">
-              <span class="h-px w-10 sm:w-16 bg-[#E5EAE5]"></span>
-              <span class="text-[11px] font-extrabold uppercase tracking-widest text-[#647067]">
-                Pengarah & Pelindung Utama
-              </span>
-              <span class="h-px w-10 sm:w-16 bg-[#E5EAE5]"></span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
-              <!-- Rektor -->
-              <div class="bg-white p-6 rounded-2xl border border-[#E5EAE5] shadow-xs hover:border-[#22C55E]/40 hover:shadow-md transition-all flex items-start gap-4">
-                <div class="w-12 h-12 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center shrink-0">
-                  <Building class="w-6 h-6" />
-                </div>
-                <div>
-                  <span class="inline-block text-[11px] font-bold text-[#22C55E] uppercase tracking-wider">Pelindung</span>
-                  <h3 class="text-base font-bold text-[#14532D]">Rektor Universitas Jenderal Soedirman</h3>
-                  <p class="text-xs text-[#647067] mt-1 leading-relaxed">
-                    Pengarah kebijakan tertinggi institusi dan fasilitasi ekosistem hilirisasi riset terpadu.
-                  </p>
+          <!-- Leaders Grid (Advisory & Executive) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
+            <div
+              v-for="leader in organization?.leaders"
+              :key="leader.id || leader.name"
+              class="bg-white p-5 sm:p-6 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/50 shadow-xs hover:shadow-md transition-all flex flex-col sm:flex-row items-start sm:items-center gap-4 group"
+            >
+              <!-- Photo / Avatar -->
+              <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-[#F7FAF7] border border-[#E5EAE5] shrink-0 flex items-center justify-center">
+                <img
+                  v-if="leader.photo"
+                  :src="leader.photo"
+                  :alt="leader.name"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div v-else class="w-full h-full bg-gradient-to-br from-emerald-100 to-green-50 text-[#14532D] flex items-center justify-center font-extrabold text-sm sm:text-base">
+                  {{ leader.name ? leader.name.split(' ').map(n => n[0]).slice(0, 2).join('') : 'UNS' }}
                 </div>
               </div>
 
-              <!-- Ketua LPPM -->
-              <div class="bg-white p-6 rounded-2xl border border-[#E5EAE5] shadow-xs hover:border-[#22C55E]/40 hover:shadow-md transition-all flex items-start gap-4">
-                <div class="w-12 h-12 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center shrink-0">
-                  <Award class="w-6 h-6" />
+              <!-- Content -->
+              <div class="min-w-0 flex-1 space-y-1">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="inline-block text-[10px] sm:text-[11px] font-extrabold text-[#22C55E] uppercase tracking-wider">
+                    {{ leader.category || 'Pimpinan' }}
+                  </span>
                 </div>
-                <div>
-                  <span class="inline-block text-[11px] font-bold text-[#22C55E] uppercase tracking-wider">Pengarah Operasional</span>
-                  <h3 class="text-base font-bold text-[#14532D]">Ketua LPPM UNSOED</h3>
-                  <p class="text-xs text-[#647067] mt-1 leading-relaxed">
-                    Pengarah operasional pelaksanaan riset terapan dan pengabdian masyarakat inovatif.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Vertical Connector Line -->
-          <div class="flex justify-center -my-3">
-            <div class="w-0.5 h-6 bg-[#22C55E]/40"></div>
-          </div>
-
-          <!-- Level 2: Pimpinan Pusat (Executive Leadership) -->
-          <div>
-            <div class="flex items-center justify-center gap-3 mb-5">
-              <span class="h-px w-10 sm:w-16 bg-[#E5EAE5]"></span>
-              <span class="text-[11px] font-extrabold uppercase tracking-widest text-[#647067]">
-                Pimpinan Pusat Inovasi Hilirisasi
-              </span>
-              <span class="h-px w-10 sm:w-16 bg-[#E5EAE5]"></span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
-              <!-- Koordinator Pusat -->
-              <div class="bg-white p-6 rounded-2xl border-2 border-[#14532D]/30 shadow-md flex items-start gap-4">
-                <div class="w-12 h-12 rounded-xl bg-[#14532D] text-white flex items-center justify-center shrink-0 shadow-sm">
-                  <Users class="w-6 h-6 text-[#22C55E]" />
-                </div>
-                <div>
-                  <span class="inline-block text-[11px] font-extrabold text-[#14532D] uppercase tracking-wider">Pimpinan Eksekutif</span>
-                  <h3 class="text-base font-bold text-[#14532D]">Koordinator Pusat Inovasi Hilirisasi</h3>
-                  <p class="text-xs text-[#647067] mt-1 leading-relaxed">
-                    Penanggung jawab program, orkestrasi alih teknologi, dan kemitraan strategis dengan DUDI & Pemerintah.
-                  </p>
-                </div>
-              </div>
-
-              <!-- Sekretaris Pusat -->
-              <div class="bg-white p-6 rounded-2xl border-2 border-[#14532D]/30 shadow-md flex items-start gap-4">
-                <div class="w-12 h-12 rounded-xl bg-[#14532D] text-white flex items-center justify-center shrink-0 shadow-sm">
-                  <ShieldCheck class="w-6 h-6 text-[#22C55E]" />
-                </div>
-                <div>
-                  <span class="inline-block text-[11px] font-extrabold text-[#14532D] uppercase tracking-wider">Tata Kelola & HKI</span>
-                  <h3 class="text-base font-bold text-[#14532D]">Sekretaris & Penjaminan Mutu</h3>
-                  <p class="text-xs text-[#647067] mt-1 leading-relaxed">
-                    Pengelolaan administrasi legal, pendaftaran paten/HKI, monitoring evaluasi, dan akuntabilitas program.
-                  </p>
-                </div>
+                <h3 class="text-sm sm:text-base font-bold text-[#14532D] leading-snug group-hover:text-[#22C55E] transition-colors">
+                  {{ leader.name }}
+                </h3>
+                <p class="text-xs font-semibold text-[#17231C]/80">
+                  {{ leader.position }}
+                </p>
+                <p v-if="leader.description" class="text-xs text-[#647067] leading-relaxed pt-1">
+                  {{ leader.description }}
+                </p>
               </div>
             </div>
           </div>
 
           <!-- Vertical Connector Line -->
-          <div class="flex justify-center -my-3">
+          <div class="flex justify-center -my-2 sm:-my-3">
             <div class="w-0.5 h-6 bg-[#22C55E]/40"></div>
           </div>
 
-          <!-- Level 3: 4 Divisi Pelaksana Program Utama -->
+          <!-- 4 Divisi Program Utama -->
           <div>
             <div class="flex items-center justify-center gap-3 mb-6">
               <span class="h-px w-10 sm:w-16 bg-[#E5EAE5]"></span>
-              <span class="text-[11px] font-extrabold uppercase tracking-widest text-[#647067]">
-                Divisi Kerja Pelaksana 4 Program Unggulan
+              <span class="text-[11px] font-extrabold uppercase tracking-widest text-[#647067] text-center">
+                Divisi Pelaksana 4 Program Unggulan
               </span>
               <span class="h-px w-10 sm:w-16 bg-[#E5EAE5]"></span>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              <!-- Divisi 1: SINERGI -->
-              <div class="bg-white p-6 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/60 hover:shadow-lg transition-all flex flex-col justify-between">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+              <div
+                v-for="div in organization?.divisions"
+                :key="div.id || div.program_slug"
+                class="bg-white p-5 sm:p-6 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/60 hover:shadow-lg transition-all flex flex-col justify-between group"
+              >
                 <div>
                   <div class="flex items-center justify-between mb-4">
                     <div class="w-10 h-10 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center">
-                      <Sprout class="w-5 h-5" />
+                      <component :is="getProgramIcon(div.program_slug)" class="w-5 h-5 text-[#22C55E]" />
                     </div>
-                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#14532D] text-white">
-                      SINERGI
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#14532D] text-white uppercase tracking-wider">
+                      {{ div.program_name }}
                     </span>
                   </div>
-                  <h4 class="text-sm font-bold text-[#14532D] mb-2 leading-snug">
-                    Divisi Riset Terapan & Formulasi
-                  </h4>
-                  <p class="text-xs text-[#647067] leading-relaxed">
-                    Fasilitasi uji formulasi pupuk organik hayati, pakan ternak hibrida, dan bioteknologi berbasis sumber daya lokal.
-                  </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-[#E5EAE5] text-[11px] font-semibold text-[#22C55E] flex items-center justify-between">
-                  <span>Riset Kolaboratif</span>
-                  <Link href="/program/sinergi" class="text-[#14532D] hover:underline font-bold">Detail →</Link>
-                </div>
-              </div>
 
-              <!-- Divisi 2: AJAKAN INDUSTRI -->
-              <div class="bg-white p-6 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/60 hover:shadow-lg transition-all flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <div class="w-10 h-10 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center">
-                      <Handshake class="w-5 h-5" />
-                    </div>
-                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#14532D] text-white">
-                      INDUSTRI
-                    </span>
-                  </div>
-                  <h4 class="text-sm font-bold text-[#14532D] mb-2 leading-snug">
-                    Divisi Kemitraan & Komersialisasi
+                  <h4 class="text-sm font-bold text-[#14532D] mb-1.5 leading-snug group-hover:text-[#22C55E] transition-colors">
+                    {{ div.position }}
                   </h4>
-                  <p class="text-xs text-[#647067] leading-relaxed">
-                    Menjembatani kerja sama industri manufaktur, lisensi paten, dan komersialisasi teknologi skala industri.
-                  </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-[#E5EAE5] text-[11px] font-semibold text-[#22C55E] flex items-center justify-between">
-                  <span>Alih Teknologi DUDI</span>
-                  <Link href="/program/ajakan-industri" class="text-[#14532D] hover:underline font-bold">Detail →</Link>
-                </div>
-              </div>
 
-              <!-- Divisi 3: PMUPUD -->
-              <div class="bg-white p-6 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/60 hover:shadow-lg transition-all flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <div class="w-10 h-10 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center">
-                      <Lightbulb class="w-5 h-5" />
-                    </div>
-                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#14532D] text-white">
-                      PMUPUD
-                    </span>
-                  </div>
-                  <h4 class="text-sm font-bold text-[#14532D] mb-2 leading-snug">
-                    Divisi Inkubasi Produk & UMKM
-                  </h4>
-                  <p class="text-xs text-[#647067] leading-relaxed">
-                    Pengembangan produk unggulan desa, sertifikasi organik/halal, standardisasi mutu ekspor, dan kemasan higienis.
+                  <p v-if="div.name" class="text-xs font-semibold text-[#14532D]/90 mb-2">
+                    {{ div.name }}
                   </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-[#E5EAE5] text-[11px] font-semibold text-[#22C55E] flex items-center justify-between">
-                  <span>Inkubasi Klaster Desa</span>
-                  <Link href="/program/pmupud" class="text-[#14532D] hover:underline font-bold">Detail →</Link>
-                </div>
-              </div>
 
-              <!-- Divisi 4: DORTEK -->
-              <div class="bg-white p-6 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/60 hover:shadow-lg transition-all flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <div class="w-10 h-10 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center">
-                      <Cpu class="w-5 h-5" />
-                    </div>
-                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#14532D] text-white">
-                      DORTEK
-                    </span>
-                  </div>
-                  <h4 class="text-sm font-bold text-[#14532D] mb-2 leading-snug">
-                    Divisi Diseminasi Alat Tepat Guna
-                  </h4>
                   <p class="text-xs text-[#647067] leading-relaxed">
-                    Perekayasaan mesin pascapanen, pengering gabah hibrida, monitoring IoT, dan pelatihan operator pedesaan.
+                    {{ div.description }}
                   </p>
                 </div>
+
                 <div class="mt-4 pt-3 border-t border-[#E5EAE5] text-[11px] font-semibold text-[#22C55E] flex items-center justify-between">
-                  <span>Teknologi Aplikatif</span>
-                  <Link href="/program/dortek" class="text-[#14532D] hover:underline font-bold">Detail →</Link>
+                  <span>Divisi Program</span>
+                  <Link :href="`/program/${div.program_slug}`" class="text-[#14532D] hover:underline font-bold inline-flex items-center gap-1">
+                    <span>Detail</span>
+                    <ChevronRight class="w-3.5 h-3.5" />
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION TIM MAHASISWA & PENELITI PER PROGRAM (FLEKSIBEL) -->
+    <section class="py-16 sm:py-24 bg-white border-b border-[#E5EAE5]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="max-w-3xl mx-auto text-center mb-10 sm:mb-12 space-y-3">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#DCFCE7] text-[#14532D] uppercase tracking-wider">
+            <GraduationCap class="w-4 h-4 text-[#22C55E]" />
+            Generasi Inovator Muda
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-[#14532D] tracking-tight">
+            Tim Mahasiswa & Asisten Peneliti
+          </h2>
+          <p class="text-sm sm:text-base text-[#647067] leading-relaxed">
+            Mahasiswa bertalenta Universitas Jenderal Soedirman yang terlibat aktif dalam riset terapan, perancangan prototipe, uji laboratorium, dan kemitraan di setiap program inovasi hilirisasi.
+          </p>
+        </div>
+
+        <!-- Filter Tabs per Program -->
+        <div class="flex items-center justify-center gap-2 mb-10 overflow-x-auto no-scrollbar pb-2">
+          <button
+            type="button"
+            @click="activeProgramTab = 'all'"
+            class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap min-h-[40px] flex items-center gap-1.5"
+            :class="activeProgramTab === 'all'
+              ? 'bg-[#14532D] text-white shadow-sm'
+              : 'bg-[#F7FAF7] text-[#647067] hover:bg-emerald-50 hover:text-[#14532D] border border-[#E5EAE5]'"
+          >
+            <span>Semua Mahasiswa</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px]" :class="activeProgramTab === 'all' ? 'bg-white/20 text-white' : 'bg-emerald-100 text-[#14532D] font-extrabold'">
+              {{ countStudents('all') }}
+            </span>
+          </button>
+
+          <button
+            v-for="prog in programs"
+            :key="prog.id"
+            type="button"
+            @click="activeProgramTab = prog.slug"
+            class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap min-h-[40px] flex items-center gap-1.5"
+            :class="activeProgramTab === prog.slug
+              ? 'bg-[#14532D] text-white shadow-sm'
+              : 'bg-[#F7FAF7] text-[#647067] hover:bg-emerald-50 hover:text-[#14532D] border border-[#E5EAE5]'"
+          >
+            <span>{{ prog.name }}</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px]" :class="activeProgramTab === prog.slug ? 'bg-white/20 text-white' : 'bg-emerald-100 text-[#14532D] font-extrabold'">
+              {{ countStudents(prog.slug) }}
+            </span>
+          </button>
+        </div>
+
+        <!-- Students Grid -->
+        <div v-if="filteredStudents.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div
+            v-for="student in filteredStudents"
+            :key="student.id || student.name"
+            class="bg-[#F7FAF7] p-5 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/50 hover:bg-white shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
+          >
+            <div>
+              <!-- Top Row: Photo + Program Badge -->
+              <div class="flex items-start justify-between gap-3 mb-4">
+                <div class="relative w-14 h-14 rounded-2xl overflow-hidden bg-white border border-[#E5EAE5] shrink-0 flex items-center justify-center">
+                  <img
+                    v-if="student.photo"
+                    :src="student.photo"
+                    :alt="student.name"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                  />
+                  <div v-else class="w-full h-full bg-gradient-to-br from-emerald-100 to-green-50 text-[#14532D] flex items-center justify-center font-extrabold text-xs">
+                    {{ student.name ? student.name.split(' ').map(n => n[0]).slice(0, 2).join('') : 'MHS' }}
+                  </div>
+                </div>
+
+                <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-[#DCFCE7] text-[#14532D] uppercase tracking-wider shrink-0">
+                  {{ student.program_name || student.program_slug?.toUpperCase() }}
+                </span>
+              </div>
+
+              <!-- Name & Identifier -->
+              <h3 class="text-sm font-bold text-[#14532D] leading-snug group-hover:text-[#22C55E] transition-colors">
+                {{ student.name }}
+              </h3>
+              <p v-if="student.identifier" class="text-[11px] font-semibold text-[#647067] mt-0.5">
+                {{ student.identifier }}
+              </p>
+
+              <!-- Role / Task Badge -->
+              <div v-if="student.role" class="mt-3 p-2.5 rounded-xl bg-white border border-[#E5EAE5] text-xs text-[#17231C]/90 leading-relaxed font-medium">
+                {{ student.role }}
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-[#E5EAE5] flex items-center justify-between text-[11px] text-[#647067]">
+              <span>Asisten Peneliti</span>
+              <span class="w-2 h-2 rounded-full bg-[#22C55E] inline-block"></span>
+            </div>
+          </div>
+        </div>
+
+        <div v-else class="text-center py-12 bg-[#F7FAF7] rounded-3xl border border-dashed border-[#E5EAE5] space-y-2">
+          <GraduationCap class="w-10 h-10 text-[#647067]/40 mx-auto" />
+          <p class="text-sm font-semibold text-[#14532D]">Belum ada data mahasiswa untuk kategori program ini.</p>
         </div>
       </div>
     </section>

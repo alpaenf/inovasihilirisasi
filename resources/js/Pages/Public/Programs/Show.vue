@@ -3,7 +3,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import PublicLayout from '@/Layouts/PublicLayout.vue';
 import ProductCard from '@/Components/Common/ProductCard.vue';
 import PartnerCard from '@/Components/Common/PartnerCard.vue';
-import { ArrowLeft, Layers, Factory, Store, Sparkles, Building2, Box } from 'lucide-vue-next';
+import { ArrowLeft, Layers, Factory, Store, Sparkles, Building2, Box, GraduationCap } from 'lucide-vue-next';
 
 const props = defineProps({
   program: Object,
@@ -125,6 +125,56 @@ const getIcon = (slug) => {
         </div>
         <div v-else class="text-center py-12 bg-white rounded-2xl border border-[#E5EAE5] text-[#647067] text-sm">
           Belum ada produk yang dipublikasikan pada program ini.
+        </div>
+      </div>
+    </section>
+
+    <!-- Tim Mahasiswa & Asisten Peneliti Program -->
+    <section v-if="program.students && program.students.length > 0" class="py-16 bg-[#F7FAF7] border-t border-[#E5EAE5]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DCFCE7] text-[#14532D] text-xs font-bold uppercase tracking-wider mb-2">
+            <GraduationCap class="w-3.5 h-3.5 text-[#22C55E]" />
+            <span>Tim Pelaksana</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-[#14532D]">
+            Mahasiswa & Peneliti Program {{ program.name }}
+          </h2>
+          <p class="text-sm text-[#647067] mt-1">
+            Anggota mahasiswa bertalenta yang terlibat aktif dalam riset, perancangan prototipe, dan penerapan teknologi pada program ini.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div
+            v-for="student in program.students"
+            :key="student.id || student.name"
+            class="bg-white p-5 rounded-2xl border border-[#E5EAE5] shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div class="relative w-14 h-14 rounded-2xl overflow-hidden bg-[#F7FAF7] border border-[#E5EAE5] mb-3 flex items-center justify-center">
+                <img
+                  v-if="student.photo"
+                  :src="student.photo"
+                  :alt="student.name"
+                  class="w-full h-full object-cover"
+                />
+                <div v-else class="w-full h-full bg-gradient-to-br from-emerald-100 to-green-50 text-[#14532D] flex items-center justify-center font-extrabold text-xs">
+                  {{ student.name ? student.name.split(' ').map(n => n[0]).slice(0, 2).join('') : 'MHS' }}
+                </div>
+              </div>
+
+              <h4 class="text-sm font-bold text-[#14532D] leading-snug">
+                {{ student.name }}
+              </h4>
+              <p v-if="student.identifier" class="text-[11px] font-semibold text-[#647067] mt-0.5">
+                {{ student.identifier }}
+              </p>
+              <div v-if="student.role" class="mt-2.5 p-2 rounded-xl bg-[#F7FAF7] border border-[#E5EAE5] text-xs text-[#17231C]/90 font-medium">
+                {{ student.role }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
