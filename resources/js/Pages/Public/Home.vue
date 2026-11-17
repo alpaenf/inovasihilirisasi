@@ -132,49 +132,55 @@ const jsonLd = {
           <!-- Right Column: Institutional Graphic Card -->
           <div class="lg:col-span-5 relative">
             <div class="relative mx-auto max-w-md lg:max-w-none rounded-3xl bg-white border border-[#E5EAE5] p-6 sm:p-8 shadow-2xl shadow-emerald-950/10">
-              <div class="flex items-center justify-between pb-6 border-b border-[#E5EAE5]">
-                <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 rounded-2xl bg-[#14532D] text-[#22C55E] flex items-center justify-center shadow-md">
-                    <Cpu class="w-7 h-7" />
+              <div class="flex items-center justify-between pb-6 border-b border-[#E5EAE5] gap-3">
+                <div class="flex items-center gap-3.5 min-w-0">
+                  <div class="h-11 sm:h-12 w-auto flex items-center justify-center shrink-0">
+                    <img src="/images/logo-lppm.png" alt="Logo LPPM UNSOED" class="h-10 sm:h-12 w-auto object-contain" />
                   </div>
-                  <div>
-                    <h3 class="font-bold text-[#14532D] text-base">Pusat Teknologi Terpadu</h3>
-                    <p class="text-xs text-[#647067]">LPPM UNSOED Purwokerto</p>
+                  <div class="min-w-0">
+                    <h3 class="font-bold text-[#14532D] text-base leading-tight truncate">Pusat Teknologi Terpadu</h3>
+                    <p class="text-xs text-[#647067] mt-0.5 truncate">LPPM UNSOED Purwokerto</p>
                   </div>
                 </div>
-                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-[#DCFCE7] text-[#14532D]">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-[#DCFCE7] text-[#14532D] shrink-0">
                   Terverifikasi
                 </span>
               </div>
 
               <!-- Metrics inside Card -->
-              <div class="grid grid-cols-2 gap-4 my-6">
-                <div class="p-4 rounded-xl bg-[#F7FAF7] border border-[#E5EAE5]/60 flex flex-col justify-between min-h-[108px]">
+              <div class="grid grid-cols-2 gap-3.5 sm:gap-4 my-6">
+                <!-- Program Utama -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-[#F7FAF7] border border-[#E5EAE5] flex flex-col justify-between min-h-[115px]">
                   <div>
-                    <span class="text-xs text-[#647067] font-medium block">Program Utama</span>
-                    <span class="text-2xl font-extrabold text-[#14532D] mt-1 block">{{ stats.total_programs }} Program</span>
+                    <span class="text-xs text-[#647067] font-semibold block leading-tight">Program Utama</span>
+                    <span class="text-2xl sm:text-3xl font-extrabold text-[#14532D] mt-1.5 block tracking-tight">
+                      {{ stats.total_programs }} Program
+                    </span>
                   </div>
-                  <div class="mt-2.5 h-6 flex items-center overflow-hidden">
+                  <div class="mt-3 h-7 flex items-center overflow-hidden">
                     <Transition name="program-fade" mode="out-in">
                       <span
                         :key="currentProgramIndex"
-                        class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#DCFCE7] border border-[#22C55E]/30 text-[#14532D] text-[11px] font-bold shadow-xs"
+                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#DCFCE7] border border-[#22C55E]/30 text-[#14532D] text-[10.5px] sm:text-[11px] font-bold shadow-xs whitespace-nowrap"
                       >
-                        <span class="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse"></span>
-                        <span class="truncate max-w-[110px] sm:max-w-[130px]">{{ activePrograms[currentProgramIndex] }}</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0"></span>
+                        <span>{{ activePrograms[currentProgramIndex] }}</span>
                       </span>
                     </Transition>
                   </div>
                 </div>
 
-                <div class="p-4 rounded-xl bg-[#F7FAF7] border border-[#E5EAE5]/60 flex flex-col justify-between min-h-[108px]">
+                <!-- Inovasi Tepat Guna -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-[#F7FAF7] border border-[#E5EAE5] flex flex-col justify-between min-h-[115px]">
                   <div>
-                    <span class="text-xs text-[#647067] font-medium block">Inovasi Tepat Guna</span>
-                    <span class="text-2xl font-extrabold text-[#14532D] mt-1 block">{{ stats.total_products }}+ Produk</span>
+                    <span class="text-xs text-[#647067] font-semibold block leading-tight">Inovasi Tepat Guna</span>
+                    <span class="text-2xl sm:text-3xl font-extrabold text-[#14532D] mt-1.5 block tracking-tight">
+                      {{ stats.total_products }}+ Produk
+                    </span>
                   </div>
-                  <div class="mt-2.5 h-6 flex items-center">
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E8F5E9] border border-[#14532D]/10 text-[#14532D] text-[11px] font-semibold">
-                      Katalog Terpusat
+                  <div class="mt-3 h-7 flex items-center">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-[#E5EAE5] text-[#14532D] text-[10.5px] sm:text-[11px] font-bold shadow-xs whitespace-nowrap">
+                      <span>Katalog Terpadu</span>
                     </span>
                   </div>
                 </div>
