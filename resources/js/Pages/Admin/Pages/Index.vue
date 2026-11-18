@@ -1582,7 +1582,7 @@ const submitOrganization = () => {
                     <input
                       type="text"
                       v-model="student.role"
-                      placeholder="Contoh: Riset Formulasi Hayati & Mikroba"
+                      placeholder="Contoh: Formulasi Pangan Fungsional & Ekstraksi Carica"
                       class="w-full px-3.5 py-2 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
                     />
                   </div>

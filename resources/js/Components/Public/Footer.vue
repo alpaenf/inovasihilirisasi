@@ -47,7 +47,7 @@ import { Cpu, Mail, MapPin, Phone, ArrowUpRight } from 'lucide-vue-next';
               <Link href="/program/ajakan-industri" class="hover:text-white transition-colors">AJAKAN INDUSTRI</Link>
             </li>
             <li>
-              <Link href="/program/pmupud" class="hover:text-white transition-colors">PMUPUD</Link>
+              <Link href="/program/pm-upud" class="hover:text-white transition-colors">PM-UPUD</Link>
             </li>
             <li>
               <Link href="/program/dortek" class="hover:text-white transition-colors">DORTEK</Link>

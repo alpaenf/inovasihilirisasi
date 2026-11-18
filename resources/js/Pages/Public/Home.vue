@@ -113,7 +113,7 @@ const contactForm = ref({
   institution: '',
   email: '',
   phone: '',
-  program: 'SINERGI',
+  program: 'SINERGI — Pangan Fungsional Buah Carica Dieng',
   message: '',
 });
 const contactSubmitted = ref(false);
@@ -166,7 +166,7 @@ const jsonLd = {
     <title>Inovasi Hilirisasi UNSOED - Pusat Inovasi & Penerapan Teknologi</title>
     <meta name="description" content="Platform terpadu koordinasi inovasi, alih teknologi, dan hilirisasi riset Universitas Jenderal Soedirman melalui 4 program utama kolaborasi industri." />
     <meta property="og:title" content="Inovasi Hilirisasi UNSOED - Pusat Inovasi & Penerapan Teknologi" />
-    <meta property="og:description" content="Wadah koordinasi pengembangan dan penerapan teknologi Universitas Jenderal Soedirman melalui SINERGI, AJAKAN INDUSTRI, PMUPUD, dan DORTEK." />
+    <meta property="og:description" content="Wadah koordinasi pengembangan dan penerapan teknologi Universitas Jenderal Soedirman melalui SINERGI, AJAKAN INDUSTRI, PM-UPUD, dan DORTEK." />
     <meta property="og:type" content="website" />
     <component :is="'script'" type="application/ld+json">
       {{ JSON.stringify(jsonLd) }}
@@ -739,11 +739,11 @@ const jsonLd = {
                   v-model="contactForm.program"
                   class="w-full px-4 py-2.5 rounded-xl border border-[#E5EAE5] text-sm font-semibold text-[#14532D] bg-[#F7FAF7] focus:outline-none focus:border-[#22C55E]"
                 >
-                  <option value="SINERGI">SINERGI — Riset Formulasi & Pupuk Organik Hayati</option>
-                  <option value="AJAKAN INDUSTRI">AJAKAN INDUSTRI — Kemitraan Komersial Korporasi DUDI</option>
-                  <option value="PMUPUD">PMUPUD — Inkubasi Mutu & Standardisasi Ekspor UMKM</option>
-                  <option value="DORTEK">DORTEK — Perekayasaan Alat & Mesin Tepat Guna</option>
-                  <option value="KONSULTASI_UMUM">Konsultasi Umum Alih Teknologi & Fasilitasi LPPM</option>
+                  <option value="SINERGI — Pangan Fungsional Buah Carica Dieng">SINERGI — Pangan Fungsional Buah Carica Dieng</option>
+                  <option value="AJAKAN INDUSTRI — Hilirisasi Pengolahan Buah Nanas Zero Waste">AJAKAN INDUSTRI — Hilirisasi Pengolahan Buah Nanas Zero Waste</option>
+                  <option value="PM-UPUD — Teknologi Produksi MOcaf & Pangan Pokok Alternatif">PM-UPUD — Teknologi Produksi MOcaf & Pangan Pokok Alternatif</option>
+                  <option value="DORTEK — Produksi Mi Fungsional Bebas Gluten Berbasis Singkong">DORTEK — Produksi Mi Fungsional Bebas Gluten Berbasis Singkong</option>
+                  <option value="Konsultasi Umum Alih Teknologi & Fasilitasi LPPM">Konsultasi Umum Alih Teknologi & Fasilitasi LPPM</option>
                 </select>
               </div>
 
