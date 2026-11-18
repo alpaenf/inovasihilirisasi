@@ -55,6 +55,7 @@ const getIcon = (slug) => {
         <div
           v-for="(program, index) in programs"
           :key="program.id"
+          v-reveal="{ delay: index * 100 }"
           class="rounded-3xl border border-[#E5EAE5] p-8 sm:p-12 hover:border-[#22C55E]/60 hover:shadow-xl hover:shadow-emerald-950/5 transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
           :class="index % 2 === 1 ? 'bg-[#F7FAF7]' : 'bg-white'"
         >

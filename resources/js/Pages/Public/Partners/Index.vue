@@ -123,9 +123,10 @@ const selectCategory = (cat) => {
 
         <div v-if="partners.data && partners.data.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <PartnerCard
-            v-for="pt in partners.data"
+            v-for="(pt, idx) in partners.data"
             :key="pt.id"
             :partner="pt"
+            v-reveal="{ delay: (idx % 8) * 60 }"
           />
         </div>
 

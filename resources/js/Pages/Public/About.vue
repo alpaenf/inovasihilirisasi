@@ -167,8 +167,9 @@ const countStudents = (slug) => {
           <!-- Leaders Grid (Advisory & Executive) -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
             <div
-              v-for="leader in organization?.leaders"
+              v-for="(leader, idx) in organization?.leaders"
               :key="leader.id || leader.name"
+              v-reveal="{ delay: (idx % 4) * 80 }"
               class="bg-white p-5 sm:p-6 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/50 shadow-xs hover:shadow-md transition-all flex flex-col sm:flex-row items-start sm:items-center gap-4 group"
             >
               <!-- Photo / Avatar -->
@@ -221,8 +222,9 @@ const countStudents = (slug) => {
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               <div
-                v-for="div in organization?.divisions"
+                v-for="(div, idx) in organization?.divisions"
                 :key="div.id || div.program_slug"
+                v-reveal="{ delay: idx * 90 }"
                 class="bg-white p-5 sm:p-6 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/60 hover:shadow-lg transition-all flex flex-col justify-between group"
               >
                 <div>
@@ -314,8 +316,9 @@ const countStudents = (slug) => {
         <!-- Students Grid -->
         <div v-if="filteredStudents.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           <div
-            v-for="student in filteredStudents"
+            v-for="(student, idx) in filteredStudents"
             :key="student.id || student.name"
+            v-reveal="{ delay: (idx % 8) * 60 }"
             class="bg-[#F7FAF7] p-5 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/50 hover:bg-white shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
           >
             <div>

@@ -262,9 +262,10 @@ const getIcon = (slug) => {
 
         <div v-if="program.products && program.products.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <ProductCard
-            v-for="prod in program.products"
+            v-for="(prod, idx) in program.products"
             :key="prod.id"
             :product="{ ...prod, program: { name: program.name, slug: program.slug } }"
+            v-reveal="{ delay: idx * 90 }"
           />
         </div>
         <div v-else class="text-center py-12 bg-white rounded-2xl border border-[#E5EAE5] text-[#647067] text-sm">
@@ -290,8 +291,9 @@ const getIcon = (slug) => {
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           <div
-            v-for="student in program.students"
+            v-for="(student, idx) in program.students"
             :key="student.id || student.name"
+            v-reveal="{ delay: (idx % 4) * 75 }"
             class="bg-[#F7FAF7] p-5 rounded-2xl border border-[#E5EAE5] shadow-2xs hover:shadow-md transition-all flex flex-col justify-between"
           >
             <div>
@@ -336,8 +338,11 @@ const getIcon = (slug) => {
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <PartnerCard
-            v-for="partner in program.partners"
+            v-for="(partner, idx) in program.partners"
             :key="partner.id"
+            :partner="partner"
+            v-reveal="{ delay: idx * 80 }"
+          />
             :partner="partner"
           />
         </div>

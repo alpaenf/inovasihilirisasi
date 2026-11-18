@@ -328,36 +328,37 @@ const submitOrganization = () => {
   <AdminLayout title="Manajemen Halaman">
     <div class="space-y-6">
       <!-- Main Page Navigation Tabs -->
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 border-b border-[#E5EAE5] pb-4">
-        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar">
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-b border-[#E5EAE5] pb-4">
+        <div class="grid grid-cols-2 p-1.5 bg-[#E5EAE5]/50 rounded-2xl sm:flex sm:p-0 sm:bg-transparent sm:rounded-none gap-2">
           <button
             type="button"
             @click="activeMainTab = 'home'"
-            class="flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all whitespace-nowrap min-h-[44px]"
+            class="flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all min-h-[44px] active:scale-98"
             :class="activeMainTab === 'home'
               ? 'bg-[#14532D] text-white shadow-sm'
-              : 'bg-white text-[#647067] hover:text-[#14532D] hover:bg-[#F7FAF7] border border-[#E5EAE5]'"
+              : 'bg-white text-[#647067] hover:text-[#14532D] hover:bg-[#F7FAF7] border border-[#E5EAE5] sm:border-transparent'"
           >
-            <Home class="w-4 h-4" />
-            <span>Halaman Beranda</span>
+            <Home class="w-4 h-4 shrink-0" />
+            <span class="truncate">Halaman Beranda</span>
           </button>
 
           <button
             type="button"
             @click="activeMainTab = 'about'"
-            class="flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all whitespace-nowrap min-h-[44px]"
+            class="flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all min-h-[44px] active:scale-98"
             :class="activeMainTab === 'about'
               ? 'bg-[#14532D] text-white shadow-sm'
-              : 'bg-white text-[#647067] hover:text-[#14532D] hover:bg-[#F7FAF7] border border-[#E5EAE5]'"
+              : 'bg-white text-[#647067] hover:text-[#14532D] hover:bg-[#F7FAF7] border border-[#E5EAE5] sm:border-transparent'"
           >
-            <Building2 class="w-4 h-4" />
-            <span>Halaman Tentang Kami</span>
+            <Building2 class="w-4 h-4 shrink-0" />
+            <span class="truncate">Halaman Tentang Kami</span>
           </button>
         </div>
 
-        <span class="text-xs text-[#647067]">
-          Kelola galeri kegiatan, berita, kontak, serta struktur organisasi dengan auto kompresi foto WebP.
-        </span>
+        <div class="flex items-center gap-1.5 text-xs text-[#647067] bg-white sm:bg-transparent p-2.5 sm:p-0 rounded-xl border border-[#E5EAE5] sm:border-0">
+          <Sparkles class="w-3.5 h-3.5 text-[#22C55E] shrink-0" />
+          <span>Kelola galeri, berita, kontak & struktur dengan kompresi WebP otomatis.</span>
+        </div>
       </div>
 
       <!-- ======================================================== -->
@@ -365,18 +366,18 @@ const submitOrganization = () => {
       <!-- ======================================================== -->
       <div v-if="activeMainTab === 'home'" class="space-y-6">
         <!-- Sub-Navigation for Home Section -->
-        <div class="flex items-center gap-2 border-b border-[#E5EAE5] pb-3 overflow-x-auto no-scrollbar">
+        <div class="-mx-4 px-4 sm:mx-0 sm:px-0 flex items-center gap-2 border-b border-[#E5EAE5] pb-3 overflow-x-auto no-scrollbar scroll-smooth snap-x">
           <button
             type="button"
             @click="activeHomeTab = 'gallery'"
-            class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[40px] whitespace-nowrap"
+            class="shrink-0 snap-start flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[44px] touch-manipulation active:scale-98"
             :class="activeHomeTab === 'gallery'
-              ? 'bg-[#DCFCE7] text-[#14532D] shadow-xs'
-              : 'text-[#647067] hover:bg-[#F7FAF7]'"
+              ? 'bg-[#14532D] text-white shadow-sm'
+              : 'bg-white text-[#647067] border border-[#E5EAE5] hover:bg-[#F7FAF7]'"
           >
-            <ImageIcon class="w-4 h-4 text-[#22C55E]" />
+            <ImageIcon class="w-4 h-4" :class="activeHomeTab === 'gallery' ? 'text-[#22C55E]' : 'text-[#647067]'" />
             <span>Galeri Kegiatan</span>
-            <span class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#14532D] text-white font-extrabold">
+            <span class="ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-extrabold" :class="activeHomeTab === 'gallery' ? 'bg-[#22C55E] text-[#14532D]' : 'bg-[#E5EAE5] text-[#14532D]'">
               {{ galleryForm.items.length }}
             </span>
           </button>
@@ -384,14 +385,14 @@ const submitOrganization = () => {
           <button
             type="button"
             @click="activeHomeTab = 'news'"
-            class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[40px] whitespace-nowrap"
+            class="shrink-0 snap-start flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[44px] touch-manipulation active:scale-98"
             :class="activeHomeTab === 'news'
-              ? 'bg-[#DCFCE7] text-[#14532D] shadow-xs'
-              : 'text-[#647067] hover:bg-[#F7FAF7]'"
+              ? 'bg-[#14532D] text-white shadow-sm'
+              : 'bg-white text-[#647067] border border-[#E5EAE5] hover:bg-[#F7FAF7]'"
           >
-            <Newspaper class="w-4 h-4 text-[#22C55E]" />
+            <Newspaper class="w-4 h-4" :class="activeHomeTab === 'news' ? 'text-[#22C55E]' : 'text-[#647067]'" />
             <span>Berita & Publikasi</span>
-            <span class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#14532D] text-white font-extrabold">
+            <span class="ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-extrabold" :class="activeHomeTab === 'news' ? 'bg-[#22C55E] text-[#14532D]' : 'bg-[#E5EAE5] text-[#14532D]'">
               {{ newsForm.items.length }}
             </span>
           </button>
@@ -399,24 +400,24 @@ const submitOrganization = () => {
           <button
             type="button"
             @click="activeHomeTab = 'contact'"
-            class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[40px] whitespace-nowrap"
+            class="shrink-0 snap-start flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[44px] touch-manipulation active:scale-98"
             :class="activeHomeTab === 'contact'
-              ? 'bg-[#DCFCE7] text-[#14532D] shadow-xs'
-              : 'text-[#647067] hover:bg-[#F7FAF7]'"
+              ? 'bg-[#14532D] text-white shadow-sm'
+              : 'bg-white text-[#647067] border border-[#E5EAE5] hover:bg-[#F7FAF7]'"
           >
-            <Phone class="w-4 h-4 text-[#22C55E]" />
+            <Phone class="w-4 h-4" :class="activeHomeTab === 'contact' ? 'text-[#22C55E]' : 'text-[#647067]'" />
             <span>Kontak & Layanan</span>
           </button>
 
           <button
             type="button"
             @click="activeHomeTab = 'hero'"
-            class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[40px] whitespace-nowrap"
+            class="shrink-0 snap-start flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[44px] touch-manipulation active:scale-98"
             :class="activeHomeTab === 'hero'
-              ? 'bg-[#DCFCE7] text-[#14532D] shadow-xs'
-              : 'text-[#647067] hover:bg-[#F7FAF7]'"
+              ? 'bg-[#14532D] text-white shadow-sm'
+              : 'bg-white text-[#647067] border border-[#E5EAE5] hover:bg-[#F7FAF7]'"
           >
-            <Sparkles class="w-4 h-4 text-[#22C55E]" />
+            <Sparkles class="w-4 h-4" :class="activeHomeTab === 'hero' ? 'text-[#22C55E]' : 'text-[#647067]'" />
             <span>Hero Utama Beranda</span>
           </button>
         </div>
@@ -425,10 +426,10 @@ const submitOrganization = () => {
         <div v-show="activeHomeTab === 'gallery'" class="space-y-6">
           <form @submit.prevent="submitGallery" class="space-y-6">
             <!-- Header Card -->
-            <div class="bg-white p-5 sm:p-6 rounded-2xl border border-[#E5EAE5] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="bg-white p-4 sm:p-6 rounded-2xl border border-[#E5EAE5] shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
               <div>
                 <h3 class="text-base sm:text-lg font-bold text-[#14532D] flex items-center gap-2">
-                  <ImageIcon class="w-5 h-5 text-[#22C55E]" />
+                  <ImageIcon class="w-5 h-5 text-[#22C55E] shrink-0" />
                   <span>Galeri Dokumentasi & Kegiatan Lapangan</span>
                 </h3>
                 <p class="text-xs text-[#647067] mt-1 leading-relaxed max-w-2xl">
@@ -436,11 +437,11 @@ const submitOrganization = () => {
                 </p>
               </div>
 
-              <div class="flex items-center gap-2 w-full sm:w-auto">
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto shrink-0">
                 <button
                   type="button"
                   @click="addGalleryItem"
-                  class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#DCFCE7] text-[#14532D] hover:bg-[#DCFCE7]/80 transition-all flex-1 sm:flex-initial min-h-[44px]"
+                  class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#DCFCE7] text-[#14532D] hover:bg-[#DCFCE7]/80 transition-all w-full sm:w-auto min-h-[44px] active:scale-98"
                 >
                   <Plus class="w-4 h-4" />
                   <span>Tambah Foto Galeri</span>
@@ -449,7 +450,7 @@ const submitOrganization = () => {
                 <button
                   type="submit"
                   :disabled="galleryForm.processing"
-                  class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all flex-1 sm:flex-initial min-h-[44px]"
+                  class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all w-full sm:w-auto min-h-[44px] active:scale-98 disabled:opacity-50"
                 >
                   <Save class="w-4 h-4" />
                   <span>{{ galleryForm.processing ? 'Menyimpan...' : 'Simpan Galeri' }}</span>
@@ -470,7 +471,7 @@ const submitOrganization = () => {
               <button
                 type="button"
                 @click="addGalleryItem"
-                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-all shadow-xs"
+                class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-all shadow-xs min-h-[42px]"
               >
                 <Plus class="w-3.5 h-3.5" />
                 <span>Tambah Foto Sekarang</span>
@@ -482,11 +483,11 @@ const submitOrganization = () => {
               <div
                 v-for="(item, idx) in galleryForm.items"
                 :key="item.id || idx"
-                class="bg-white p-5 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/40 shadow-xs transition-all relative flex flex-col justify-between space-y-4"
+                class="bg-white p-4 sm:p-5 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/40 shadow-xs transition-all relative flex flex-col justify-between space-y-4"
               >
                 <!-- Top Row: Photo Upload Box + Delete -->
                 <div class="space-y-4">
-                  <div class="flex items-start justify-between gap-3">
+                  <div class="flex items-center justify-between gap-3">
                     <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#F7FAF7] text-[#14532D] border border-[#E5EAE5]">
                       Dokumentasi #{{ idx + 1 }}
                     </span>
@@ -494,7 +495,7 @@ const submitOrganization = () => {
                     <button
                       type="button"
                       @click="removeGalleryItem(idx)"
-                      class="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
+                      class="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors min-w-[38px] min-h-[38px] flex items-center justify-center"
                       title="Hapus item galeri ini"
                     >
                       <Trash2 class="w-4 h-4" />
@@ -526,8 +527,8 @@ const submitOrganization = () => {
                   </div>
 
                   <!-- Upload Controls -->
-                  <div class="flex items-center gap-2">
-                    <label class="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-colors shadow-2xs">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <label class="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-colors shadow-2xs min-h-[36px]">
                       <Upload class="w-3.5 h-3.5" />
                       <span>{{ item.image ? 'Ganti Foto' : 'Pilih Foto Kegiatan' }}</span>
                       <input
@@ -542,7 +543,7 @@ const submitOrganization = () => {
                       v-if="item.image"
                       type="button"
                       @click="item.image = ''"
-                      class="px-2.5 py-1.5 rounded-lg text-xs text-rose-500 hover:bg-rose-50 transition-colors"
+                      class="px-3 py-2 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-50 transition-colors min-h-[36px]"
                     >
                       Hapus Foto
                     </button>
@@ -559,7 +560,7 @@ const submitOrganization = () => {
                         v-model="item.title"
                         placeholder="Contoh: Uji Coba Lapangan Mesin Briket Biomassa"
                         required
-                        class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
+                        class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                       />
                     </div>
 
@@ -570,7 +571,7 @@ const submitOrganization = () => {
                         </label>
                         <select
                           v-model="item.tag"
-                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs font-bold text-[#14532D] bg-[#F7FAF7] focus:outline-none focus:border-[#22C55E]"
+                          class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs font-bold text-[#14532D] bg-[#F7FAF7] focus:outline-none focus:border-[#22C55E]"
                         >
                           <option value="SINERGI">SINERGI</option>
                           <option value="AJAKAN INDUSTRI">AJAKAN INDUSTRI</option>
@@ -590,7 +591,7 @@ const submitOrganization = () => {
                           v-model="item.category"
                           placeholder="Uji Prototipe Mesin / Inkubasi"
                           required
-                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                          class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
                         />
                       </div>
                     </div>
@@ -604,7 +605,7 @@ const submitOrganization = () => {
                           type="text"
                           v-model="item.date"
                           placeholder="Contoh: 12 November 2026"
-                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
+                          class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
                         />
                       </div>
 
@@ -616,7 +617,7 @@ const submitOrganization = () => {
                           type="text"
                           v-model="item.location"
                           placeholder="Contoh: Pabrik Gula Banyumas"
-                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
+                          class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
                         />
                       </div>
                     </div>
@@ -630,7 +631,7 @@ const submitOrganization = () => {
               <button
                 type="submit"
                 :disabled="galleryForm.processing"
-                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-md transition-all w-full sm:w-auto justify-center"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-md transition-all w-full sm:w-auto justify-center min-h-[44px]"
               >
                 <Save class="w-4 h-4" />
                 <span>{{ galleryForm.processing ? 'Menyimpan...' : 'Simpan Seluruh Galeri Kegiatan' }}</span>
@@ -643,10 +644,10 @@ const submitOrganization = () => {
         <div v-show="activeHomeTab === 'news'" class="space-y-6">
           <form @submit.prevent="submitNews" class="space-y-6">
             <!-- Header Card -->
-            <div class="bg-white p-5 sm:p-6 rounded-2xl border border-[#E5EAE5] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="bg-white p-4 sm:p-6 rounded-2xl border border-[#E5EAE5] shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
               <div>
                 <h3 class="text-base sm:text-lg font-bold text-[#14532D] flex items-center gap-2">
-                  <Newspaper class="w-5 h-5 text-[#22C55E]" />
+                  <Newspaper class="w-5 h-5 text-[#22C55E] shrink-0" />
                   <span>Berita & Rilis Publikasi Hilirisasi</span>
                 </h3>
                 <p class="text-xs text-[#647067] mt-1 leading-relaxed max-w-2xl">
@@ -654,11 +655,11 @@ const submitOrganization = () => {
                 </p>
               </div>
 
-              <div class="flex items-center gap-2 w-full sm:w-auto">
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto shrink-0">
                 <button
                   type="button"
                   @click="addNewsItem"
-                  class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#DCFCE7] text-[#14532D] hover:bg-[#DCFCE7]/80 transition-all flex-1 sm:flex-initial min-h-[44px]"
+                  class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#DCFCE7] text-[#14532D] hover:bg-[#DCFCE7]/80 transition-all w-full sm:w-auto min-h-[44px] active:scale-98"
                 >
                   <Plus class="w-4 h-4" />
                   <span>Tambah Berita Baru</span>
@@ -667,7 +668,7 @@ const submitOrganization = () => {
                 <button
                   type="submit"
                   :disabled="newsForm.processing"
-                  class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all flex-1 sm:flex-initial min-h-[44px]"
+                  class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all w-full sm:w-auto min-h-[44px] active:scale-98 disabled:opacity-50"
                 >
                   <Save class="w-4 h-4" />
                   <span>{{ newsForm.processing ? 'Menyimpan...' : 'Simpan Berita' }}</span>
@@ -688,7 +689,7 @@ const submitOrganization = () => {
               <button
                 type="button"
                 @click="addNewsItem"
-                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-all shadow-xs"
+                class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-all shadow-xs min-h-[42px]"
               >
                 <Plus class="w-3.5 h-3.5" />
                 <span>Tambah Berita Sekarang</span>
@@ -700,7 +701,7 @@ const submitOrganization = () => {
               <div
                 v-for="(item, idx) in newsForm.items"
                 :key="item.id || idx"
-                class="bg-white p-5 sm:p-6 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/40 shadow-xs transition-all space-y-5"
+                class="bg-white p-4 sm:p-6 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/40 shadow-xs transition-all space-y-5"
               >
                 <!-- Top Row: Badge + Delete -->
                 <div class="flex items-center justify-between border-b border-[#E5EAE5] pb-3">
@@ -716,7 +717,7 @@ const submitOrganization = () => {
                   <button
                     type="button"
                     @click="removeNewsItem(idx)"
-                    class="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors flex items-center gap-1 text-xs"
+                    class="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors flex items-center gap-1 text-xs min-h-[36px]"
                     title="Hapus berita ini"
                   >
                     <Trash2 class="w-4 h-4" />
@@ -755,9 +756,9 @@ const submitOrganization = () => {
                       </div>
                     </div>
 
-                    <div class="flex items-center gap-2">
-                      <label class="cursor-pointer inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-colors shadow-2xs">
-                        <Upload class="w-3 h-3" />
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <label class="cursor-pointer inline-flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-colors shadow-2xs min-h-[36px]">
+                        <Upload class="w-3.5 h-3.5" />
                         <span>{{ item.image ? 'Ganti Cover' : 'Upload Cover' }}</span>
                         <input
                           type="file"
@@ -771,7 +772,7 @@ const submitOrganization = () => {
                         v-if="item.image"
                         type="button"
                         @click="item.image = ''"
-                        class="text-xs text-rose-500 hover:underline"
+                        class="px-3 py-2 text-xs font-bold text-rose-500 hover:bg-rose-50 rounded-xl transition-colors min-h-[36px]"
                       >
                         Hapus Foto
                       </button>
@@ -787,9 +788,9 @@ const submitOrganization = () => {
                       <input
                         type="text"
                         v-model="item.title"
-                        placeholder="Contoh: UNSOED dan Pupuk Indonesia Luncurkan Formula Pupuk Hayati..."
+                        placeholder="Contoh: UNSOED dan Mitra Industri Luncurkan Produk..."
                         required
-                        class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
+                        class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                       />
                     </div>
 
@@ -800,7 +801,7 @@ const submitOrganization = () => {
                         </label>
                         <select
                           v-model="item.tag"
-                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs font-bold text-[#14532D] bg-[#F7FAF7] focus:outline-none focus:border-[#22C55E]"
+                          class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs font-bold text-[#14532D] bg-[#F7FAF7] focus:outline-none focus:border-[#22C55E]"
                         >
                           <option value="SINERGI">SINERGI</option>
                           <option value="AJAKAN INDUSTRI">AJAKAN INDUSTRI</option>
@@ -819,7 +820,7 @@ const submitOrganization = () => {
                           v-model="item.category"
                           placeholder="Kemitraan DUDI / Riset"
                           required
-                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                          class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
                         />
                       </div>
 
@@ -831,7 +832,7 @@ const submitOrganization = () => {
                           type="text"
                           v-model="item.read_time"
                           placeholder="3 menit baca"
-                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                          class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
                         />
                       </div>
                     </div>
@@ -845,7 +846,7 @@ const submitOrganization = () => {
                           type="text"
                           v-model="item.author"
                           placeholder="Tim Media Inovasi Hilirisasi"
-                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
+                          class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
                         />
                       </div>
 
@@ -857,7 +858,7 @@ const submitOrganization = () => {
                           type="text"
                           v-model="item.date"
                           placeholder="Contoh: 14 November 2026"
-                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
+                          class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
                         />
                       </div>
                     </div>
@@ -871,7 +872,7 @@ const submitOrganization = () => {
                         rows="2"
                         required
                         placeholder="Ringkasan 1-2 kalimat untuk preview di kartu beranda..."
-                        class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                        class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
                       ></textarea>
                     </div>
 
@@ -883,7 +884,7 @@ const submitOrganization = () => {
                         v-model="item.content"
                         rows="4"
                         placeholder="Tuliskan berita lengkap, narasi kerja sama, kutipan narasumber, dan penjelasan program..."
-                        class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                        class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
                       ></textarea>
                     </div>
                   </div>
@@ -896,7 +897,7 @@ const submitOrganization = () => {
               <button
                 type="submit"
                 :disabled="newsForm.processing"
-                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-md transition-all w-full sm:w-auto justify-center"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-md transition-all w-full sm:w-auto justify-center min-h-[44px]"
               >
                 <Save class="w-4 h-4" />
                 <span>{{ newsForm.processing ? 'Menyimpan...' : 'Simpan Seluruh Artikel Berita' }}</span>
@@ -907,7 +908,7 @@ const submitOrganization = () => {
 
         <!-- 1.C: KONTAK & LAYANAN -->
         <div v-show="activeHomeTab === 'contact'" class="max-w-4xl space-y-6">
-          <div class="bg-white p-5 sm:p-8 rounded-2xl border border-[#E5EAE5] shadow-xs space-y-6">
+          <div class="bg-white p-4 sm:p-8 rounded-2xl border border-[#E5EAE5] shadow-xs space-y-6">
             <div class="flex items-center gap-3 pb-4 border-b border-[#E5EAE5]">
               <div class="w-10 h-10 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center shrink-0">
                 <Phone class="w-5 h-5 text-[#22C55E]" />
@@ -992,7 +993,7 @@ const submitOrganization = () => {
                 <button
                   type="submit"
                   :disabled="contactForm.processing"
-                  class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all"
+                  class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all w-full sm:w-auto justify-center min-h-[44px]"
                 >
                   <Save class="w-4 h-4" />
                   <span>{{ contactForm.processing ? 'Menyimpan...' : 'Perbarui Informasi Kontak' }}</span>
@@ -1004,7 +1005,7 @@ const submitOrganization = () => {
 
         <!-- 1.D: HERO UTAMA BERANDA -->
         <div v-show="activeHomeTab === 'hero'" class="max-w-4xl space-y-6">
-          <div class="bg-white p-5 sm:p-8 rounded-2xl border border-[#E5EAE5] shadow-xs space-y-6">
+          <div class="bg-white p-4 sm:p-8 rounded-2xl border border-[#E5EAE5] shadow-xs space-y-6">
             <div class="flex items-center gap-3 pb-4 border-b border-[#E5EAE5]">
               <div class="w-10 h-10 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center shrink-0">
                 <Sparkles class="w-5 h-5 text-[#22C55E]" />
@@ -1049,7 +1050,7 @@ const submitOrganization = () => {
                 <button
                   type="submit"
                   :disabled="homeHeroForm.processing"
-                  class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all"
+                  class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all w-full sm:w-auto justify-center min-h-[44px]"
                 >
                   <Save class="w-4 h-4" />
                   <span>{{ homeHeroForm.processing ? 'Menyimpan...' : 'Perbarui Hero Beranda' }}</span>
@@ -1065,30 +1066,30 @@ const submitOrganization = () => {
       <!-- ======================================================== -->
       <div v-if="activeMainTab === 'about'" class="space-y-6">
         <!-- Sub-Navigation for About Section -->
-        <div class="flex items-center gap-2 border-b border-[#E5EAE5] pb-3 overflow-x-auto no-scrollbar">
+        <div class="-mx-4 px-4 sm:mx-0 sm:px-0 flex items-center gap-2 border-b border-[#E5EAE5] pb-3 overflow-x-auto no-scrollbar scroll-smooth snap-x">
           <button
             type="button"
             @click="activeAboutTab = 'organization'"
-            class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[40px] whitespace-nowrap"
+            class="shrink-0 snap-start flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[44px] touch-manipulation active:scale-98"
             :class="activeAboutTab === 'organization'
-              ? 'bg-[#DCFCE7] text-[#14532D] shadow-xs'
-              : 'text-[#647067] hover:bg-[#F7FAF7]'"
+              ? 'bg-[#14532D] text-white shadow-sm'
+              : 'bg-white text-[#647067] border border-[#E5EAE5] hover:bg-[#F7FAF7]'"
           >
-            <Users class="w-4 h-4 text-[#22C55E]" />
+            <Users class="w-4 h-4" :class="activeAboutTab === 'organization' ? 'text-[#22C55E]' : 'text-[#647067]'" />
             <span>Pimpinan & Struktur Organisasi</span>
           </button>
 
           <button
             type="button"
             @click="activeAboutTab = 'students'"
-            class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[40px] whitespace-nowrap"
+            class="shrink-0 snap-start flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[44px] touch-manipulation active:scale-98"
             :class="activeAboutTab === 'students'
-              ? 'bg-[#DCFCE7] text-[#14532D] shadow-xs'
-              : 'text-[#647067] hover:bg-[#F7FAF7]'"
+              ? 'bg-[#14532D] text-white shadow-sm'
+              : 'bg-white text-[#647067] border border-[#E5EAE5] hover:bg-[#F7FAF7]'"
           >
-            <GraduationCap class="w-4 h-4 text-[#22C55E]" />
+            <GraduationCap class="w-4 h-4" :class="activeAboutTab === 'students' ? 'text-[#22C55E]' : 'text-[#647067]'" />
             <span>Mahasiswa & Tim per Program</span>
-            <span class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#14532D] text-white font-extrabold">
+            <span class="ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-extrabold" :class="activeAboutTab === 'students' ? 'bg-[#22C55E] text-[#14532D]' : 'bg-[#E5EAE5] text-[#14532D]'">
               {{ orgForm.students.length }}
             </span>
           </button>
@@ -1096,19 +1097,19 @@ const submitOrganization = () => {
           <button
             type="button"
             @click="activeAboutTab = 'profile'"
-            class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[40px] whitespace-nowrap"
+            class="shrink-0 snap-start flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[44px] touch-manipulation active:scale-98"
             :class="activeAboutTab === 'profile'
-              ? 'bg-[#DCFCE7] text-[#14532D] shadow-xs'
-              : 'text-[#647067] hover:bg-[#F7FAF7]'"
+              ? 'bg-[#14532D] text-white shadow-sm'
+              : 'bg-white text-[#647067] border border-[#E5EAE5] hover:bg-[#F7FAF7]'"
           >
-            <FileText class="w-4 h-4 text-[#22C55E]" />
+            <FileText class="w-4 h-4" :class="activeAboutTab === 'profile' ? 'text-[#22C55E]' : 'text-[#647067]'" />
             <span>Profil & Visi Misi</span>
           </button>
         </div>
 
         <!-- SUB-TAB A: PROFIL & VISI MISI -->
         <div v-show="activeAboutTab === 'profile'" class="max-w-4xl">
-          <div class="bg-white p-5 sm:p-8 rounded-2xl border border-[#E5EAE5] shadow-xs space-y-6">
+          <div class="bg-white p-4 sm:p-8 rounded-2xl border border-[#E5EAE5] shadow-xs space-y-6">
             <div class="flex items-center gap-3 pb-4 border-b border-[#E5EAE5]">
               <div class="w-10 h-10 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center shrink-0">
                 <FileText class="w-5 h-5 text-[#22C55E]" />
@@ -1156,7 +1157,7 @@ const submitOrganization = () => {
                   <button
                     type="button"
                     @click="addMissionItem"
-                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-[#DCFCE7] text-[#14532D] hover:bg-[#DCFCE7]/80 transition-colors"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#DCFCE7] text-[#14532D] hover:bg-[#DCFCE7]/80 transition-colors min-h-[36px]"
                   >
                     <Plus class="w-3.5 h-3.5" />
                     <span>Tambah Misi</span>
@@ -1164,17 +1165,17 @@ const submitOrganization = () => {
                 </div>
 
                 <div v-for="(m, idx) in aboutProfileForm.mission" :key="idx" class="flex items-center gap-2">
-                  <span class="w-6 text-xs font-bold text-[#647067] text-center">{{ idx + 1 }}.</span>
+                  <span class="w-6 text-xs font-bold text-[#647067] text-center shrink-0">{{ idx + 1 }}.</span>
                   <input
                     type="text"
                     v-model="aboutProfileForm.mission[idx]"
                     placeholder="Tuliskan butir misi..."
-                    class="flex-1 px-4 py-2 rounded-xl border border-[#E5EAE5] text-sm focus:outline-none focus:border-[#22C55E]"
+                    class="flex-1 min-w-0 px-4 py-2 rounded-xl border border-[#E5EAE5] text-sm focus:outline-none focus:border-[#22C55E]"
                   />
                   <button
                     type="button"
                     @click="removeMissionItem(idx)"
-                    class="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
+                    class="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center"
                     title="Hapus butir misi"
                   >
                     <Trash2 class="w-4 h-4" />
@@ -1186,7 +1187,7 @@ const submitOrganization = () => {
                 <button
                   type="submit"
                   :disabled="aboutProfileForm.processing"
-                  class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all"
+                  class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all w-full sm:w-auto justify-center min-h-[44px]"
                 >
                   <Save class="w-4 h-4" />
                   <span>{{ aboutProfileForm.processing ? 'Menyimpan...' : 'Perbarui Profil & Visi Misi' }}</span>
@@ -1200,19 +1201,19 @@ const submitOrganization = () => {
         <div v-show="activeAboutTab === 'organization'" class="space-y-6">
           <form @submit.prevent="submitOrganization" class="space-y-6">
             <!-- Section Header Card -->
-            <div class="bg-white p-5 sm:p-6 rounded-2xl border border-[#E5EAE5] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="bg-white p-4 sm:p-6 rounded-2xl border border-[#E5EAE5] shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
               <div>
                 <h3 class="text-base sm:text-lg font-bold text-[#14532D]">Pimpinan & Pengurus Inti Organisasi</h3>
-                <p class="text-xs text-[#647067] mt-0.5">
+                <p class="text-xs text-[#647067] mt-1 leading-relaxed">
                   Tambahkan atau ubah pimpinan institusi, jabatan, foto profil, dan deskripsi tanggung jawab.
                 </p>
               </div>
 
-              <div class="flex items-center gap-2 w-full sm:w-auto">
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto shrink-0">
                 <button
                   type="button"
                   @click="addLeader"
-                  class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#DCFCE7] text-[#14532D] hover:bg-[#DCFCE7]/80 transition-all flex-1 sm:flex-initial min-h-[44px]"
+                  class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#DCFCE7] text-[#14532D] hover:bg-[#DCFCE7]/80 transition-all w-full sm:w-auto min-h-[44px] active:scale-98"
                 >
                   <Plus class="w-4 h-4" />
                   <span>Tambah Pengurus Baru</span>
@@ -1221,7 +1222,7 @@ const submitOrganization = () => {
                 <button
                   type="submit"
                   :disabled="orgForm.processing"
-                  class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all flex-1 sm:flex-initial min-h-[44px]"
+                  class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all w-full sm:w-auto min-h-[44px] active:scale-98 disabled:opacity-50"
                 >
                   <Save class="w-4 h-4" />
                   <span>{{ orgForm.processing ? 'Menyimpan...' : 'Simpan Struktur' }}</span>
@@ -1234,14 +1235,14 @@ const submitOrganization = () => {
               <div
                 v-for="(leader, idx) in orgForm.leaders"
                 :key="leader.id || idx"
-                class="bg-white p-5 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/40 shadow-xs transition-all relative flex flex-col justify-between"
+                class="bg-white p-4 sm:p-5 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/40 shadow-xs transition-all relative flex flex-col justify-between"
               >
                 <!-- Top Row: Photo + Header -->
                 <div class="space-y-4">
-                  <div class="flex items-start justify-between gap-3">
+                  <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#E5EAE5]/60">
                     <!-- Photo Upload Thumbnail -->
-                    <div class="flex items-center gap-3">
-                      <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#F7FAF7] border-2 border-dashed border-[#E5EAE5] overflow-hidden flex items-center justify-center shrink-0">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <div class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#F7FAF7] border-2 border-dashed border-[#E5EAE5] overflow-hidden flex items-center justify-center shrink-0">
                         <img
                           v-if="leader.photo"
                           :src="leader.photo"
@@ -1249,7 +1250,7 @@ const submitOrganization = () => {
                           class="w-full h-full object-cover"
                         />
                         <div v-else class="flex flex-col items-center justify-center text-[#647067]">
-                          <User class="w-6 h-6 text-[#647067]/60" />
+                          <User class="w-5 h-5 text-[#647067]/60" />
                           <span class="text-[9px] mt-0.5">No Foto</span>
                         </div>
 
@@ -1262,9 +1263,9 @@ const submitOrganization = () => {
                         </div>
                       </div>
 
-                      <div class="space-y-1.5">
-                        <div class="flex items-center gap-1.5">
-                          <label class="cursor-pointer inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-colors shadow-2xs">
+                      <div class="space-y-1 min-w-0">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                          <label class="cursor-pointer inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-colors shadow-2xs min-h-[34px]">
                             <Upload class="w-3 h-3" />
                             <span>{{ leader.photo ? 'Ganti Foto' : 'Upload Foto' }}</span>
                             <input
@@ -1279,7 +1280,7 @@ const submitOrganization = () => {
                             v-if="leader.photo"
                             type="button"
                             @click="removePhotoForItem(leader, 'photo')"
-                            class="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 transition-colors"
+                            class="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 transition-colors text-xs min-h-[34px] min-w-[34px] flex items-center justify-center"
                             title="Hapus Foto"
                           >
                             <Trash2 class="w-3.5 h-3.5" />
@@ -1293,7 +1294,7 @@ const submitOrganization = () => {
                     <button
                       type="button"
                       @click="removeLeader(idx)"
-                      class="p-2 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors shrink-0"
+                      class="p-2 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors shrink-0 min-h-[38px] min-w-[38px] flex items-center justify-center"
                       title="Hapus Pengurus Ini"
                     >
                       <Trash2 class="w-4 h-4" />
@@ -1301,7 +1302,7 @@ const submitOrganization = () => {
                   </div>
 
                   <!-- Inputs for Leader -->
-                  <div class="space-y-3 pt-2">
+                  <div class="space-y-3 pt-1">
                     <div>
                       <label class="block text-[11px] font-bold text-[#17231C] uppercase tracking-wider mb-1">
                         Nama Lengkap & Gelar
@@ -1311,7 +1312,7 @@ const submitOrganization = () => {
                         v-model="leader.name"
                         placeholder="Contoh: Prof. Dr. Ir. ..."
                         required
-                        class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
+                        class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                       />
                     </div>
 
@@ -1325,7 +1326,7 @@ const submitOrganization = () => {
                           v-model="leader.position"
                           placeholder="Contoh: Koordinator Pusat"
                           required
-                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                          class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
                         />
                       </div>
 
@@ -1337,7 +1338,7 @@ const submitOrganization = () => {
                           type="text"
                           v-model="leader.category"
                           placeholder="Pimpinan Eksekutif / Pelindung"
-                          class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                          class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
                         />
                       </div>
                     </div>
@@ -1350,7 +1351,7 @@ const submitOrganization = () => {
                         v-model="leader.description"
                         rows="2"
                         placeholder="Tugas orkestrasi atau pengarah kebijakan..."
-                        class="w-full px-3 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
+                        class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm focus:outline-none focus:border-[#22C55E]"
                       ></textarea>
                     </div>
                   </div>
@@ -1363,7 +1364,7 @@ const submitOrganization = () => {
               <button
                 type="submit"
                 :disabled="orgForm.processing"
-                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-md transition-all w-full sm:w-auto justify-center"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-md transition-all w-full sm:w-auto justify-center min-h-[44px]"
               >
                 <Save class="w-4 h-4" />
                 <span>{{ orgForm.processing ? 'Menyimpan...' : 'Simpan Seluruh Struktur Organisasi' }}</span>
@@ -1376,11 +1377,11 @@ const submitOrganization = () => {
         <div v-show="activeAboutTab === 'students'" class="space-y-6">
           <form @submit.prevent="submitOrganization" class="space-y-6">
             <!-- Instruction & Filter Box -->
-            <div class="bg-white p-5 sm:p-6 rounded-2xl border border-[#E5EAE5] shadow-xs space-y-4">
-              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="bg-white p-4 sm:p-6 rounded-2xl border border-[#E5EAE5] shadow-xs space-y-4">
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                 <div>
                   <h3 class="text-base sm:text-lg font-bold text-[#14532D] flex items-center gap-2">
-                    <GraduationCap class="w-5 h-5 text-[#22C55E]" />
+                    <GraduationCap class="w-5 h-5 text-[#22C55E] shrink-0" />
                     <span>Daftar Anggota Mahasiswa Tiap Program</span>
                   </h3>
                   <p class="text-xs text-[#647067] mt-1 leading-relaxed max-w-2xl">
@@ -1388,11 +1389,11 @@ const submitOrganization = () => {
                   </p>
                 </div>
 
-                <div class="flex items-center gap-2 w-full sm:w-auto">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto shrink-0">
                   <button
                     type="button"
                     @click="addStudent()"
-                    class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#DCFCE7] text-[#14532D] hover:bg-[#DCFCE7]/80 transition-all flex-1 sm:flex-initial min-h-[44px]"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#DCFCE7] text-[#14532D] hover:bg-[#DCFCE7]/80 transition-all w-full sm:w-auto min-h-[44px] active:scale-98"
                   >
                     <Plus class="w-4 h-4" />
                     <span>Tambah Mahasiswa</span>
@@ -1401,7 +1402,7 @@ const submitOrganization = () => {
                   <button
                     type="submit"
                     :disabled="orgForm.processing"
-                    class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all flex-1 sm:flex-initial min-h-[44px]"
+                    class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-sm transition-all w-full sm:w-auto min-h-[44px] active:scale-98 disabled:opacity-50"
                   >
                     <Save class="w-4 h-4" />
                     <span>{{ orgForm.processing ? 'Menyimpan...' : 'Simpan Data' }}</span>
@@ -1410,17 +1411,17 @@ const submitOrganization = () => {
               </div>
 
               <!-- Filter Pills for Programs -->
-              <div class="pt-3 border-t border-[#E5EAE5] flex items-center gap-2 overflow-x-auto no-scrollbar">
+              <div class="-mx-4 px-4 sm:mx-0 sm:px-0 pt-3 border-t border-[#E5EAE5] flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth snap-x pb-1">
                 <button
                   type="button"
                   @click="selectedProgramFilter = 'all'"
-                  class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap min-h-[36px] flex items-center gap-1.5"
+                  class="shrink-0 snap-start px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap min-h-[38px] flex items-center gap-1.5 touch-manipulation"
                   :class="selectedProgramFilter === 'all'
                     ? 'bg-[#14532D] text-white shadow-xs'
-                    : 'bg-[#F7FAF7] text-[#647067] hover:bg-emerald-50 hover:text-[#14532D]'"
+                    : 'bg-[#F7FAF7] text-[#647067] hover:bg-emerald-50 hover:text-[#14532D] border border-[#E5EAE5]'"
                 >
                   <span>Semua Program</span>
-                  <span class="px-1.5 py-0.2 rounded-full text-[10px]" :class="selectedProgramFilter === 'all' ? 'bg-white/20 text-white' : 'bg-[#E5EAE5] text-[#17231C]'">
+                  <span class="px-1.5 py-0.5 rounded-full text-[10px]" :class="selectedProgramFilter === 'all' ? 'bg-white/20 text-white font-extrabold' : 'bg-[#E5EAE5] text-[#17231C]'">
                     {{ orgForm.students.length }}
                   </span>
                 </button>
@@ -1430,13 +1431,13 @@ const submitOrganization = () => {
                   :key="prog.id"
                   type="button"
                   @click="selectedProgramFilter = prog.slug"
-                  class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap min-h-[36px] flex items-center gap-1.5"
+                  class="shrink-0 snap-start px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap min-h-[38px] flex items-center gap-1.5 touch-manipulation"
                   :class="selectedProgramFilter === prog.slug
                     ? 'bg-[#14532D] text-white shadow-xs'
-                    : 'bg-[#F7FAF7] text-[#647067] hover:bg-emerald-50 hover:text-[#14532D]'"
+                    : 'bg-[#F7FAF7] text-[#647067] hover:bg-emerald-50 hover:text-[#14532D] border border-[#E5EAE5]'"
                 >
                   <span>{{ prog.name }}</span>
-                  <span class="px-1.5 py-0.2 rounded-full text-[10px]" :class="selectedProgramFilter === prog.slug ? 'bg-white/20 text-white' : 'bg-[#E5EAE5] text-[#17231C]'">
+                  <span class="px-1.5 py-0.5 rounded-full text-[10px]" :class="selectedProgramFilter === prog.slug ? 'bg-white/20 text-white font-extrabold' : 'bg-[#E5EAE5] text-[#17231C]'">
                     {{ getStudentCountByProgram(prog.slug) }}
                   </span>
                 </button>
@@ -1456,7 +1457,7 @@ const submitOrganization = () => {
               <button
                 type="button"
                 @click="addStudent(selectedProgramFilter !== 'all' ? selectedProgramFilter : null)"
-                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-all shadow-xs"
+                class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-all shadow-xs min-h-[42px]"
               >
                 <Plus class="w-3.5 h-3.5" />
                 <span>Tambah Mahasiswa Sekarang</span>
@@ -1471,10 +1472,10 @@ const submitOrganization = () => {
                 class="bg-white p-4 sm:p-5 rounded-2xl border border-[#E5EAE5] hover:border-[#22C55E]/40 shadow-xs transition-all relative flex flex-col justify-between space-y-4"
               >
                 <!-- Card Header: Photo + Program Badge + Delete -->
-                <div class="flex items-start justify-between gap-3">
-                  <div class="flex items-center gap-3">
+                <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#E5EAE5]/60">
+                  <div class="flex items-center gap-3 min-w-0">
                     <!-- Photo Thumbnail -->
-                    <div class="relative w-14 h-14 rounded-2xl bg-[#F7FAF7] border border-[#E5EAE5] overflow-hidden flex items-center justify-center shrink-0">
+                    <div class="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#F7FAF7] border border-[#E5EAE5] overflow-hidden flex items-center justify-center shrink-0">
                       <img
                         v-if="student.photo"
                         :src="student.photo"
@@ -1495,25 +1496,29 @@ const submitOrganization = () => {
                     </div>
 
                     <!-- Upload / Change Photo -->
-                    <div class="space-y-1">
-                      <label class="cursor-pointer inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold bg-[#F7FAF7] hover:bg-emerald-50 text-[#14532D] border border-[#E5EAE5] transition-colors">
-                        <Upload class="w-2.5 h-2.5" />
-                        <span>{{ student.photo ? 'Ganti' : 'Foto' }}</span>
-                        <input
-                          type="file"
-                          accept="image/png,image/jpeg,image/webp,image/jpg"
-                          class="hidden"
-                          @change="uploadPhotoForItem($event, student, 'organization', 'photo')"
-                        />
-                      </label>
-                      <button
-                        v-if="student.photo"
-                        type="button"
-                        @click="removePhotoForItem(student, 'photo')"
-                        class="text-[10px] text-rose-500 hover:underline block"
-                      >
-                        Hapus Foto
-                      </button>
+                    <div class="space-y-1 min-w-0">
+                      <div class="flex items-center gap-1.5 flex-wrap">
+                        <label class="cursor-pointer inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 transition-colors shadow-2xs min-h-[32px]">
+                          <Upload class="w-3 h-3" />
+                          <span>{{ student.photo ? 'Ganti Foto' : 'Upload Foto' }}</span>
+                          <input
+                            type="file"
+                            accept="image/png,image/jpeg,image/webp,image/jpg"
+                            class="hidden"
+                            @change="uploadPhotoForItem($event, student, 'organization', 'photo')"
+                          />
+                        </label>
+                        <button
+                          v-if="student.photo"
+                          type="button"
+                          @click="removePhotoForItem(student, 'photo')"
+                          class="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 transition-colors text-xs min-h-[32px] min-w-[32px] flex items-center justify-center"
+                          title="Hapus Foto"
+                        >
+                          <Trash2 class="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <span class="text-[10px] text-[#647067] block">Auto WebP</span>
                     </div>
                   </div>
 
@@ -1521,7 +1526,7 @@ const submitOrganization = () => {
                   <button
                     type="button"
                     @click="removeStudent(orgForm.students.indexOf(student))"
-                    class="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors shrink-0"
+                    class="p-2 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors shrink-0 min-h-[38px] min-w-[38px] flex items-center justify-center"
                     title="Hapus Mahasiswa"
                   >
                     <Trash2 class="w-4 h-4" />
@@ -1537,7 +1542,7 @@ const submitOrganization = () => {
                     <select
                       v-model="student.program_slug"
                       @change="onStudentProgramChange(student)"
-                      class="w-full px-3 py-1.5 rounded-xl border border-[#E5EAE5] text-xs font-bold text-[#14532D] bg-[#F7FAF7] focus:outline-none focus:border-[#22C55E]"
+                      class="w-full px-3.5 py-2 rounded-xl border border-[#E5EAE5] text-xs font-bold text-[#14532D] bg-[#F7FAF7] focus:outline-none focus:border-[#22C55E]"
                     >
                       <option v-for="p in programs" :key="p.id" :value="p.slug">
                         Program {{ p.name }}
@@ -1554,7 +1559,7 @@ const submitOrganization = () => {
                       v-model="student.name"
                       placeholder="Nama lengkap mahasiswa..."
                       required
-                      class="w-full px-3 py-1.5 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
+                      class="w-full px-3.5 py-2 rounded-xl border border-[#E5EAE5] text-xs sm:text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                     />
                   </div>
 
@@ -1566,7 +1571,7 @@ const submitOrganization = () => {
                       type="text"
                       v-model="student.identifier"
                       placeholder="Contoh: NIM. H1A021045 - Teknik Elektro"
-                      class="w-full px-3 py-1.5 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
+                      class="w-full px-3.5 py-2 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
                     />
                   </div>
 
@@ -1578,7 +1583,7 @@ const submitOrganization = () => {
                       type="text"
                       v-model="student.role"
                       placeholder="Contoh: Riset Formulasi Hayati & Mikroba"
-                      class="w-full px-3 py-1.5 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
+                      class="w-full px-3.5 py-2 rounded-xl border border-[#E5EAE5] text-xs focus:outline-none focus:border-[#22C55E]"
                     />
                   </div>
                 </div>
@@ -1590,7 +1595,7 @@ const submitOrganization = () => {
               <button
                 type="submit"
                 :disabled="orgForm.processing"
-                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-md transition-all w-full sm:w-auto justify-center"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#14532D] text-white hover:bg-[#14532D]/90 shadow-md transition-all w-full sm:w-auto justify-center min-h-[44px]"
               >
                 <Save class="w-4 h-4" />
                 <span>{{ orgForm.processing ? 'Menyimpan...' : 'Simpan Perubahan Mahasiswa & Organisasi' }}</span>

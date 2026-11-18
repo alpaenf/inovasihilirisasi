@@ -207,7 +207,7 @@ const jsonLd = {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           <!-- Left Column: Copywriting & CTAs -->
-          <div class="lg:col-span-7 space-y-5 sm:space-y-6">
+          <div v-reveal="{ delay: 50 }" class="lg:col-span-7 space-y-5 sm:space-y-6">
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#14532D] tracking-tight leading-[1.12]">
               {{ hero.headline }}
             </h1>
@@ -251,7 +251,7 @@ const jsonLd = {
           </div>
 
           <!-- Right Column: Institutional Graphic Card -->
-          <div class="lg:col-span-5 relative">
+          <div v-reveal="{ variant: 'scale', delay: 150 }" class="lg:col-span-5 relative">
             <div class="relative mx-auto max-w-md lg:max-w-none rounded-3xl bg-white border border-[#E5EAE5] p-4 sm:p-6 lg:p-8 shadow-2xl shadow-emerald-950/10">
               <div class="flex items-center justify-between pb-4 sm:pb-6 border-b border-[#E5EAE5] gap-2 sm:gap-3">
                 <div class="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
@@ -326,7 +326,7 @@ const jsonLd = {
     <!-- 4 PROGRAM UNGGULAN SECTION -->
     <section class="py-20 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto text-center mb-16 space-y-4">
+        <div v-reveal class="max-w-3xl mx-auto text-center mb-16 space-y-4">
           <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
             PILAR PENGEMBANGAN TEKNOLOGI
           </span>
@@ -340,9 +340,10 @@ const jsonLd = {
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           <ProgramCard
-            v-for="prog in programs"
+            v-for="(prog, idx) in programs"
             :key="prog.id"
             :program="prog"
+            v-reveal="{ delay: idx * 100 }"
           />
         </div>
       </div>
@@ -351,7 +352,7 @@ const jsonLd = {
     <!-- PRODUK UNGGULAN SECTION -->
     <section class="py-20 bg-[#F7FAF7] border-y border-[#E5EAE5]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div v-reveal class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div class="space-y-2">
             <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
               KATALOG TERINTEGRASI
@@ -374,9 +375,10 @@ const jsonLd = {
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <ProductCard
-            v-for="prod in featuredProducts"
+            v-for="(prod, idx) in featuredProducts"
             :key="prod.id"
             :product="prod"
+            v-reveal="{ delay: idx * 90 }"
           />
         </div>
       </div>
@@ -385,7 +387,7 @@ const jsonLd = {
     <!-- MITRA KOLABORASI SECTION -->
     <section class="py-20 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div v-reveal class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div class="space-y-2">
             <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
               JARINGAN KEMITRAAN STRATEGIS
@@ -408,9 +410,10 @@ const jsonLd = {
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <PartnerCard
-            v-for="partner in featuredPartners"
+            v-for="(partner, idx) in featuredPartners"
             :key="partner.id"
             :partner="partner"
+            v-reveal="{ delay: idx * 80 }"
           />
         </div>
       </div>
@@ -420,7 +423,7 @@ const jsonLd = {
     <section id="galeri" class="py-16 sm:py-20 bg-[#F7FAF7] border-t border-[#E5EAE5]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header (Centered) -->
-        <div class="max-w-3xl mx-auto text-center mb-6 sm:mb-8 space-y-2">
+        <div v-reveal class="max-w-3xl mx-auto text-center mb-6 sm:mb-8 space-y-2">
           <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
             DOKUMENTASI LAPANGAN & RISET
           </span>
@@ -433,7 +436,7 @@ const jsonLd = {
         </div>
 
         <!-- Category Filter Pills (Wrapped & Centered Sesuai Desain Referensi, Tidak Nyamping) -->
-        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-3xl mx-auto mb-8 sm:mb-10 px-2">
+        <div v-reveal="{ delay: 60 }" class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-3xl mx-auto mb-8 sm:mb-10 px-2">
           <button
             v-for="tag in galleryCategories"
             :key="tag"
@@ -456,9 +459,10 @@ const jsonLd = {
         <!-- Gallery Grid (100% Full Foto Bersih Tanpa Penjelasan Teks Apapun) -->
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           <div
-            v-for="item in filteredGallery"
+            v-for="(item, idx) in filteredGallery"
             :key="item.id"
             @click="openGalleryModal(item)"
+            v-reveal="{ variant: 'scale', delay: (idx % 4) * 75 }"
             class="group relative aspect-4/3 rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden bg-[#E5EAE5] border border-[#E5EAE5] hover:border-[#22C55E] shadow-2xs hover:shadow-xl transition-all duration-300 cursor-pointer"
           >
             <!-- Foto Asli Tanpa Gelap/Gradient -->
@@ -484,7 +488,7 @@ const jsonLd = {
     <section id="berita" class="py-20 bg-white border-t border-[#E5EAE5]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
-        <div class="max-w-3xl mx-auto text-center mb-14 space-y-3">
+        <div v-reveal class="max-w-3xl mx-auto text-center mb-14 space-y-3">
           <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
             KABAR TERKINI & PUBLIKASI
           </span>
@@ -499,8 +503,9 @@ const jsonLd = {
         <!-- News Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           <article
-            v-for="article in news"
+            v-for="(article, idx) in news"
             :key="article.id"
+            v-reveal="{ delay: idx * 110 }"
             class="bg-[#F7FAF7] rounded-3xl border border-[#E5EAE5] overflow-hidden shadow-xs hover:shadow-xl hover:border-[#22C55E]/40 hover:bg-white transition-all duration-300 flex flex-col justify-between group"
           >
             <div>
@@ -557,7 +562,7 @@ const jsonLd = {
 
     <!-- CTA BANNER SECTION (Sebelum Kontak) -->
     <section class="py-16 sm:py-20 bg-gradient-to-r from-[#14532D] to-emerald-950 text-white">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <div v-reveal="{ variant: 'scale' }" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
         <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight">
           Mari Berkolaborasi Mengembangkan Inovasi Tepat Guna
         </h2>
@@ -586,7 +591,7 @@ const jsonLd = {
     <section id="kontak" class="py-20 bg-gradient-to-b from-white to-[#F7FAF7] border-t border-[#E5EAE5]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
-        <div class="max-w-3xl mx-auto text-center mb-14 space-y-3">
+        <div v-reveal class="max-w-3xl mx-auto text-center mb-14 space-y-3">
           <span class="text-xs font-extrabold text-[#22C55E] uppercase tracking-widest block">
             LAYANAN INFORMASI & KEMITRAAN
           </span>
@@ -600,7 +605,7 @@ const jsonLd = {
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           <!-- Left Column: Contact Cards -->
-          <div class="lg:col-span-5 space-y-5">
+          <div v-reveal="{ variant: 'left', delay: 100 }" class="lg:col-span-5 space-y-5">
             <!-- Office Address Card -->
             <div class="bg-white p-6 rounded-2xl border border-[#E5EAE5] shadow-xs flex items-start gap-4">
               <div class="w-12 h-12 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center shrink-0">
@@ -660,7 +665,7 @@ const jsonLd = {
           </div>
 
           <!-- Right Column: Interactive Consultation Form -->
-          <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-[#E5EAE5] shadow-md space-y-6">
+          <div v-reveal="{ variant: 'right', delay: 150 }" class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-[#E5EAE5] shadow-md space-y-6">
             <div class="border-b border-[#E5EAE5] pb-4">
               <h3 class="text-lg font-bold text-[#14532D]">Formulir Penjajakan Kerja Sama</h3>
               <p class="text-xs text-[#647067] mt-0.5">

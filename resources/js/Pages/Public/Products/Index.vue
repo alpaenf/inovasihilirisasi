@@ -150,9 +150,10 @@ const onSortChange = () => {
         <!-- Products Grid -->
         <div v-if="products.data && products.data.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <ProductCard
-            v-for="prod in products.data"
+            v-for="(prod, idx) in products.data"
             :key="prod.id"
             :product="prod"
+            v-reveal="{ delay: (idx % 6) * 75 }"
           />
         </div>
 
