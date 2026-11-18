@@ -77,30 +77,6 @@ const galleryCategories = computed(() => {
   return ['all', ...Array.from(tags)];
 });
 
-// Category Icon & Label mapping like reference design
-const getCategoryIcon = (tag) => {
-  switch (tag?.toUpperCase()) {
-    case 'ALL':
-      return Sparkles;
-    case 'SINERGI':
-      return Sprout;
-    case 'DORTEK':
-    case 'DORONGAN TEKNOLOGI':
-      return Cpu;
-    case 'PMUPUD':
-    case 'PM-UPUD':
-      return Lightbulb;
-    case 'AJAKAN INDUSTRI':
-      return Handshake;
-    case 'EXPO RISET':
-      return Award;
-    case 'KOLABORASI':
-      return Users;
-    default:
-      return Sparkles;
-  }
-};
-
 const getCategoryLabel = (tag) => {
   if (tag === 'all') return 'Semua Foto';
   return tag;
@@ -435,23 +411,18 @@ const jsonLd = {
           </p>
         </div>
 
-        <!-- Category Filter Pills (Wrapped & Centered Sesuai Desain Referensi, Tidak Nyamping) -->
+        <!-- Category Filter Pills (Full Font / Teks Bersih Tanpa Ikon Sesuai Permintaan) -->
         <div v-reveal="{ delay: 60 }" class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-3xl mx-auto mb-8 sm:mb-10 px-2">
           <button
             v-for="tag in galleryCategories"
             :key="tag"
             type="button"
             @click="selectedGalleryTag = tag"
-            class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 select-none shadow-2xs"
+            class="inline-flex items-center justify-center px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 select-none shadow-2xs"
             :class="selectedGalleryTag === tag
               ? 'bg-[#14532D] text-white shadow-md shadow-emerald-950/20 ring-2 ring-[#22C55E]/40'
               : 'bg-white text-[#647067] hover:text-[#14532D] hover:bg-[#F7FAF7] border border-[#E5EAE5]'"
           >
-            <component
-              :is="getCategoryIcon(tag)"
-              class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-colors"
-              :class="selectedGalleryTag === tag ? 'text-emerald-300' : 'text-[#22C55E]'"
-            />
             <span>{{ getCategoryLabel(tag) }}</span>
           </button>
         </div>

@@ -1,39 +1,20 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { ArrowRight, Layers, Factory, Store, Sparkles } from 'lucide-vue-next';
+import { ArrowRight } from 'lucide-vue-next';
 
-const props = defineProps({
+defineProps({
   program: {
     type: Object,
     required: true,
   },
 });
-
-const getIcon = (slug) => {
-  switch (slug) {
-    case 'sinergi':
-      return Layers;
-    case 'ajakan-industri':
-      return Factory;
-    case 'pm-upud':
-    case 'pmupud':
-      return Store;
-    case 'dorongan-teknologi':
-    case 'dortek':
-    default:
-      return Sparkles;
-  }
-};
 </script>
 
 <template>
   <div class="group bg-white rounded-2xl border border-[#E5EAE5] p-6 sm:p-8 flex flex-col justify-between hover:border-[#22C55E]/60 hover:shadow-xl hover:shadow-emerald-950/5 transition-all duration-300">
     <div>
-      <div class="flex items-center justify-between mb-5">
-        <div class="w-12 h-12 rounded-xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center group-hover:bg-[#14532D] group-hover:text-white transition-colors duration-200">
-          <component :is="getIcon(program.slug)" class="w-6 h-6" />
-        </div>
-        <span v-if="program.code" class="text-xs font-bold px-2.5 py-1 rounded-md bg-[#F7FAF7] text-[#647067] border border-[#E5EAE5]">
+      <div v-if="program.code" class="mb-4">
+        <span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-extrabold bg-[#DCFCE7] text-[#14532D] border border-[#22C55E]/30 tracking-wider">
           {{ program.code }}
         </span>
       </div>

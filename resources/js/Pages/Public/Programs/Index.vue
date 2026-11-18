@@ -1,27 +1,11 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import PublicLayout from '@/Layouts/PublicLayout.vue';
-import { ArrowRight, Layers, Factory, Store, Sparkles, MapPin, Building2, Users } from 'lucide-vue-next';
+import { ArrowRight, MapPin, Building2, Users } from 'lucide-vue-next';
 
 defineProps({
   programs: Array,
 });
-
-const getIcon = (slug) => {
-  switch (slug) {
-    case 'sinergi':
-      return Layers;
-    case 'ajakan-industri':
-      return Factory;
-    case 'pm-upud':
-    case 'pmupud':
-      return Store;
-    case 'dorongan-teknologi':
-    case 'dortek':
-    default:
-      return Sparkles;
-  }
-};
 </script>
 
 <template>
@@ -61,26 +45,21 @@ const getIcon = (slug) => {
         >
           <!-- Left Column: Details, Description & Commodities -->
           <div class="lg:col-span-8 space-y-5">
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-[#DCFCE7] text-[#14532D] flex items-center justify-center shrink-0 mt-1">
-                <component :is="getIcon(program.slug)" class="w-6 h-6" />
+            <div class="space-y-2">
+              <div class="flex items-center gap-2 flex-wrap mb-1">
+                <span v-if="program.code" class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-extrabold bg-[#DCFCE7] text-[#14532D] border border-[#22C55E]/30 uppercase tracking-wider">
+                  Program {{ program.code }}
+                </span>
+                <span v-if="program.location" class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#647067]">
+                  • <MapPin class="w-3 h-3 text-[#22C55E]" /> {{ program.location }}
+                </span>
               </div>
-              <div>
-                <div class="flex items-center gap-2 flex-wrap mb-1">
-                  <span v-if="program.code" class="text-xs font-bold text-[#22C55E] uppercase tracking-wider block">
-                    Program {{ program.code }}
-                  </span>
-                  <span v-if="program.location" class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#647067]">
-                    • <MapPin class="w-3 h-3 text-[#22C55E]" /> {{ program.location }}
-                  </span>
-                </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-[#14532D] leading-tight">
-                  {{ program.name }}
-                </h2>
-                <p v-if="program.full_name" class="text-xs font-semibold text-[#14532D]/80 mt-1 italic leading-snug">
-                  "{{ program.full_name }}"
-                </p>
-              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-[#14532D] leading-tight">
+                {{ program.name }}
+              </h2>
+              <p v-if="program.full_name" class="text-xs font-semibold text-[#14532D]/80 mt-1 italic leading-snug">
+                "{{ program.full_name }}"
+              </p>
             </div>
 
             <p class="text-base text-[#17231C]/90 font-medium leading-relaxed">
